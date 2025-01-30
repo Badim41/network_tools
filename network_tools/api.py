@@ -109,7 +109,12 @@ class NetworkToolsAPI:
         if not request_id:
             raise NetworkToolsError("Request ID not found in response")
 
-        return self._check_status(request_id)
+        if model == GptModels.o1:
+            attempts = 60
+        else:
+            attempts = 30
+
+        return self._check_status(request_id, attempts=attempts)
 
     def get_usage(self) -> UserUsage:
         url = f"{self.api_url}/api/v2/user"
@@ -127,7 +132,7 @@ class NetworkToolsAPI:
 
         return UserUsage.from_dict(response_data)
 
-    def _check_status(self, request_id, attempts=180) -> GptResponse:
+    def _check_status(self, request_id, attempts=60) -> GptResponse:
         """Запрашивает статус запроса, пока он не станет 'success'."""
         url = f"{self.api_url}/api/v2/status/{request_id}"
 
