@@ -116,3 +116,32 @@ class UserUsage:
                 "usage": [entry.__dict__ for entry in self.response.usage],
             }
         }, indent=4)
+
+class ImageChangeModels:
+    remove_background = "remove_background"
+    change_background = "change_background"
+    outpaint = "outpaint"
+    inpaint = "inpaint"
+    upscale = "upscale"
+    add_text = "add_text"
+    style = "style"
+    vectorise = "vectorise"
+    search_and_replace = "search_and_replace"
+    model_3d = "model_3d"
+
+class Upscale_Mode:
+    quality_8K = "8K"
+    quality_4K = "4K"
+    quality_HD = "HD"
+
+class MusicModels:
+    suno_v3 = "suno_v3"
+    suno_v4 = "suno_v4"
+    riffusion = "riffusion"
+
+class VideoModels:
+    stable_video_diffusion = "stable_video_diffusion"
+    hailuo = "hailuo"
+
+class TtsModels:
+    hailuo = "hailuo"

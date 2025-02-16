@@ -15,7 +15,7 @@ print("Ответ 1:", response.response.text)
 print("История чата 1:", response.chat_history)
 
 
-# Второй запрос, с 2 файлами
+# Второй запрос, с картинкой
 
 model = GptModels.gpt_4o
 prompt = "Что это?"
@@ -25,6 +25,8 @@ file_path_1 = r"example_files\cat.png"  # Путь к файлу
 response = client.chatgpt_api(prompt, model=model, chat_history=chat_history, file_path=file_path_1)
 print("Ответ 2:", response.response.text)
 print("История чата 2:", response.chat_history)
+
+# Третий запрос, с картинкой и текстом
 
 file_path_2 = r"example_files\test.txt"  # Путь к файлу
 prompt = "О чём этот текст? Какого цвета изображение?"

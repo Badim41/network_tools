@@ -46,6 +46,7 @@ print(response.response.text)
 ```
 
 ### 3. Генерация изображений
+
 ```python
 from network_tools import ImageModels, AspectRatio
 
@@ -53,7 +54,7 @@ models = [ImageModels.kandinsky, ImageModels.dalle_light]
 prompt = "Футуристический городской пейзаж с летающими машинами."
 aspect_ratio = AspectRatio.ratio_1x1  # Определите соотношение сторон
 
-for image_group in client.test_image_generate(models, prompt, aspect_ratio):
+for image_group in client.image_generate_api(models, prompt, aspect_ratio):
     print(image_group)  # Печать путей к сгенерированным изображениям
 ```
 
