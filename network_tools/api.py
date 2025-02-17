@@ -361,13 +361,13 @@ class NetworkToolsAPI:
         os.makedirs(self.output_dir, exist_ok=True)
 
         url = f"{self.api_url}/api/v2/status/{request_id}"
+        model_was = []
 
         for i in range(attempts):
             response = requests.get(url)
             status_data = response.json()
             # print(status_data)
 
-            model_was = []
             status = status_data.get("status")
             if status_data.get("status") in ["stream", "success"]:
                 # сохраняем изображения
