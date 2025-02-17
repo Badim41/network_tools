@@ -1,7 +1,7 @@
 from network_tools import NetworkToolsAPI, ImageChangeModels, Upscale_Mode
 
 # Пример картинки. Замените на изображение
-image_path = "example_files/cat.png"
+image_path = "example_files/cat_large.png"
 
 api_key = "API_KEY"  # замените на ваш API ключ
 client = NetworkToolsAPI(api_key)
@@ -28,7 +28,7 @@ result = client.change_image_api(
 )
 print("Расширенное изображение:", next(result))
 
-# Изменение изображения (inpaint) # todo не работает
+# Изменение изображения (inpaint)
 for stream_result in client.change_image_api(
         model=ImageChangeModels.inpaint,
         image_path=image_path,
@@ -70,7 +70,7 @@ result = client.change_image_api(
 )
 print("Изображение с таким же стилем:", next(result))
 
-# Сделать 3D модель из картинки # todo не работает
+# Сделать 3D модель из картинки
 result = client.change_image_api(
     model=ImageChangeModels.model_3d,
     image_path=image_path
