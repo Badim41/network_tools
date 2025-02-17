@@ -315,13 +315,13 @@ class NetworkToolsAPI:
         video_base64 = video_data['response'][model][0]
         return self._save_base64(video_base64, model, "0", request_id)
 
-    def tts_api(self, prompt: str, model: str, speed: int = 0, lang: str = "Auto", voice_id: str = None) -> str:
+    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = None):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
         :param prompt: str, текст для озвучки
         :param model: str, модель генерации голоса
-        :param speed: int, скорость речи (по умолчанию 0)
+        :param speed: float, скорость речи (по умолчанию 1)
         :param lang: str, язык (по умолчанию "Auto")
         :param voice_id: Optional[str], ID голоса (если None, выбирается по языку)
         :return: List[str], пути к аудиофайлам
@@ -352,9 +352,7 @@ class NetworkToolsAPI:
         if not request_id:
             raise Exception("Request ID not found in response")
 
-        audio_data = self._check_status_stream_tts(request_id)
-        audio_base64 = audio_data["response"][model][0]
-        return self._save_base64(audio_base64, model, request_id, request_id)
+        return self._check_status_stream_tts(request_id)
 
     def _check_status_stream(self, request_id, attempts=180):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
@@ -363,7 +361,7 @@ class NetworkToolsAPI:
         url = f"{self.api_url}/api/v2/status/{request_id}"
         model_was = []
 
-        for i in range(attempts):
+        for _ in range(attempts):
             response = requests.get(url)
             status_data = response.json()
             # print(status_data)
@@ -409,14 +407,18 @@ class NetworkToolsAPI:
             response = requests.get(url)
             status_data = response.json()
 
-            if status_data.get("status") in ["stream", "success"]:
+            status = status_data.get("status")
+            # print("status(1)", status)
+            if status in ["stream", "success"]:
                 for model_name, audio_paths in status_data.get("response", {}).items():
                     for i, file_base64 in enumerate(audio_paths):
-                        if i < got_parts:
+                        if i < got_parts and not status == "success": # если success, то возвращается 1 аудиофайл
+                            # print("continue", i, got_parts)
                             continue
-                        got_parts+=1
-                        file_path = self._save_base64(file_base64, model_name, i, request_id)
-                        yield file_path
+                        got_parts += 1
+                        file_path = self._save_base64(file_base64, model_name, f"{status}-{i}", request_id)
+                        # print("status", status)
+                        yield file_path, status  # последний файл - полное аудио
 
             if status_data.get("status") == "success":
                 return
@@ -425,9 +427,9 @@ class NetworkToolsAPI:
                 raise NetworkToolsError(f"Error occurred: {status_data['error']}")
 
             if not got_parts:
-                time.sleep(3)
-            else:
                 time.sleep(0.5)
+            else:
+                time.sleep(0.2)
         else:
             raise NetworkToolsTimeout(f"Timeout for request_id {request_id}")
 
@@ -435,7 +437,7 @@ class NetworkToolsAPI:
         """Checks the status of the music generation request."""
         url = f"{self.api_url}/api/v2/status/{request_id}"
         returned_link = False
-        for i in range(attempts):
+        for _ in range(attempts):
             response = requests.get(url)
             status_data = response.json()
             # print("music status_data", status_data)

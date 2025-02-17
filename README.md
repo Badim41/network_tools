@@ -1,5 +1,8 @@
 # NetworkToolsAPI
 
+[![Example Usage Bot](https://img.shields.io/badge/Example-Telegram--BOT-0066FF?logo=probot&style=flat)](https://t.me/GPT4_Unlimit_bot)
+[![Open in Colab](https://img.shields.io/badge/Open%20in-Google%20Colab-F9AB00?logo=googlecolab&style=flat)](https://colab.research.google.com/github/Badim41/network_tools/blob/master/network_tools/google_colab_notebooks/base.ipynb)
+
 ### Нейросети для обработки текста:
 - o1 (OpenAI)
 - GPT-4o (OpenAI)
@@ -86,6 +89,8 @@ for request in user_usage.response.usage:
 
 print("Баланс:", user_usage.response.balance)  # Отображение оставшегося баланса
 ```
+
+#### [Остальные примеры](https://github.com/Badim41/network_tools/tree/master/network_tools/examples)
 
 ## Цена
 - Цены на текстовые модели в **4 раза ниже** официальных

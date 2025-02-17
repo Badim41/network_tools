@@ -45,13 +45,14 @@ result = client.change_image_api(
 )
 print("Увеличенное изображение:", next(result))
 
+
 # Добавить текст (только английские буквы)
-result = client.change_image_api(
+for stream_result in client.change_image_api(
     model=ImageChangeModels.add_text,
     image_path=image_path,
     prompt="Hello world!"
-)
-print("Изображение с текстом:", next(result))
+):
+    print("Изображение с текстом:", stream_result)
 
 # Изображение с таким же стилем
 result = client.change_image_api(

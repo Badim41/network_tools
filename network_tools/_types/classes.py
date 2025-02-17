@@ -145,3 +145,23 @@ class VideoModels:
 
 class TtsModels:
     hailuo = "hailuo"
+
+class HailuoLanguages:
+    eng = "English"
+    arb = "Arabic"
+    hk = "Cantonese"
+    cmn = "Chinese (Mandarin)"
+    nld = "Dutch"
+    fra = "French"
+    deu = "German"
+    ind = "Indonesian"
+    ita = "Italian"
+    jpn = "Japanese"
+    kor = "Korean"
+    por = "Portuguese"
+    rus = "Russian"
+    spa = "Spanish"
+    tur = "Turkish"
+    ukr = "Ukrainian"
+    vie = "Vietnamese"
+    auto = "Auto"
