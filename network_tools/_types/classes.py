@@ -146,6 +146,10 @@ class VideoModels:
 class TtsModels:
     hailuo = "hailuo"
 
+class HailuoModelIds:
+    speech_01_hd = "speech-01-hd"
+    speech_01_turbo = "speech-01-turbo"
+
 class HailuoLanguages:
     eng = "English"
     arb = "Arabic"

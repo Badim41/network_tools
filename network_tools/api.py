@@ -315,7 +315,7 @@ class NetworkToolsAPI:
         video_base64 = video_data['response'][model][0]
         return self._save_base64(video_base64, model, "0", request_id)
 
-    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = None):
+    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = None, model_id:str=HailuoModelIds.speech_01_hd):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
