@@ -190,7 +190,7 @@ Hailuo: 0.086 Credit/видео
 ```
 Suno v4: 0.05 Credit/2 трека
 Suno v3: 0.035 Credit/2 трека
-Riffusion: 0.01 Credit/трек
+Riffusion: 0.02 Credit/2 трека
 ```
 
 ## TTS (озвучить текст)
