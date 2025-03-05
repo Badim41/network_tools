@@ -109,13 +109,13 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 1K output tokens: 0.00375 Credit
 ```
 
-### GPT-4:
+### GPT-4o:
 ```
 1K input tokens: 0.0009375 Credit
 1K output tokens: 0.00375 Credit
 ```
 
-### Command R:
+### Command R+:
 ```
 1K input tokens: 0.0006875 Credit
 1K output tokens: 0.0025 Credit
@@ -162,7 +162,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 0.0002 Credit/изображение
 ```
 
-### Recraft:
+### Recraft v3:
 ```
 0.008 Credit/изображение
 ```
