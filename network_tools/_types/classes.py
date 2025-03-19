@@ -95,7 +95,7 @@ class GptResponse:
     extra_info: dict
     plugins: dict
     internet_query: str
-    image_description: dict
+    image_description: str
 
     @classmethod
     def from_json(cls, data: Dict[str, Any]) -> "GptResponse":
@@ -107,7 +107,7 @@ class GptResponse:
         extra_info = full_response.get("extra_info", {})
         plugins = extra_info.get("plugins", {})
         internet_query = extra_info.get("internet_query", "")
-        image_description = extra_info.get("image_description", {})
+        image_description = extra_info.get("image_description", "")
         return cls(
             chat_history=chat_history,
             cost=data["cost"],
