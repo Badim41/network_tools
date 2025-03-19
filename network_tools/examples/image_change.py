@@ -1,4 +1,4 @@
-from network_tools import NetworkToolsAPI, ImageChangeModels, Upscale_Mode
+from network_tools import NetworkToolsAPI, ImageChangeModels, Upscale_Mode, ImageModels
 
 # Пример картинки. Замените на изображение
 image_path = "example_files/cat_large.png"
@@ -28,12 +28,25 @@ result = client.change_image_api(
 )
 print("Расширенное изображение:", next(result))
 
+# Изменение изображения с Gemini
+for stream_result in client.change_image_api(
+        model=ImageChangeModels.inpaint,
+        image_path=image_path,
+        prompt="Сделай кота синим",  # То, что должно быть на картинке. Gemini поддерживает сложный запрос
+        prompt_2="",  # То, чего не должно быть на картинке. Не поддерживается Gemini
+        strength=0.5,  # Не поддерживается Gemini
+        inpaint_models=[ImageModels.gemini]
+):
+    print("Изменённое изображение:", stream_result)
+
 # Изменение изображения (inpaint)
 for stream_result in client.change_image_api(
         model=ImageChangeModels.inpaint,
         image_path=image_path,
-        prompt="То, что должно быть на картинке",
-        prompt_2="То, чего не должно быть на картинке",
+        prompt="Аниме стиль",  # То, что должно быть на картинке
+        prompt_2="Реалистичный стиль",  # То, чего не должно быть на картинке
+        strength=0.5,
+        inpaint_models=[ImageModels.recraft, ImageModels.sd_ultra]
 ):
     print("Изменённое изображение:", stream_result)
 
@@ -45,12 +58,11 @@ result = client.change_image_api(
 )
 print("Увеличенное изображение:", next(result))
 
-
 # Добавить текст (только английские буквы)
 for stream_result in client.change_image_api(
-    model=ImageChangeModels.add_text,
-    image_path=image_path,
-    prompt="Hello world!"
+        model=ImageChangeModels.add_text,
+        image_path=image_path,
+        prompt="Hello world!"
 ):
     print("Изображение с текстом:", stream_result)
 
@@ -69,7 +81,7 @@ result = client.change_image_api(
     prompt="Кот",  # из чего
     prompt_2="Собака"  # во что
 )
-print("Изображение с таким же стилем:", next(result))
+print("Изображение с заменой объекта:", next(result))
 
 # Сделать 3D модель из картинки
 result = client.change_image_api(

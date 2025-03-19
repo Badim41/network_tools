@@ -13,19 +13,68 @@ class AspectRatio:
 class ImageModels:
     kandinsky = "kandinsky"
     dalle_light = "dalle_light"
-    flux = "flux"
+    # flux = "flux"
     sd_ultra = "sd_ultra"
-    flux_dev = "flux_dev"
+    # flux_dev = "flux_dev"
     sd_xl = "sd_xl"
     recraft = "recraft"
     dalle_3 = "dalle_3"
+    gemini = "gemini"
 
 
 class GptModels:
-    claude_models = "claude_models"
-    gpt_4o = "gpt_4o"
-    command_r = "command_r"
-    o1 = "o1"
+    # OPENAI
+    gpt_4_5 = "gpt-4-5"
+    o3_mini = "o3-mini"  # thinking
+    o1 = "o1"  # thinking
+    gpt_4o = "gpt-4o"
+    chatgpt_4o = "chatgpt-4o"
+    gpt_4o_mini = "gpt-4o-mini"
+    gpt_3_5 = "gpt-3-5"
+
+    # CLAUDE
+    claude_3_7_sonnet_thinking = "claude-3-7-sonnet-thinking"  # thinking
+    claude_3_7_sonnet = "claude-3-7-sonnet"
+    claude_3_5_sonnet = "claude-3-5-sonnet"
+    claude_3_opus = "claude-3-opus"
+    claude_3_sonnet = "claude-3-sonnet"
+    claude_3_haiku = "claude-3-haiku"
+
+    # DEEPSEEK
+    deepseek_r1 = "deepseek-r1"  # thinking
+    deepseek_v3 = "deepseek-v3"
+
+    # command
+    command_r_plus = "command-r-plus"
+    command_a = "command-a"
+
+    deep_ai_model = "deep-ai-model"
+
+    reka_flash = "reka-flash"
+    minimax_01 = "minimax-01"
+    available_models = [
+        gpt_4_5, o3_mini, o1, gpt_4o, gpt_4o_mini, gpt_3_5,
+        claude_3_7_sonnet_thinking, claude_3_7_sonnet, claude_3_5_sonnet,
+        claude_3_opus, claude_3_sonnet, claude_3_haiku,
+        deepseek_r1, deepseek_v3,
+        command_r_plus, command_a,
+        reka_flash, minimax_01
+    ]
+
+
+CLAUDE_MODELS = [
+    GptModels.claude_3_7_sonnet_thinking,
+    GptModels.claude_3_7_sonnet,
+    GptModels.claude_3_5_sonnet,
+    GptModels.claude_3_opus,
+    GptModels.claude_3_sonnet,
+    GptModels.claude_3_haiku
+]
+GPT_4O_MODELS = [
+    GptModels.gpt_4o,
+    GptModels.gpt_4o_mini
+]
+ALL_VISION_MODELS = [GptModels.reka_flash] + CLAUDE_MODELS + GPT_4O_MODELS
 
 
 @dataclass
@@ -34,7 +83,6 @@ class ResponseDetails:
     provider: str
     text: str
 
-
 @dataclass
 class GptResponse:
     chat_history: list
@@ -42,17 +90,36 @@ class GptResponse:
     created: float
     response: ResponseDetails
     status: str
+    count_tokens: dict
+    full_response: dict
+    extra_info: dict
+    plugins: dict
+    internet_query: str
+    image_description: dict
 
     @classmethod
     def from_json(cls, data: Dict[str, Any]) -> "GptResponse":
-        chat_history = data["chat_history"]
+        # print("data", data)
+        chat_history = data.get("chat_history",[])
+        data["response"]["provider"] = data["response"].get("provider", "Unknown")
         response = ResponseDetails(**data["response"])
+        full_response = data.get("full_response", {})
+        extra_info = full_response.get("extra_info", {})
+        plugins = extra_info.get("plugins", {})
+        internet_query = extra_info.get("internet_query", "")
+        image_description = extra_info.get("image_description", {})
         return cls(
             chat_history=chat_history,
             cost=data["cost"],
             created=data["created"],
             response=response,
-            status=data["status"]
+            status=data["status"],
+            count_tokens=data.get("count_tokens", {}),
+            full_response=full_response,
+            extra_info=extra_info,
+            plugins=plugins,
+            internet_query=internet_query,
+            image_description=image_description
         )
 
     def get_formatted_created_time(self) -> str:
@@ -117,6 +184,7 @@ class UserUsage:
             }
         }, indent=4)
 
+
 class ImageChangeModels:
     remove_background = "remove_background"
     change_background = "change_background"
@@ -129,26 +197,32 @@ class ImageChangeModels:
     search_and_replace = "search_and_replace"
     model_3d = "model_3d"
 
+
 class Upscale_Mode:
     quality_8K = "8K"
     quality_4K = "4K"
     quality_HD = "HD"
+
 
 class MusicModels:
     suno_v3 = "suno_v3"
     suno_v4 = "suno_v4"
     riffusion = "riffusion"
 
+
 class VideoModels:
     stable_video_diffusion = "stable_video_diffusion"
     hailuo = "hailuo"
 
+
 class TtsModels:
     hailuo = "hailuo"
+
 
 class HailuoModelIds:
     speech_01_hd = "speech-01-hd"
     speech_01_turbo = "speech-01-turbo"
+
 
 class HailuoLanguages:
     eng = "English"

@@ -3,7 +3,7 @@ from network_tools import NetworkToolsAPI, GptModels
 api_key = "API_KEY"  # замените на ваш API ключ
 client = NetworkToolsAPI(api_key)
 
-model = GptModels.command_r
+model = GptModels.command_a
 prompt = "Перескажи наш диалог"
 chat_history = [
     {'content': 'Что это?', 'role': 'user'},

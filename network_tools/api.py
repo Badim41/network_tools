@@ -1,7 +1,9 @@
 import base64
+import json
 import mimetypes
 import os
 import time
+from typing import Union, Generator
 
 import requests
 
@@ -76,21 +78,19 @@ class NetworkToolsAPI:
         return mime_type
 
     def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[], file_path=None,
-                    internet_access=False) -> GptResponse:
+                    internet_access=False, stream=False) -> Union[GptResponse, Generator[GptResponse, None, None]]:
         url = f"{self.api_url}/api/v2/chatgpt"
-
         headers = {
             "Content-Type": "application/json",
             "api-key": self.api_key
         }
 
-        # Если файл указан, конвертируем его в base64
+        # Если указан файл — конвертируем его в base64
         file_base64 = None
         mime_type = None
         if file_path:
             file_base64 = self._file_to_base64(file_path)
             mime_type = self._get_mime_type(file_path)
-            # print("mime_type", mime_type)
 
         payload = {
             "model": model,
@@ -98,13 +98,12 @@ class NetworkToolsAPI:
             "chat_history": chat_history,
             "file_base64": file_base64 or "",  # если нет base64, передаем пустую строку
             "internet_access": internet_access,
-            "mime_type": mime_type
+            "mime_type": mime_type,
+            "stream": stream,
         }
 
         response = requests.post(url, headers=headers, json=payload)
         response_data = response.json()
-
-        # Ожидание и повторный запрос статуса, пока не получим успех
 
         if response_data.get("error"):
             raise NetworkToolsBadRequest(response_data.get("error"))
@@ -112,14 +111,21 @@ class NetworkToolsAPI:
         request_id = response_data.get("request_id")
         if not request_id:
             raise NetworkToolsError("Request ID not found in response")
-        time.sleep(response_data.get("wait", 5))
 
-        if model == GptModels.o1:
-            attempts = 60
+
+        if stream:
+            return self._check_status_stream_gpt(request_id)
         else:
-            attempts = 30
+            # Ждем время, указанное сервером
+            time.sleep(response_data.get("wait", 5))
+            # Не стримовый режим: опрашиваем статус до успешного завершения
+            if model == GptModels.o1:
+                attempts = 60
+            else:
+                attempts = 30
 
-        return GptResponse.from_json(self._check_status(request_id, attempts=attempts))
+            result = self._check_status(request_id, attempts=attempts)
+            return GptResponse.from_json(result)
 
     def get_usage(self) -> UserUsage:
         url = f"{self.api_url}/api/v2/user"
@@ -185,9 +191,9 @@ class NetworkToolsAPI:
             return {"status": "error", "error": "Request ID not found in response"}
         time.sleep(response_data.get("wait", 10))
 
-        return self._check_status_stream(request_id)
+        return self._check_status_stream_images(request_id)
 
-    def change_image_api(self, model, image_path, prompt="", prompt_2=""):
+    def change_image_api(self, model, image_path, prompt="", prompt_2="", strength=None, inpaint_models=None):
         """
         Отправляет изображение на обработку (удаление фона, апскейл и т. д.).
 
@@ -195,8 +201,16 @@ class NetworkToolsAPI:
         :param image_path: str, путь к файлу изображения
         :param prompt: str, основной текстовый запрос
         :param prompt_2: str, дополнительный текстовый запрос
+        :param strength: float, сила изменения изображения для inpaint
         :return: список путей обработанных изображений
         """
+        if strength and not model == ImageChangeModels.inpaint:
+            print("strength supports only with ImageChangeModels.inpaint, so strength will be ignored")
+        elif not strength:
+            strength = 0.5
+
+        if not inpaint_models:
+            inpaint_models = []
         url = f"{self.api_url}/api/v2/image_change"
         headers = {
             "Content-Type": "application/json",
@@ -211,7 +225,9 @@ class NetworkToolsAPI:
             "file_base64": file_base64,
             "mime_type": mime_type,
             "prompt": prompt,
-            "prompt_2": prompt_2
+            "prompt_2": prompt_2,
+            "strength": strength,
+            "inpaint_models": inpaint_models
         }
 
         response = requests.post(url, headers=headers, json=data)
@@ -227,7 +243,7 @@ class NetworkToolsAPI:
 
         time.sleep(response_data.get("wait", 5))
 
-        return self._check_status_stream(request_id)
+        return self._check_status_stream_images(request_id)
 
     def music_generate_api(self, model, lyrics, file_path=None, music_style="piano", instrumental=False):
         """
@@ -300,6 +316,7 @@ class NetworkToolsAPI:
         }
 
         response = requests.post(url, headers=headers, json=data)
+        # print("response", response.text)
         response_data = response.json()
 
         if response_data.get("error"):
@@ -309,13 +326,14 @@ class NetworkToolsAPI:
         if not request_id:
             raise Exception("Request ID not found in response")
 
-        time.sleep(response_data.get("wait", 5))
+        time.sleep(response_data.get("wait", 10))
 
-        video_data = self._check_status(request_id, attempts=600, delay=5)
+        video_data = self._check_status(request_id, attempts=600, delay=10)
         video_base64 = video_data['response'][model][0]
         return self._save_base64(video_base64, model, "0", request_id)
 
-    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = None, model_id:str=HailuoModelIds.speech_01_hd):
+    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = None,
+                model_id: str = HailuoModelIds.speech_01_hd):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
@@ -329,7 +347,7 @@ class NetworkToolsAPI:
         url = f"{self.api_url}/api/v2/tts"
         headers = {"Content-Type": "application/json", "api-key": self.api_key}
 
-        # Получаем голос по умолчанию, если не передан
+        # голос по умолчанию
         if not voice_id:
             voice_id = "226893671006272"
 
@@ -339,7 +357,8 @@ class NetworkToolsAPI:
             "params": {
                 "speed": speed,
                 "lang": lang,
-                "voice_id": voice_id
+                "voice_id": voice_id,
+                "model_id": model_id
             }
         }
 
@@ -354,7 +373,7 @@ class NetworkToolsAPI:
 
         return self._check_status_stream_tts(request_id)
 
-    def _check_status_stream(self, request_id, attempts=180):
+    def _check_status_stream_images(self, request_id, attempts=180):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
         os.makedirs(self.output_dir, exist_ok=True)
 
@@ -386,17 +405,12 @@ class NetworkToolsAPI:
             elif "error" in status_data:
                 raise NetworkToolsError(f"Error occurred: {status_data['error']}")
 
-            time.sleep(5)  # wait
+            time.sleep(3)  # wait
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
     def _check_status_stream_tts(self, request_id, attempts=180):
         """
-        Проверяет статус запроса TTS.
-
-        - При `stream` получает части аудио.
-        - При `success` возвращает объединённое аудио.
-
         :return: str, путь к итоговому аудиофайлу
         """
         os.makedirs(self.output_dir, exist_ok=True)
@@ -412,7 +426,7 @@ class NetworkToolsAPI:
             if status in ["stream", "success"]:
                 for model_name, audio_paths in status_data.get("response", {}).items():
                     for i, file_base64 in enumerate(audio_paths):
-                        if i < got_parts and not status == "success": # если success, то возвращается 1 аудиофайл
+                        if i < got_parts and not status == "success":  # если success, то возвращается 1 аудиофайл
                             # print("continue", i, got_parts)
                             continue
                         got_parts += 1
@@ -434,7 +448,7 @@ class NetworkToolsAPI:
             raise NetworkToolsTimeout(f"Timeout for request_id {request_id}")
 
     def _check_music_status(self, request_id, attempts=180):
-        """Checks the status of the music generation request."""
+        os.makedirs(self.output_dir, exist_ok=True)
         url = f"{self.api_url}/api/v2/status/{request_id}"
         returned_link = False
         for _ in range(attempts):
@@ -468,6 +482,28 @@ class NetworkToolsAPI:
             time.sleep(5)  # ждем 5 секунд до следующей проверки
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
+
+    def _check_status_stream_gpt(self, request_id) -> Generator[GptResponse, None, None]:
+        status_url = f"{self.api_url}/api/v2/status/{request_id}"
+        stream_response = requests.get(status_url, stream=True)
+
+        # Читаем строки из потока
+        for line in stream_response.iter_lines():
+            if line:
+                decoded_line = line.decode('utf-8').strip()
+                # Если достигли конца потока, прекращаем чтение
+                if decoded_line == "data: [DONE]":
+                    break
+                # Если строка начинается с "data: ", отрезаем префикс
+                if decoded_line.startswith("data: "):
+                    sliced_line = decoded_line[len("data: "):]
+                else:
+                    sliced_line = decoded_line
+
+                # print("sliced_line", sliced_line)
+                json_data_chunk = json.loads(sliced_line)
+                # print("json_data_chunk",json_data_chunk)
+                yield GptResponse.from_json(json_data_chunk)
 
     def _save_base64(self, file_base64, model, index, request_id):
         """Сохраняет файлы из base64 в файл с соответствующим расширением."""
