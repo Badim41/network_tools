@@ -235,7 +235,7 @@ class NetworkToolsAPI:
         response_data = response.json()
 
         if response_data.get("error"):
-            raise Exception(response_data.get("error"))
+            raise NetworkToolsBadRequest(response_data.get("error"))
 
         request_id = response_data.get("request_id")
         if not request_id:
@@ -277,7 +277,7 @@ class NetworkToolsAPI:
         response_data = response.json()
 
         if response_data.get("error"):
-            raise Exception(response_data.get("error"))
+            raise NetworkToolsBadRequest(response_data.get("error"))
 
         request_id = response_data.get("request_id")
         if not request_id:
@@ -320,7 +320,7 @@ class NetworkToolsAPI:
         response_data = response.json()
 
         if response_data.get("error"):
-            raise Exception(response_data.get("error"))
+            raise NetworkToolsBadRequest(response_data.get("error"))
 
         request_id = response_data.get("request_id")
         if not request_id:
@@ -365,7 +365,7 @@ class NetworkToolsAPI:
         response = requests.post(url, headers=headers, json=data).json()
 
         if "error" in response:
-            raise Exception(response["error"])
+            raise NetworkToolsBadRequest(response["error"])
 
         request_id = response.get("request_id")
         if not request_id:
@@ -476,8 +476,17 @@ class NetworkToolsAPI:
                 yield file_paths
                 return
 
-            if "error" in status_data:
-                raise Exception(f"Error occurred: {status_data['error']}")
+            error_api = status_data.get("error")
+            if error_api:
+                if "RiffusionModerationError" in error_api:
+                    raise RiffusionModerationError(error_api)
+                elif "RiffusionCriticalError" in error_api:
+                    raise RiffusionCriticalError(error_api)
+                elif "RiffusionModerationError" in error_api:
+                    raise RiffusionModerationError(error_api)
+                elif "FileTooLong" in error_api:
+                    raise RiffusionFileTooLong(error_api)
+                raise NetworkToolsCriticalError(f"Error occurred: {status_data['error']}")
 
             time.sleep(5)  # ждем 5 секунд до следующей проверки
         else:
