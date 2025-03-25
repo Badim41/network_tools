@@ -1,11 +1,12 @@
 import base64
-import json
 import mimetypes
 import os
 import time
 from typing import Union, Generator
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from ._types import *
 
@@ -54,6 +55,11 @@ class NetworkToolsAPI:
         self.api_url = "https://yellowfire.ru"
         self.api_key = api_key
         self.output_dir = output_dir
+        self.session = requests.Session()
+
+        retries = Retry(total=10, backoff_factor=3, status_forcelist=[502, 503, 504])
+        self.session.mount('http://', HTTPAdapter(max_retries=retries))
+        self.session.mount('https://', HTTPAdapter(max_retries=retries))
 
     @staticmethod
     def _file_to_base64(file_path):
@@ -102,7 +108,7 @@ class NetworkToolsAPI:
             "stream": stream,
         }
 
-        response = requests.post(url, headers=headers, json=payload)
+        response = self.session.post(url, headers=headers, json=payload)
         response_data = response.json()
 
         if response_data.get("error"):
@@ -135,7 +141,7 @@ class NetworkToolsAPI:
             "api-key": self.api_key
         }
 
-        response = requests.get(url, headers=headers, json="")
+        response = self.session.get(url, headers=headers, json="")
         response_data = response.json()
 
         if response_data.get("error"):
@@ -148,7 +154,7 @@ class NetworkToolsAPI:
         url = f"{self.api_url}/api/v2/status/{request_id}"
 
         for i in range(attempts):
-            response = requests.get(url)
+            response = self.session.get(url)
 
             result = response.json()
             if result.get("error"):
@@ -180,7 +186,7 @@ class NetworkToolsAPI:
             "prompt": prompt
         }
 
-        response = requests.post(url, headers=headers, json=data)
+        response = self.session.post(url, headers=headers, json=data)
         response_data = response.json()
 
         if response_data.get("error"):
@@ -230,7 +236,7 @@ class NetworkToolsAPI:
             "inpaint_models": inpaint_models
         }
 
-        response = requests.post(url, headers=headers, json=data)
+        response = self.session.post(url, headers=headers, json=data)
         # print(response.text)
         response_data = response.json()
 
@@ -273,7 +279,7 @@ class NetworkToolsAPI:
             file_base64 = self._file_to_base64(file_path)
             data["file_base64"] = file_base64
 
-        response = requests.post(url, headers=headers, json=data)
+        response = self.session.post(url, headers=headers, json=data)
         response_data = response.json()
 
         if response_data.get("error"):
@@ -315,7 +321,7 @@ class NetworkToolsAPI:
             "prompt": prompt
         }
 
-        response = requests.post(url, headers=headers, json=data)
+        response = self.session.post(url, headers=headers, json=data)
         # print("response", response.text)
         response_data = response.json()
 
@@ -362,7 +368,7 @@ class NetworkToolsAPI:
             }
         }
 
-        response = requests.post(url, headers=headers, json=data).json()
+        response = self.session.post(url, headers=headers, json=data).json()
 
         if "error" in response:
             raise NetworkToolsBadRequest(response["error"])
@@ -381,7 +387,7 @@ class NetworkToolsAPI:
         model_was = []
 
         for _ in range(attempts):
-            response = requests.get(url)
+            response = self.session.get(url)
             status_data = response.json()
             # print(status_data)
 
@@ -418,7 +424,7 @@ class NetworkToolsAPI:
         got_parts = 0
 
         for _ in range(attempts):
-            response = requests.get(url)
+            response = self.session.get(url)
             status_data = response.json()
 
             status = status_data.get("status")
@@ -452,7 +458,7 @@ class NetworkToolsAPI:
         url = f"{self.api_url}/api/v2/status/{request_id}"
         returned_link = False
         for _ in range(attempts):
-            response = requests.get(url)
+            response = self.session.get(url)
             status_data = response.json()
             # print("music status_data", status_data)
 
@@ -494,7 +500,7 @@ class NetworkToolsAPI:
 
     def _check_status_stream_gpt(self, request_id) -> Generator[GptResponse, None, None]:
         status_url = f"{self.api_url}/api/v2/status/{request_id}"
-        stream_response = requests.get(status_url, stream=True)
+        stream_response = self.session.get(status_url, stream=True)
 
         # Читаем строки из потока
         for line in stream_response.iter_lines():
