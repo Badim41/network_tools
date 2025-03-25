@@ -105,204 +105,219 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 #### [Остальные примеры](https://github.com/Badim41/network_tools/tree/master/network_tools/examples)
 
 ## Цена
-- Цены на текстовые модели в **4 раза ниже** официальных
-- Цены на модели изображений в **5 раз ниже** официальных
-- Цены на модели редактирования изображений в **5 раз ниже** официальных
-- Цены на модели видео в **5 раз ниже** официальных
-- Цены на музыку *примерно равны* официальным
-- Цены на TTS *примерно равны* официальным
+- Цены на текстовые модели в **2 раза ниже** официальных  
+- Цены на модели изображений в **2 раза ниже** официальных  
+- Цены на модели редактирования изображений в **2 раза ниже** официальных  
+- Цены на модели видео в **2 раза ниже** официальных  
+- Цены на музыку *примерно равны* официальным  
+- Цены на TTS *примерно равны* официальным  
 
 #### Получить ключ: https://t.me/@GPT4_Unlimit_bot
 #### Бесплатный баланс: 0.5$
 
 ## Текстовые модели
+
 ### gpt-4.5:  
 ```
-1M input tokens: 18.75 Credit  
-1M output tokens: 37.50 Credit  
+1M input tokens: 37.50 Credit  
+1M output tokens: 75.00 Credit  
 ```
 
 ### o3-mini:  
 ```
-1M input tokens: 0.275 Credit  
-1M output tokens: 1.10 Credit  
+1M input tokens: 0.55 Credit  
+1M output tokens: 2.20 Credit  
 ```
 
 ### o1:  
 ```
-1M input tokens: 3.75 Credit  
-1M output tokens: 15.00 Credit  
+1M input tokens: 7.50 Credit  
+1M output tokens: 30.00 Credit  
 ```
 
 ### gpt-4o:  
 ```
-1M input tokens: 0.625 Credit  
-1M output tokens: 2.50 Credit  
+1M input tokens: 1.25 Credit  
+1M output tokens: 5.00 Credit  
 ```
 
 ### gpt-4o-mini:  
 ```
-1M input tokens: 0.0375 Credit  
-1M output tokens: 0.15 Credit  
+1M input tokens: 0.075 Credit  
+1M output tokens: 0.30 Credit  
 ```
 
 ### gpt-3.5:  
 ```
-1M input tokens: 0.25 Credit  
-1M output tokens: 0.50 Credit  
+1M input tokens: 0.50 Credit  
+1M output tokens: 1.00 Credit  
 ```
 
 ### claude-3.7:  
 ```
-1M input tokens: 0.75 Credit  
-1M output tokens: 3.75 Credit  
+1M input tokens: 1.50 Credit  
+1M output tokens: 7.50 Credit  
 ```
 
 ### claude-3.5-sonnet:  
 ```
-1M input tokens: 0.75 Credit  
-1M output tokens: 3.75 Credit  
+1M input tokens: 1.50 Credit  
+1M output tokens: 7.50 Credit  
 ```
 
 ### claude-3-opus:  
 ```
-1M input tokens: 3.75 Credit  
-1M output tokens: 18.75 Credit  
+1M input tokens: 7.50 Credit  
+1M output tokens: 37.50 Credit  
 ```
 
 ### claude-3-sonnet:  
 ```
-1M input tokens: 0.75 Credit  
-1M output tokens: 3.75 Credit  
+1M input tokens: 1.50 Credit  
+1M output tokens: 7.50 Credit  
 ```
 
 ### claude-3-haiku:  
 ```
-1M input tokens: 0.0625 Credit  
-1M output tokens: 0.3125 Credit  
+1M input tokens: 0.125 Credit  
+1M output tokens: 0.625 Credit  
 ```
 
 ### deepseek-r1:  
 ```
-1M input tokens: 0.1375 Credit  
-1M output tokens: 0.5475 Credit  
+1M input tokens: 0.275 Credit  
+1M output tokens: 1.095 Credit  
 ```
 
 ### deepseek-v3:  
 ```
-1M input tokens: 0.0675 Credit  
-1M output tokens: 0.275 Credit  
+1M input tokens: 0.135 Credit  
+1M output tokens: 0.55 Credit  
 ```
 
 ### command-r-plus:  
 ```
-1M input tokens: 0.625 Credit  
-1M output tokens: 2.50 Credit  
+1M input tokens: 1.25 Credit  
+1M output tokens: 5.00 Credit  
 ```
 
 ### command-a:  
 ```
-1M input tokens: 0.625 Credit  
-1M output tokens: 2.50 Credit  
+1M input tokens: 1.25 Credit  
+1M output tokens: 5.00 Credit  
 ```
 
 ### reka-flash:  
 ```
-1M input tokens: 0.05 Credit  
-1M output tokens: 0.20 Credit  
+1M input tokens: 0.10 Credit  
+1M output tokens: 0.40 Credit  
 ```
 
 ### minimax-01:  
 ```
-1M input tokens: 0.05 Credit  
-1M output tokens: 0.275 Credit  
+1M input tokens: 0.10 Credit  
+1M output tokens: 0.55 Credit  
 ```
+
+---
 
 ## Модели изображений
 
-### DALL-E (Light):
+### DALL-E (Light):  
 ```
-0.004 Credit/изображение
-```
-
-### DALL-E 3:
-```
-0.008 Credit/изображение
+0.008 Credit/изображение  
 ```
 
-### SD Ultra:
-```
-0.016 Credit/изображение
-```
-
-### SD XL:
-```
-0.0002 Credit/изображение
-```
-
-### Recraft v3:
-```
-0.008 Credit/изображение
-```
-
-## Обработка изображений:
-### Удаление фона:  
-```
-0.004 Credit/изображение  
-```
-
-### Замена фона:  
+### DALL-E 3:  
 ```
 0.016 Credit/изображение  
 ```
 
-### Дополнение изображения (outpaint):  
+### SD Ultra:  
+```
+0.032 Credit/изображение  
+```
+
+### SD XL:  
+```
+0.0004 Credit/изображение  
+```
+
+### Recraft v3:  
+```
+0.016 Credit/изображение  
+```
+
+---
+
+## Обработка изображений
+
+### Удаление фона:  
 ```
 0.008 Credit/изображение  
+```
+
+### Замена фона:  
+```
+0.032 Credit/изображение  
+```
+
+### Дополнение изображения (outpaint):  
+```
+0.016 Credit/изображение  
 ```
 
 ### Inpaint:  
 ```
-0,016 Credit/изображение - Stable Diffusion Ultra
-0.008 Credit/изображение - Recraft V3
-0.006 Credit/изображение - Gemini
+0.032 Credit/изображение - Stable Diffusion Ultra  
+0.016 Credit/изображение - Recraft V3  
+0.012 Credit/изображение - Gemini  
 ```
 
 ### Upscale:  
 ```
-0.004 Credit/изображение  
+0.008 Credit/изображение  
 ```
 
 ### Добавить текст:  
 ```
-0.008 Credit/изображение  
+0.016 Credit/изображение  
 ```
 
 ### Сделать в похожем стиле:  
 ```
-0.008 Credit/изображение  
+0.016 Credit/изображение  
 ```
 
 ### Сделать векторным:  
 ```
-0.004 Credit/изображение  
+0.008 Credit/изображение  
 ```
 
 ### Поиск и замена:  
 ```
-0.008 Credit/изображение  
+0.016 Credit/изображение  
 ```
 
 ### Из изображения в 3D-модель:  
 ```
-0.004 Credit/изображение  
+0.008 Credit/изображение  
 ```
 
-## Генерация видео:
+---
+
+## Генерация видео
+
+### Stable Video Diffusion:  
 ```
-Stable Video Diffusion: 0.04 Credit/видео
-Hailuo: 0.086 Credit/видео
+0.08 Credit/видео  
 ```
+
+### Hailuo:  
+```
+0.172 Credit/видео  
+```
+
 ## Генерация музыки:
 ```
 Suno v4: 0.05 Credit/2 трека
