@@ -48,8 +48,6 @@ class GptModels:
     command_r_plus = "command-r-plus"
     command_a = "command-a"
 
-    deep_ai_model = "deep-ai-model"
-
     reka_flash = "reka-flash"
     minimax_01 = "minimax-01"
     available_models = [

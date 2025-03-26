@@ -519,6 +519,7 @@ class NetworkToolsAPI:
         for line in stream_response.iter_lines():
             if line:
                 decoded_line = line.decode('utf-8').strip()
+                # print("decoded_line", decoded_line)
                 # Если достигли конца потока, прекращаем чтение
                 if decoded_line == "data: [DONE]":
                     break
@@ -530,9 +531,6 @@ class NetworkToolsAPI:
 
                 # print("sliced_line", sliced_line)
                 json_data_chunk = json.loads(sliced_line)
-                if json_data_chunk.get("status","") == "pending":
-                    time.sleep(2)
-                    continue
                 # print("json_data_chunk",json_data_chunk)
                 yield GptResponse.from_json(json_data_chunk)
 
