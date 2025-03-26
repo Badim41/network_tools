@@ -251,16 +251,16 @@ class NetworkToolsAPI:
 
         return self._check_status_stream_images(request_id)
 
-    def music_generate_api(self, model, lyrics, file_path=None, music_style="piano", instrumental=False):
+    def music_generate_api(self, model, lyrics, file_path=None, music_style="piano", instrumental=False) -> Generator:
         """
         Sends a request to generate music using the specified model and input data.
 
-        :param model: str, type of model for music generation (e.g., 'riffusion', 'suno')
+        :param model: str, type of model for music generation (e.g., 'riffusion', 'suno_v4')
         :param file_path: str, path to an audio file (optional, for models that support file input)
         :param lyrics: str, lyrics to guide the music generation
         :param music_style: str, style of music to generate (e.g., 'piano', 'jazz')
         :param instrumental: bool, whether to generate instrumental music
-        :return: audio_urls, audio_paths
+        :return: Generator yielding (stream_urls: str, music_clips: List[MusicClip])
         """
         url = f"{self.api_url}/api/v2/music_generate"
         headers = {
@@ -272,7 +272,8 @@ class NetworkToolsAPI:
             "model": model,
             "lyrics": lyrics,
             "music_style": music_style,
-            "instrumental": instrumental
+            "instrumental": instrumental,
+            "return_images": True
         }
 
         if file_path:
@@ -291,7 +292,7 @@ class NetworkToolsAPI:
 
         time.sleep(response_data.get("wait", 5))
 
-        return self._check_music_status(request_id)
+        return self._check_music_status(request_id, model)
 
     def video_generate_api(self, model, image_path=None, prompt=""):
         """
@@ -453,33 +454,47 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for request_id {request_id}")
 
-    def _check_music_status(self, request_id, attempts=180):
+    def _check_music_status(self, request_id, model, attempts=180) -> Generator:
         os.makedirs(self.output_dir, exist_ok=True)
         url = f"{self.api_url}/api/v2/status/{request_id}"
         returned_link = False
+
         for _ in range(attempts):
             response = self.session.get(url)
             status_data = response.json()
-            # print("music status_data", status_data)
 
             status = status_data.get("status")
             if status == "stream" and not returned_link:
                 returned_link = True
-                # Возвращаем ссылки на аудио, если статус "stream"
                 audio_files = status_data.get("response", {})
-                for model, audio_links in audio_files.items():
-                    yield audio_links
+                stream_urls = audio_files.get(model, []) if isinstance(audio_files.get(model), list) else []
+                yield stream_urls  # Для riffusion будет пустой список
+
             elif status == "success":
-                # Сохраняем аудио и возвращаем пути к файлам, если статус "success"
                 audio_files = status_data.get("response", {})
-                file_paths = []
-                for model, audio_paths in audio_files.items():
-                    for i, file_base64 in enumerate(audio_paths):
-                        file_path = self._save_base64(file_base64, model, i, request_id)
-                        file_paths.append(file_path)
+                music_clips = []
+
+                for model_name, results in audio_files.items():
+                    for i, result_data in enumerate(results):
+                            audio_path = self._save_base64(
+                                result_data["audio_base64"],
+                                model,
+                                i,
+                                request_id
+                            )
+                            image_path = None
+                            if result_data.get("image_base64"):
+                                image_path = self._save_base64(
+                                    result_data["image_base64"],
+                                    model,
+                                    i,
+                                    request_id
+                                )
+                            music_clips.append(MusicClip(audio_path=audio_path, image_path=image_path))
+
                 if not returned_link:
-                    yield ""
-                yield file_paths
+                    yield []  # Пустой список stream_urls, если не было стрима
+                yield music_clips
                 return
 
             error_api = status_data.get("error")
@@ -488,13 +503,11 @@ class NetworkToolsAPI:
                     raise RiffusionModerationError(error_api)
                 elif "RiffusionCriticalError" in error_api:
                     raise RiffusionCriticalError(error_api)
-                elif "RiffusionModerationError" in error_api:
-                    raise RiffusionModerationError(error_api)
                 elif "FileTooLong" in error_api:
                     raise RiffusionFileTooLong(error_api)
                 raise NetworkToolsCriticalError(f"Error occurred: {status_data['error']}")
 
-            time.sleep(5)  # ждем 5 секунд до следующей проверки
+            time.sleep(5)
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 

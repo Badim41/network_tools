@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 
 class AspectRatio:
@@ -78,10 +78,17 @@ ALL_VISION_MODELS = [GptModels.reka_flash] + CLAUDE_MODELS + GPT_4O_MODELS
 
 
 @dataclass
+class MusicClip:
+    audio_path: str
+    image_path: Optional[str] = None
+
+
+@dataclass
 class ResponseDetails:
     model: str
     provider: str
     text: str
+
 
 @dataclass
 class GptResponse:
@@ -100,7 +107,7 @@ class GptResponse:
     @classmethod
     def from_json(cls, data: Dict[str, Any]) -> "GptResponse":
         # print("data", data)
-        chat_history = data.get("chat_history",[])
+        chat_history = data.get("chat_history", [])
         data["response"]["provider"] = data["response"].get("provider", "Unknown")
         response = ResponseDetails(**data["response"])
         full_response = data.get("full_response", {})
