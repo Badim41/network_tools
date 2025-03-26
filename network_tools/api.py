@@ -55,6 +55,7 @@ class NetworkToolsAPI:
         self.api_url = "https://yellowfire.ru"
         self.api_key = api_key
         self.output_dir = output_dir
+        os.makedirs(self.output_dir, exist_ok=True)
         self.session = requests.Session()
 
         retries = Retry(total=10, backoff_factor=3, status_forcelist=[502, 503, 504])
@@ -382,7 +383,6 @@ class NetworkToolsAPI:
 
     def _check_status_stream_images(self, request_id, attempts=180):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
-        os.makedirs(self.output_dir, exist_ok=True)
 
         url = f"{self.api_url}/api/v2/status/{request_id}"
         model_was = []
@@ -420,7 +420,6 @@ class NetworkToolsAPI:
         """
         :return: str, путь к итоговому аудиофайлу
         """
-        os.makedirs(self.output_dir, exist_ok=True)
         url = f"{self.api_url}/api/v2/status/{request_id}"
         got_parts = 0
 
@@ -455,7 +454,6 @@ class NetworkToolsAPI:
             raise NetworkToolsTimeout(f"Timeout for request_id {request_id}")
 
     def _check_music_status(self, request_id, model, attempts=180) -> Generator:
-        os.makedirs(self.output_dir, exist_ok=True)
         url = f"{self.api_url}/api/v2/status/{request_id}"
         returned_link = False
 
