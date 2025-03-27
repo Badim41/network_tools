@@ -1,6 +1,6 @@
 # NetworkToolsAPI (Python)
 
-[![Example Usage Bot](https://img.shields.io/badge/Example-Telegram--BOT-0066FF?logo=probot&style=flat)](https://t.me/GPT4_Unlimit_bot)
+[![Example Usage Bot](https://img.shields.io/badge/Example-Telegram--BOT-0066FF?logo=probot&style=flat)](https://t.me/GPT4_Unlimit_bot?start=git3)
 [![Open in Colab](https://img.shields.io/badge/Open%20in-Google%20Colab-F9AB00?logo=googlecolab&style=flat)](https://colab.research.google.com/github/Badim41/network_tools/blob/master/google_colab_notebooks/base.ipynb)
 
 ### Нейросети для обработки текста:
@@ -112,223 +112,82 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 - Цены на музыку *примерно равны* официальным  
 - Цены на TTS *примерно равны* официальным  
 
-#### Получить ключ: https://t.me/GPT4_Unlimit_bot?start=api
-#### Бесплатный баланс: 0.5$
+#### Получить ключ [тык](https://t.me/GPT4_Unlimit_bot?start=api)
+#### Бесплатный баланс: 1$
 
 ## Текстовые модели
 
-### gpt-4.5:  
-```
-1M input tokens: 37.50 Credit  
-1M output tokens: 75.00 Credit  
-```
+# Стоимость использования моделей
 
-### o3-mini:  
-```
-1M input tokens: 0.55 Credit  
-1M output tokens: 2.20 Credit  
-```
+## Текстовые модели
 
-### o1:  
-```
-1M input tokens: 7.50 Credit  
-1M output tokens: 30.00 Credit  
-```
-
-### gpt-4o:  
-```
-1M input tokens: 1.25 Credit  
-1M output tokens: 5.00 Credit  
-```
-
-### gpt-4o-mini:  
-```
-1M input tokens: 0.075 Credit  
-1M output tokens: 0.30 Credit  
-```
-
-### gpt-3.5:  
-```
-1M input tokens: 0.50 Credit  
-1M output tokens: 1.00 Credit  
-```
-
-### claude-3.7:  
-```
-1M input tokens: 1.50 Credit  
-1M output tokens: 7.50 Credit  
-```
-
-### claude-3.5-sonnet:  
-```
-1M input tokens: 1.50 Credit  
-1M output tokens: 7.50 Credit  
-```
-
-### claude-3-opus:  
-```
-1M input tokens: 7.50 Credit  
-1M output tokens: 37.50 Credit  
-```
-
-### claude-3-sonnet:  
-```
-1M input tokens: 1.50 Credit  
-1M output tokens: 7.50 Credit  
-```
-
-### claude-3-haiku:  
-```
-1M input tokens: 0.125 Credit  
-1M output tokens: 0.625 Credit  
-```
-
-### deepseek-r1:  
-```
-1M input tokens: 0.275 Credit  
-1M output tokens: 1.095 Credit  
-```
-
-### deepseek-v3:  
-```
-1M input tokens: 0.135 Credit  
-1M output tokens: 0.55 Credit  
-```
-
-### command-r-plus:  
-```
-1M input tokens: 1.25 Credit  
-1M output tokens: 5.00 Credit  
-```
-
-### command-a:  
-```
-1M input tokens: 1.25 Credit  
-1M output tokens: 5.00 Credit  
-```
-
-### reka-flash:  
-```
-1M input tokens: 0.10 Credit  
-1M output tokens: 0.40 Credit  
-```
-
-### minimax-01:  
-```
-1M input tokens: 0.10 Credit  
-1M output tokens: 0.55 Credit  
-```
-
----
+| Модель             | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
+|--------------------|-----------------------------|------------------------------|
+| gpt-4.5           | 37.50                       | 75.00                        |
+| o3-mini           | 0.55                        | 2.20                         |
+| o1                | 7.50                        | 30.00                        |
+| gpt-4o            | 1.25                        | 5.00                         |
+| gpt-4o-mini       | 0.075                       | 0.30                         |
+| gpt-3.5           | 0.50                        | 1.00                         |
+| claude-3.7        | 1.50                        | 7.50                         |
+| claude-3.5-sonnet | 1.50                        | 7.50                         |
+| claude-3-opus     | 7.50                        | 37.50                        |
+| claude-3-sonnet   | 1.50                        | 7.50                         |
+| claude-3-haiku    | 0.125                       | 0.625                        |
+| deepseek-r1       | 0.275                       | 1.095                        |
+| deepseek-v3       | 0.135                       | 0.55                         |
+| command-r-plus    | 1.25                        | 5.00                         |
+| command-a         | 1.25                        | 5.00                         |
+| reka-flash        | 0.10                        | 0.40                         |
+| minimax-01        | 0.10                        | 0.55                         |
 
 ## Модели изображений
 
-### DALL-E (Light):  
-```
-0.008 Credit/изображение  
-```
-
-### DALL-E 3:  
-```
-0.016 Credit/изображение  
-```
-
-### SD Ultra:  
-```
-0.032 Credit/изображение  
-```
-
-### SD XL:  
-```
-0.0004 Credit/изображение  
-```
-
-### Recraft v3:  
-```
-0.016 Credit/изображение  
-```
-
----
+| Модель         | Стоимость (Credit/изображение) |
+|----------------|--------------------------------|
+| DALL-E (Light) | 0.008                          |
+| DALL-E 3       | 0.016                          |
+| SD Ultra       | 0.032                          |
+| SD XL          | 0.0004                         |
+| Recraft v3     | 0.016                          |
 
 ## Обработка изображений
 
-### Удаление фона:  
-```
-0.008 Credit/изображение  
-```
-
-### Замена фона:  
-```
-0.032 Credit/изображение  
-```
-
-### Дополнение изображения (outpaint):  
-```
-0.016 Credit/изображение  
-```
-
-### Inpaint:  
-```
-0.032 Credit/изображение - Stable Diffusion Ultra  
-0.016 Credit/изображение - Recraft V3  
-0.012 Credit/изображение - Gemini  
-```
-
-### Upscale:  
-```
-0.008 Credit/изображение  
-```
-
-### Добавить текст:  
-```
-0.016 Credit/изображение  
-```
-
-### Сделать в похожем стиле:  
-```
-0.016 Credit/изображение  
-```
-
-### Сделать векторным:  
-```
-0.008 Credit/изображение  
-```
-
-### Поиск и замена:  
-```
-0.016 Credit/изображение  
-```
-
-### Из изображения в 3D-модель:  
-```
-0.008 Credit/изображение  
-```
-
----
+| Операция                  | Стоимость (Credit/изображение)         |
+|---------------------------|----------------------------------------|
+| Удаление фона             | 0.008                                  |
+| Замена фона               | 0.032                                  |
+| Дополнение изображения    | 0.016                                  |
+| Inpaint (Stable Diffusion Ultra) | 0.032                           |
+| Inpaint (Recraft V3)      | 0.016                                  |
+| Inpaint (Gemini)          | 0.012                                  |
+| Upscale                   | 0.008                                  |
+| Добавить текст            | 0.016                                  |
+| Сделать в похожем стиле   | 0.016                                  |
+| Сделать векторным         | 0.008                                  |
+| Поиск и замена            | 0.016                                  |
+| Из изображения в 3D-модель| 0.008                                  |
 
 ## Генерация видео
 
-### Stable Video Diffusion:  
-```
-0.08 Credit/видео  
-```
+| Модель                | Стоимость (Credit/видео) |
+|-----------------------|--------------------------|
+| Stable Video Diffusion| 0.08                     |
+| Hailuo                | 0.172                    |
 
-### Hailuo:  
-```
-0.172 Credit/видео  
-```
+## Генерация музыки
 
-## Генерация музыки:
-```
-Suno v4: 0.05 Credit/2 трека
-Suno v3: 0.035 Credit/2 трека
-Riffusion: 0.02 Credit/2 трека
-```
+| Модель    | Стоимость (Credit/2 трека) |
+|-----------|----------------------------|
+| Suno v4   | 0.05                       |
+| Suno v3   | 0.035                      |
+| Riffusion | 0.02                       |
 
 ## TTS (озвучить текст)
-```
-Hailuo: 0.03 Credit/1000 символов
-```
+
+| Модель | Стоимость (Credit/1000 символов) |
+|--------|----------------------------------|
+| Hailuo | 0.03                             |
 
 ## CURL
 
