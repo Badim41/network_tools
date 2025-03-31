@@ -45,6 +45,9 @@
 
 ## Модели для озвучки текста:
 - T2A-01-HD (Hailuo AI)
+- T2A-02-HD (Hailuo AI)
+- T2A-01-TURBO (Hailuo AI)
+- T2A-02-TURBO (Hailuo AI)
 
 ## Установка
 ```bash

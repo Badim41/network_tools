@@ -227,6 +227,8 @@ class TtsModels:
 class HailuoModelIds:
     speech_01_hd = "speech-01-hd"
     speech_01_turbo = "speech-01-turbo"
+    speech_02_hd = "speech-02-hd"
+    speech_02_turbo = "speech-02-turbo"
 
 
 class HailuoLanguages:
