@@ -124,12 +124,12 @@ class NetworkToolsAPI:
             return self._check_status_stream_gpt(request_id)
         else:
             # Ждем время, указанное сервером
-            time.sleep(response_data.get("wait", 5))
+            time.sleep(response_data.get("wait", 1))
             # Не стримовый режим: опрашиваем статус до успешного завершения
             if model == GptModels.o1:
                 attempts = 60
             else:
-                attempts = 30
+                attempts = 45
 
             result = self._check_status(request_id, attempts=attempts)
             return GptResponse.from_json(result)
