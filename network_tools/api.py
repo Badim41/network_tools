@@ -131,7 +131,7 @@ class NetworkToolsAPI:
             else:
                 attempts = 45
 
-            result = self._check_status(request_id, attempts=attempts)
+            result = self._check_status(request_id, attempts=attempts, delay=0.1)
             return GptResponse.from_json(result)
 
     def get_usage(self) -> UserUsage:
@@ -150,7 +150,7 @@ class NetworkToolsAPI:
 
         return UserUsage.from_dict(response_data)
 
-    def _check_status(self, request_id, attempts=60, delay=2) -> dict:
+    def _check_status(self, request_id, attempts=60, delay=2.0) -> dict:
         """Запрашивает статус запроса, пока он не станет 'success'."""
         url = f"{self.api_url}/api/v2/status/{request_id}"
 
@@ -164,11 +164,11 @@ class NetworkToolsAPI:
                 # print(result.get("count_tokens"))
                 return result
 
-            time.sleep(delay)  # Ждем 2 секунды перед следующим запросом
+            time.sleep(delay)
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def image_generate_api(self, models, prompt, aspect_ratio):
+    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
@@ -184,7 +184,8 @@ class NetworkToolsAPI:
         data = {
             "models": models,
             "aspect_ratio": aspect_ratio,
-            "prompt": prompt
+            "prompt": prompt,
+            "send_url": send_url
         }
 
         response = self.session.post(url, headers=headers, json=data)
@@ -200,7 +201,7 @@ class NetworkToolsAPI:
 
         return self._check_status_stream_images(request_id)
 
-    def change_image_api(self, model, image_path, prompt="", prompt_2="", strength=None, inpaint_models=None):
+    def change_image_api(self, model, image_path, prompt="", prompt_2="", strength=None, inpaint_models=None, send_url=False):
         """
         Отправляет изображение на обработку (удаление фона, апскейл и т. д.).
 
@@ -234,7 +235,8 @@ class NetworkToolsAPI:
             "prompt": prompt,
             "prompt_2": prompt_2,
             "strength": strength,
-            "inpaint_models": inpaint_models
+            "inpaint_models": inpaint_models,
+            "send_url": send_url
         }
 
         response = self.session.post(url, headers=headers, json=data)
@@ -295,7 +297,7 @@ class NetworkToolsAPI:
 
         return self._check_music_status(request_id, model)
 
-    def video_generate_api(self, model, image_path=None, prompt=""):
+    def video_generate_api(self, model, image_path=None, prompt="", send_url=False):
         """
         Отправляет запрос на генерацию видео.
 
@@ -320,7 +322,8 @@ class NetworkToolsAPI:
         data = {
             "model": model,
             "file_base64": file_base64,
-            "prompt": prompt
+            "prompt": prompt,
+            "send_url": send_url
         }
 
         response = self.session.post(url, headers=headers, json=data)
@@ -412,7 +415,7 @@ class NetworkToolsAPI:
             elif "error" in status_data:
                 raise NetworkToolsError(f"Error occurred: {status_data['error']}")
 
-            time.sleep(3)  # wait
+            # time.sleep(3)  # wait
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
@@ -446,10 +449,10 @@ class NetworkToolsAPI:
             elif "error" in status_data:
                 raise NetworkToolsError(f"Error occurred: {status_data['error']}")
 
-            if not got_parts:
-                time.sleep(0.5)
-            else:
-                time.sleep(0.2)
+            # if not got_parts:
+            #     time.sleep(0.5)
+            # else:
+            #     time.sleep(0.2)
         else:
             raise NetworkToolsTimeout(f"Timeout for request_id {request_id}")
 
@@ -505,7 +508,7 @@ class NetworkToolsAPI:
                     raise RiffusionFileTooLong(error_api)
                 raise NetworkToolsCriticalError(f"Error occurred: {status_data['error']}")
 
-            time.sleep(5)
+            # time.sleep(5)
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
@@ -532,8 +535,10 @@ class NetworkToolsAPI:
                 # print("json_data_chunk",json_data_chunk)
                 yield GptResponse.from_json(json_data_chunk)
 
-    def _save_base64(self, file_base64, model, index, request_id):
+    def _save_base64(self, file_base64: str, model, index, request_id):
         """Сохраняет файлы из base64 в файл с соответствующим расширением."""
+        if file_base64.startswith("https://"):  # При send_url = True вернутся ссылки
+            return file_base64
         # Декодируем base64 данные
         img_data = base64.b64decode(file_base64.split(",")[1])
 
