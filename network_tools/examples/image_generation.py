@@ -7,5 +7,6 @@ models = [ImageModels.gemini]
 prompt = "A futuristic cityscape with flying cars."
 aspect_ratio = AspectRatio.ratio_1x1
 
-for image_group in client.image_generate_api(models, prompt, aspect_ratio):
+# send_url - отправить временную ссылку
+for image_group in client.image_generate_api(models, prompt, aspect_ratio, send_url=True):
     print("image_group", image_group)
