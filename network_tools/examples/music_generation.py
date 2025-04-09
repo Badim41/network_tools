@@ -4,10 +4,11 @@ api_key = "API_KEY"  # замените на ваш API ключ
 client = NetworkToolsAPI(api_key)
 
 music_generator = client.music_generate_api(
-    model=MusicModels.suno_v4,  # Или MusicModels.riffusion
+    model=MusicModels.riffusion,  # Или MusicModels.riffusion
     lyrics="[Instrumental]",
     music_style="rock",
-    instrumental=False
+    instrumental=False,
+    send_url=True
 )
 
 stream_urls = next(music_generator)
