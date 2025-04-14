@@ -10,6 +10,8 @@
 - GPT-4o (OpenAI)
 - GPT-4o-mini (OpenAI)
 - GPT-3.5 (OpenAI)
+- Grok 3 (x-Ai)
+- Gemini 2.5 Pro (Google)
 - Claude 3.7 (Anthropic)
 - Claude 3.5 Sonnet (Anthropic)
 - Claude 3 Opus (Anthropic)
@@ -144,6 +146,8 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | command-a         | 1.25                        | 5.00                         |
 | reka-flash        | 0.10                        | 0.40                         |
 | minimax-01        | 0.10                        | 0.55                         |
+| grok-3            | 1.50                        | 7.50                         |
+| gemini-2.5-pro    | 0.625                       | 5.00                         |
 
 ## Модели изображений
 

@@ -48,17 +48,25 @@ class GptModels:
     command_r_plus = "command-r-plus"
     command_a = "command-a"
 
+    # X-ai
+    grok_3 = "grok-3"  # thinking
+
+    gemini_2_5_pro = "gemini-2-5-pro"  # thinking
+
     reka_flash = "reka-flash"
     minimax_01 = "minimax-01"
+
     available_models = [
         gpt_4_5, o3_mini, o1, gpt_4o, gpt_4o_mini, gpt_3_5,
         claude_3_7_sonnet_thinking, claude_3_7_sonnet, claude_3_5_sonnet,
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3,
         command_r_plus, command_a,
-        reka_flash, minimax_01
+        reka_flash, minimax_01, grok_3, gemini_2_5_pro
     ]
 
+
+AVAILABLE_MODELS = GptModels.available_models
 
 CLAUDE_MODELS = [
     GptModels.claude_3_7_sonnet_thinking,
@@ -72,7 +80,7 @@ GPT_4O_MODELS = [
     GptModels.gpt_4o,
     GptModels.gpt_4o_mini
 ]
-ALL_VISION_MODELS = [GptModels.reka_flash] + CLAUDE_MODELS + GPT_4O_MODELS
+ALL_VISION_MODELS = [GptModels.reka_flash] + CLAUDE_MODELS + GPT_4O_MODELS + [GptModels.gemini_2_5_pro]
 
 
 @dataclass
