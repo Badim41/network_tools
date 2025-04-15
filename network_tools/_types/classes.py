@@ -24,6 +24,10 @@ class ImageModels:
 
 class GptModels:
     # OPENAI
+    gpt_4_1 = "gpt-4-1"
+    gpt_4_1_mini = "gpt-4-1-mini"
+    gpt_4_1_nano = "gpt-4-1-nano"
+
     gpt_4_5 = "gpt-4-5"
     o3_mini = "o3-mini"  # thinking
     o1 = "o1"  # thinking

@@ -4,6 +4,9 @@
 [![Open in Colab](https://img.shields.io/badge/Open%20in-Google%20Colab-F9AB00?logo=googlecolab&style=flat)](https://colab.research.google.com/github/Badim41/network_tools/blob/master/google_colab_notebooks/base.ipynb)
 
 ### Нейросети для обработки текста:
+- GPT-4.1 (OpenAI)
+- GPT-4.1-mini (OpenAI)
+- GPT-4.1-nano (OpenAI)
 - GPT-4.5 (OpenAI)
 - o3-mini (OpenAI)
 - o1 (OpenAI)
@@ -23,6 +26,8 @@
 - Command R+ (Cohere)
 - Reka Flash (Reka)
 - Minimax-01 (Minimax)
+- Grok-3 (xAi)
+- Gemini-2.5 Pro (Google)
 
 ### Модели для генерации изображений:
 - DALL-E-3
@@ -129,6 +134,9 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 | Модель             | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
 |--------------------|-----------------------------|------------------------------|
+| gpt-4.1           | 1.00                        | 4.00                         |
+| gpt-4.1-mini      | 0.20                        | 0.80                         |
+| gpt-4.1-nano      | 0.05                        | 0.20                         |
 | gpt-4.5           | 37.50                       | 75.00                        |
 | o3-mini           | 0.55                        | 2.20                         |
 | o1                | 7.50                        | 30.00                        |
