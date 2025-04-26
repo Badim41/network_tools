@@ -254,7 +254,16 @@ class NetworkToolsAPI:
 
         return self._check_status_stream_images(request_id)
 
-    def music_generate_api(self, model, lyrics, file_path=None, music_style="piano", instrumental=False, send_url=False) -> Generator:
+    def music_generate_api(
+            self,
+            model,
+            lyrics,
+            file_path=None,
+            music_style="piano",
+            instrumental=False,
+            mode=SunoMode.EXTEND,
+            send_url=False
+    ) -> Generator:
         """
         Sends a request to generate music using the specified model and input data.
 

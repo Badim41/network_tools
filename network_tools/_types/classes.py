@@ -20,10 +20,14 @@ class ImageModels:
     recraft = "recraft"
     dalle_3 = "dalle_3"
     gemini = "gemini"
+    chat_gpt_images = "chat_gpt_images"
 
 
 class GptModels:
     # OPENAI
+    o3_high = "o3-high"  # thinking
+    o4_mini = "o4-mini"  # thinking
+
     gpt_4_1 = "gpt-4-1"
     gpt_4_1_mini = "gpt-4-1-mini"
     gpt_4_1_nano = "gpt-4-1-nano"
@@ -56,6 +60,7 @@ class GptModels:
     grok_3 = "grok-3"  # thinking
 
     gemini_2_5_pro = "gemini-2-5-pro"  # thinking
+    gemini_2_5_flash = "gemini-2.5-flash"  # ?thinking
 
     reka_flash = "reka-flash"
     minimax_01 = "minimax-01"
@@ -66,7 +71,7 @@ class GptModels:
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3,
         command_r_plus, command_a,
-        reka_flash, minimax_01, grok_3, gemini_2_5_pro
+        reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, o3_high, o4_mini
     ]
 
 
@@ -84,7 +89,13 @@ GPT_4O_MODELS = [
     GptModels.gpt_4o,
     GptModels.gpt_4o_mini
 ]
-ALL_VISION_MODELS = [GptModels.reka_flash] + CLAUDE_MODELS + GPT_4O_MODELS + [GptModels.gemini_2_5_pro]
+ALL_VISION_MODELS = ([GptModels.reka_flash] + CLAUDE_MODELS + GPT_4O_MODELS +
+                     [GptModels.gemini_2_5_pro,
+                      GptModels.gemini_2_5_flash
+                      ] + [
+                         GptModels.o4_mini,
+                         GptModels.o3_high
+                     ])
 
 
 @dataclass
@@ -224,7 +235,10 @@ class Upscale_Mode:
 class MusicModels:
     suno_v3 = "suno_v3"
     suno_v4 = "suno_v4"
-    riffusion = "riffusion"
+
+class SunoMode:
+    extend = "extend"
+    cover = "cover"
 
 
 class VideoModels:

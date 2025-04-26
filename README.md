@@ -4,6 +4,8 @@
 [![Open in Colab](https://img.shields.io/badge/Open%20in-Google%20Colab-F9AB00?logo=googlecolab&style=flat)](https://colab.research.google.com/github/Badim41/network_tools/blob/master/google_colab_notebooks/base.ipynb)
 
 ### Нейросети для обработки текста:
+- o4-mini (OpenAI)
+- o3-mini-High (OpenAI)
 - GPT-4.1 (OpenAI)
 - GPT-4.1-mini (OpenAI)
 - GPT-4.1-nano (OpenAI)
@@ -36,19 +38,21 @@
 - Recraft V3
 - Kandinsky
 - Gemini
+- ChatGPT Images
 
 ## Модели для редактирования изображений:
 - Recraft V3
 - Stable Diffusion
 - Gemini
+- ChatGPT Images
 
 ## Модели для генерации видео:
 - T2V-01-Director (Hailuo AI)
 - Stable video diffusion
 
-## Модели для генерации музыки:
-- Suno (V3, V4)
-- Riffusion
+## Модели для генерации музыки (generate/cover/extend):
+- Suno V3
+- Suno V4
 
 ## Модели для озвучки текста:
 - T2A-01-HD (Hailuo AI)
@@ -132,8 +136,10 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 ## Текстовые модели
 
-| Модель             | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
-|--------------------|-----------------------------|------------------------------|
+| Модель            | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
+|-------------------|-----------------------------|------------------------------|
+| o4-mini           | 0.55                        | 2.20                         |
+| o3-High           | 5.00                        | 20.00                        |
 | gpt-4.1           | 1.00                        | 4.00                         |
 | gpt-4.1-mini      | 0.20                        | 0.80                         |
 | gpt-4.1-nano      | 0.05                        | 0.20                         |
@@ -156,6 +162,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | minimax-01        | 0.10                        | 0.55                         |
 | grok-3            | 1.50                        | 7.50                         |
 | gemini-2.5-pro    | 0.625                       | 5.00                         |
+| gemini-2.5-flash  | 0.075                       | 0.30                         |
 
 ## Модели изображений
 
@@ -166,23 +173,25 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | SD Ultra       | 0.04                           |
 | SD XL          | 0.0005                         |
 | Recraft v3     | 0.02                           |
+| ChatGPT Images | 0.085                          |
 
 ## Обработка изображений
 
-| Операция                  | Стоимость (Credit/изображение) |
-|---------------------------|--------------------------------|
-| Удаление фона             | 0.01                           |
-| Замена фона               | 0.04                           |
-| Дополнение изображения    | 0.02                           |
+| Операция                         | Стоимость (Credit/изображение) |
+|----------------------------------|--------------------------------|
+| Удаление фона                    | 0.01                           |
+| Замена фона                      | 0.04                           |
+| Дополнение изображения           | 0.02                           |
 | Inpaint (Stable Diffusion Ultra) | 0.04                           |
-| Inpaint (Recraft V3)      | 0.02                           |
-| Inpaint (Gemini)          | 0.015                          |
-| Upscale                   | 0.01                           |
-| Добавить текст            | 0.02                           |
-| Сделать в похожем стиле   | 0.02                           |
-| Сделать векторным         | 0.01                           |
-| Поиск и замена            | 0.02                           |
-| Из изображения в 3D-модель| 0.01                           |
+| Inpaint (Recraft V3)             | 0.02                           |
+| Inpaint (Gemini)                 | 0.015                          |
+| Inpaint (ChatGPT Images)         | 0.085                          |
+| Upscale                          | 0.01                           |
+| Добавить текст                   | 0.02                           |
+| Сделать в похожем стиле          | 0.02                           |
+| Сделать векторным                | 0.01                           |
+| Поиск и замена                   | 0.02                           |
+| Из изображения в 3D-модель       | 0.01                           |
 
 ## Генерация видео
 
@@ -196,8 +205,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Модель    | Стоимость (Credit/2 трека) |
 |-----------|----------------------------|
 | Suno v4   | 0.05                       |
-| Suno v3   | 0.035                      |
-| Riffusion | 0.02                       |
+| Suno v3   | 0.05                       |
 
 ## TTS (озвучить текст)
 

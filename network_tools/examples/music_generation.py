@@ -1,18 +1,19 @@
-from network_tools import NetworkToolsAPI, MusicModels
+from network_tools import NetworkToolsAPI, MusicModels, SunoMode
 
 api_key = "API_KEY"  # замените на ваш API ключ
 client = NetworkToolsAPI(api_key)
 
 music_generator = client.music_generate_api(
-    model=MusicModels.riffusion,  # Или MusicModels.riffusion
-    lyrics="[Instrumental]",
-    music_style="rock",
+    model=MusicModels.suno_v4,
+    lyrics="[Instrumental]",  # слова песни
+    music_style="rock",  # жанр музыки
     instrumental=False,
-    send_url=True
+    file_path="path/to/audio.mp3",  # или None
+    mode=SunoMode.extend  # или SunoMode.cover
 )
 
 stream_urls = next(music_generator)
-print("Stream urls:", stream_urls)  # Для riffusion будет [], для suno_v4 может быть список URL
+print("Stream urls:", stream_urls)
 
 music_clips = next(music_generator)
 for clip in music_clips:
