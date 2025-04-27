@@ -28,14 +28,14 @@ result = client.change_image_api(
 )
 print("Расширенное изображение:", next(result))
 
-# Изменение изображения с Gemini
+# Изменение изображения с ChatGPT Image
 for stream_result in client.change_image_api(
         model=ImageChangeModels.inpaint,
         image_path=image_path,
         prompt="Сделай кота синим",  # То, что должно быть на картинке. Gemini поддерживает сложный запрос
         prompt_2="",  # То, чего не должно быть на картинке. Не поддерживается Gemini
         strength=0.5,  # Не поддерживается Gemini
-        inpaint_models=[ImageModels.gemini]
+        inpaint_models=[ImageModels.chat_gpt_images]
 ):
     print("Изменённое изображение:", stream_result)
 

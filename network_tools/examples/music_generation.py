@@ -5,10 +5,10 @@ client = NetworkToolsAPI(api_key)
 
 music_generator = client.music_generate_api(
     model=MusicModels.suno_v4,
-    lyrics="[Instrumental]",  # слова песни
-    music_style="rock",  # жанр музыки
+    lyrics="[Instrumental]\n\n[end]",  # слова песни
+    music_style="piano, pop-music, drums, quite, calm",  # жанр музыки
     instrumental=False,
-    file_path="path/to/audio.mp3",  # или None
+    file_path=r"music.mp3",  # или None
     mode=SunoMode.extend  # или SunoMode.cover
 )
 

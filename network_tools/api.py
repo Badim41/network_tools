@@ -119,7 +119,6 @@ class NetworkToolsAPI:
         if not request_id:
             raise NetworkToolsError("Request ID not found in response")
 
-
         if stream:
             return self._check_status_stream_gpt(request_id)
         else:
@@ -150,7 +149,7 @@ class NetworkToolsAPI:
 
         return UserUsage.from_dict(response_data)
 
-    def _check_status(self, request_id, attempts=60, delay=2.0) -> dict:
+    def _check_status(self, request_id, attempts=1200, delay=2.0) -> dict:
         """Запрашивает статус запроса, пока он не станет 'success'."""
         url = f"{self.api_url}/api/v2/status/{request_id}"
 
@@ -201,7 +200,8 @@ class NetworkToolsAPI:
 
         return self._check_status_stream_images(request_id)
 
-    def change_image_api(self, model, image_path, prompt="", prompt_2="", strength=None, inpaint_models=None, send_url=False):
+    def change_image_api(self, model, image_path, prompt="", prompt_2="", strength=None, inpaint_models=None,
+                         send_url=False):
         """
         Отправляет изображение на обработку (удаление фона, апскейл и т. д.).
 
@@ -261,19 +261,9 @@ class NetworkToolsAPI:
             file_path=None,
             music_style="piano",
             instrumental=False,
-            mode=SunoMode.EXTEND,
+            mode=SunoMode.extend,
             send_url=False
     ) -> Generator:
-        """
-        Sends a request to generate music using the specified model and input data.
-
-        :param model: str, type of model for music generation (e.g., 'riffusion', 'suno_v4')
-        :param file_path: str, path to an audio file (optional, for models that support file input)
-        :param lyrics: str, lyrics to guide the music generation
-        :param music_style: str, style of music to generate (e.g., 'piano', 'jazz')
-        :param instrumental: bool, whether to generate instrumental music
-        :return: Generator yielding (stream_urls: str, music_clips: List[MusicClip])
-        """
         url = f"{self.api_url}/api/v2/music_generate"
         headers = {
             "Content-Type": "application/json",
@@ -286,6 +276,7 @@ class NetworkToolsAPI:
             "music_style": music_style,
             "instrumental": instrumental,
             "return_images": True,
+            "mode": mode,
             "send_url": send_url
         }
 
@@ -349,7 +340,7 @@ class NetworkToolsAPI:
 
         time.sleep(response_data.get("wait", 10))
 
-        video_data = self._check_status(request_id, attempts=600, delay=10)
+        video_data = self._check_status(request_id, attempts=1200, delay=10)
         video_base64 = video_data['response'][model][0]
         return self._save_base64(video_base64, model, "0", request_id)
 
@@ -466,7 +457,7 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for request_id {request_id}")
 
-    def _check_music_status(self, request_id, model, attempts=180) -> Generator:
+    def _check_music_status(self, request_id, model, attempts=300) -> Generator:
         url = f"{self.api_url}/api/v2/status/{request_id}"
         returned_link = False
 
@@ -487,21 +478,21 @@ class NetworkToolsAPI:
 
                 for model_name, results in audio_files.items():
                     for i, result_data in enumerate(results):
-                            audio_path = self._save_base64(
-                                result_data["audio_base64"],
+                        audio_path = self._save_base64(
+                            result_data["audio_base64"],
+                            model,
+                            i,
+                            request_id
+                        )
+                        image_path = None
+                        if result_data.get("image_base64"):
+                            image_path = self._save_base64(
+                                result_data["image_base64"],
                                 model,
                                 i,
                                 request_id
                             )
-                            image_path = None
-                            if result_data.get("image_base64"):
-                                image_path = self._save_base64(
-                                    result_data["image_base64"],
-                                    model,
-                                    i,
-                                    request_id
-                                )
-                            music_clips.append(MusicClip(audio_path=audio_path, image_path=image_path))
+                        music_clips.append(MusicClip(audio_path=audio_path, image_path=image_path))
 
                 if not returned_link:
                     yield []  # Пустой список stream_urls, если не было стрима
