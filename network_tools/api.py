@@ -125,10 +125,7 @@ class NetworkToolsAPI:
             # Ждем время, указанное сервером
             time.sleep(response_data.get("wait", 1))
             # Не стримовый режим: опрашиваем статус до успешного завершения
-            if model == GptModels.o1:
-                attempts = 60
-            else:
-                attempts = 45
+            attempts = 300
 
             result = self._check_status(request_id, attempts=attempts, delay=0.1)
             return GptResponse.from_json(result)
@@ -340,7 +337,7 @@ class NetworkToolsAPI:
 
         time.sleep(response_data.get("wait", 10))
 
-        video_data = self._check_status(request_id, attempts=1200, delay=10)
+        video_data = self._check_status(request_id, attempts=6000, delay=10)
         video_base64 = video_data['response'][model][0]
         return self._save_base64(video_base64, model, "0", request_id)
 
@@ -385,7 +382,7 @@ class NetworkToolsAPI:
 
         return self._check_status_stream_tts(request_id)
 
-    def _check_status_stream_images(self, request_id, attempts=180):
+    def _check_status_stream_images(self, request_id, attempts=1200):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
 
         url = f"{self.api_url}/api/v2/status/{request_id}"
@@ -420,7 +417,7 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def _check_status_stream_tts(self, request_id, attempts=180):
+    def _check_status_stream_tts(self, request_id, attempts=300):
         """
         :return: str, путь к итоговому аудиофайлу
         """
@@ -457,7 +454,7 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for request_id {request_id}")
 
-    def _check_music_status(self, request_id, model, attempts=300) -> Generator:
+    def _check_music_status(self, request_id, model, attempts=1200) -> Generator:
         url = f"{self.api_url}/api/v2/status/{request_id}"
         returned_link = False
 
