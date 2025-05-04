@@ -35,6 +35,7 @@
 - DALL-E-3
 - SD Ultra
 - SD XL
+- Flux
 - Recraft V3
 - Kandinsky
 - Gemini
@@ -51,8 +52,9 @@
 - Stable video diffusion
 
 ## Модели для генерации музыки (generate/cover/extend):
-- Suno V3
+- Suno V3.5
 - Suno V4
+- Suno V4.5
 
 ## Модели для озвучки текста:
 - T2A-01-HD (Hailuo AI)
@@ -172,6 +174,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | DALL-E 3       | 0.02                           |
 | SD Ultra       | 0.04                           |
 | SD XL          | 0.0005                         |
+| Flux           | 0.01                           |
 | Recraft v3     | 0.02                           |
 | ChatGPT Images | 0.085                          |
 
@@ -204,6 +207,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 | Модель    | Стоимость (Credit/2 трека) |
 |-----------|----------------------------|
+| Suno v4.5 | 0.1                        |
 | Suno v4   | 0.05                       |
 | Suno v3   | 0.05                       |
 

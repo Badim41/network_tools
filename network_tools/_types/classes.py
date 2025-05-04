@@ -13,7 +13,7 @@ class AspectRatio:
 class ImageModels:
     kandinsky = "kandinsky"
     dalle_light = "dalle_light"
-    # flux = "flux"
+    flux = "flux"
     sd_ultra = "sd_ultra"
     # flux_dev = "flux_dev"
     sd_xl = "sd_xl"
@@ -235,6 +235,7 @@ class Upscale_Mode:
 class MusicModels:
     suno_v3 = "suno_v3"
     suno_v4 = "suno_v4"
+    suno_v4_5 = "suno_v4_5"
 
 class SunoMode:
     extend = "extend"
