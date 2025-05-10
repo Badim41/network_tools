@@ -164,11 +164,13 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False):
+    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
         :param aspect_ratio: obj[AspectRatio]
+        :param send_url: отправить картинку ссылкой
+        :param return_minimal_images: вернуть минимальное число картинок (1). False - вернуть 4 картинки
         :return:
         """
         url = f"{self.api_url}/api/v2/image_generate"
@@ -181,7 +183,8 @@ class NetworkToolsAPI:
             "models": models,
             "aspect_ratio": aspect_ratio,
             "prompt": prompt,
-            "send_url": send_url
+            "send_url": send_url,
+            "return_minimal_images": return_minimal_images
         }
 
         response = self.session.post(url, headers=headers, json=data)
