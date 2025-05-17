@@ -345,7 +345,7 @@ class NetworkToolsAPI:
         return self._save_base64(video_base64, model, "0", request_id)
 
     def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = None,
-                model_id: str = HailuoModelIds.speech_01_hd):
+                model_id: str = HailuoModelIds.speech_02_hd):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
@@ -430,22 +430,25 @@ class NetworkToolsAPI:
         for _ in range(attempts):
             response = self.session.get(url)
             status_data = response.json()
+            # print("status_data", status_data)
 
             status = status_data.get("status")
             # print("status(1)", status)
             if status in ["stream", "success"]:
-                for model_name, audio_paths in status_data.get("response", {}).items():
+                for model_name, audio_paths in status_data.get("stream_parts", status_data.get("response")).items():
                     for i, file_base64 in enumerate(audio_paths):
-                        if i < got_parts and not status == "success":  # если success, то возвращается 1 аудиофайл
-                            # print("continue", i, got_parts)
+                        if i < got_parts:  # если success, то возвращается 1 аудиофайл
+                            print("continue", i, got_parts)
                             continue
                         got_parts += 1
                         file_path = self._save_base64(file_base64, model_name, f"{status}-{i}", request_id)
-                        # print("status", status)
-                        yield file_path, status  # последний файл - полное аудио
+                        yield file_path, "stream"  # последний файл - полное аудио
 
-            if status_data.get("status") == "success":
-                return
+            if status == "success":
+                for model_name, audio_paths in status_data.get("response").items():
+                    file_path = self._save_base64(audio_paths[0], model_name, f"{status}", request_id)
+                    yield file_path, status
+                    return
 
             elif "error" in status_data:
                 raise NetworkToolsError(f"Error occurred: {status_data['error']}")
