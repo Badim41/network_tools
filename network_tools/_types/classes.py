@@ -100,7 +100,7 @@ GPT_4O_MODELS = [
     GptModels.gpt_4o,
     GptModels.gpt_4o_mini
 ]
-ALL_VISION_MODELS = ([GptModels.reka_flash] + CLAUDE_MODELS + GPT_4O_MODELS +
+ALL_VISION_MODELS = ([GptModels.reka_flash] + GPT_4O_MODELS +
                      [GptModels.gemini_2_5_pro,
                       GptModels.gemini_2_5_flash
                       ] + [
