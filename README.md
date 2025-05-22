@@ -17,6 +17,10 @@
 - GPT-3.5 (OpenAI)
 - Grok 3 (x-Ai)
 - Gemini 2.5 Pro (Google)
+- Claude 4 Opus (Anthropic)
+- Claude 4 Opus Thinking (Anthropic)
+- Claude 4 Sonnet (Anthropic)
+- Claude 4 Sonnet Thinking (Anthropic)
 - Claude 3.7 (Anthropic)
 - Claude 3.5 Sonnet (Anthropic)
 - Claude 3 Opus (Anthropic)
@@ -138,33 +142,37 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 ## Текстовые модели
 
-| Модель            | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
-|-------------------|-----------------------------|------------------------------|
-| o4-mini           | 0.55                        | 2.20                         |
-| o3-High           | 5.00                        | 20.00                        |
-| gpt-4.1           | 1.00                        | 4.00                         |
-| gpt-4.1-mini      | 0.20                        | 0.80                         |
-| gpt-4.1-nano      | 0.05                        | 0.20                         |
-| gpt-4.5           | 37.50                       | 75.00                        |
-| o3-mini           | 0.55                        | 2.20                         |
-| o1                | 7.50                        | 30.00                        |
-| gpt-4o            | 1.25                        | 5.00                         |
-| gpt-4o-mini       | 0.075                       | 0.30                         |
-| gpt-3.5           | 0.50                        | 1.00                         |
-| claude-3.7        | 1.50                        | 7.50                         |
-| claude-3.5-sonnet | 1.50                        | 7.50                         |
-| claude-3-opus     | 7.50                        | 37.50                        |
-| claude-3-sonnet   | 1.50                        | 7.50                         |
-| claude-3-haiku    | 0.125                       | 0.625                        |
-| deepseek-r1       | 0.275                       | 1.095                        |
-| deepseek-v3       | 0.135                       | 0.55                         |
-| command-r-plus    | 1.25                        | 5.00                         |
-| command-a         | 1.25                        | 5.00                         |
-| reka-flash        | 0.10                        | 0.40                         |
-| minimax-01        | 0.10                        | 0.55                         |
-| grok-3            | 1.50                        | 7.50                         |
-| gemini-2.5-pro    | 0.625                       | 5.00                         |
-| gemini-2.5-flash  | 0.075                       | 0.30                         |
+| Модель                   | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
+|--------------------------|-----------------------------|------------------------------|
+| claude-4-opus            | 7.50                        | 37.5                         |
+| claude-4-opus-thinking   | 7.50                        | 37.5                         |
+| claude-4-sonnet          | 1.50                        | 7.50                         |
+| claude-4-sonnet-thinking | 1.50                        | 7.50                         |
+| o4-mini                  | 0.55                        | 2.20                         |
+| o3-High                  | 5.00                        | 20.00                        |
+| gpt-4.1                  | 1.00                        | 4.00                         |
+| gpt-4.1-mini             | 0.20                        | 0.80                         |
+| gpt-4.1-nano             | 0.05                        | 0.20                         |
+| gpt-4.5                  | 37.50                       | 75.00                        |
+| o3-mini                  | 0.55                        | 2.20                         |
+| o1                       | 7.50                        | 30.00                        |
+| gpt-4o                   | 1.25                        | 5.00                         |
+| gpt-4o-mini              | 0.075                       | 0.30                         |
+| gpt-3.5                  | 0.50                        | 1.00                         |
+| claude-3.7               | 1.50                        | 7.50                         |
+| claude-3.5-sonnet        | 1.50                        | 7.50                         |
+| claude-3-opus            | 7.50                        | 37.50                        |
+| claude-3-sonnet          | 1.50                        | 7.50                         |
+| claude-3-haiku           | 0.125                       | 0.625                        |
+| deepseek-r1              | 0.275                       | 1.095                        |
+| deepseek-v3              | 0.135                       | 0.55                         |
+| command-r-plus           | 1.25                        | 5.00                         |
+| command-a                | 1.25                        | 5.00                         |
+| reka-flash               | 0.10                        | 0.40                         |
+| minimax-01               | 0.10                        | 0.55                         |
+| grok-3                   | 1.50                        | 7.50                         |
+| gemini-2.5-pro           | 0.625                       | 5.00                         |
+| gemini-2.5-flash         | 0.075                       | 0.30                         |
 
 ## Модели изображений
 

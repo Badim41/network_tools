@@ -41,6 +41,11 @@ class GptModels:
     gpt_3_5 = "gpt-3-5"
 
     # CLAUDE
+    claude_4_opus = "claude-4-opus"
+    claude_4_sonnet = "claude-4-sonnet"
+    claude_4_opus_thinking = "claude-4-opus-thinking"  # thinking
+    claude_4_sonnet_thinking = "claude-4-sonnet-thinking"  # thinking
+
     claude_3_7_sonnet_thinking = "claude-3-7-sonnet-thinking"  # thinking
     claude_3_7_sonnet = "claude-3-7-sonnet"
     claude_3_5_sonnet = "claude-3-5-sonnet"
@@ -66,6 +71,7 @@ class GptModels:
     minimax_01 = "minimax-01"
 
     available_models = [
+        claude_4_opus, claude_4_opus_thinking, claude_4_sonnet, claude_4_sonnet_thinking,
         gpt_4_5, o3_mini, o1, gpt_4o, gpt_4o_mini, gpt_3_5,
         claude_3_7_sonnet_thinking, claude_3_7_sonnet, claude_3_5_sonnet,
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
@@ -78,6 +84,11 @@ class GptModels:
 AVAILABLE_MODELS = GptModels.available_models
 
 CLAUDE_MODELS = [
+    GptModels.claude_4_opus,
+    GptModels.claude_4_opus_thinking,
+    GptModels.claude_4_sonnet,
+    GptModels.claude_4_sonnet_thinking,
+
     GptModels.claude_3_7_sonnet_thinking,
     GptModels.claude_3_7_sonnet,
     GptModels.claude_3_5_sonnet,
