@@ -21,6 +21,7 @@ class ImageModels:
     dalle_3 = "dalle_3"
     gemini = "gemini"
     chat_gpt_images = "chat_gpt_images"
+    flux_pro_ultra_raw = "flux_pro_ultra_raw"
 
 
 class GptModels:
