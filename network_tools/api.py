@@ -298,7 +298,7 @@ class NetworkToolsAPI:
 
         return self._check_music_status(request_id, model)
 
-    def video_generate_api(self, model, image_path=None, prompt="", send_url=False):
+    def video_generate_api(self, model, image_path=None, prompt="", send_url=False, aspect_ratio="16:9"):
         """
         Отправляет запрос на генерацию видео.
 
@@ -324,6 +324,7 @@ class NetworkToolsAPI:
             "model": model,
             "file_base64": file_base64,
             "prompt": prompt,
+            "aspect_ratio": aspect_ratio,
             "send_url": send_url
         }
 
