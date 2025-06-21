@@ -256,7 +256,8 @@ class SunoMode:
 
 class VideoModels:
     stable_video_diffusion = "stable_video_diffusion"
-    hailuo = "hailuo"
+    veo_3 = "veo-3"
+    kling_1_6 = "kling-1.6"
 
 
 class TtsModels:
