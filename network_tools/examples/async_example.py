@@ -1,8 +1,7 @@
 import asyncio
 import sys
 
-from network_tools import GptModels, ImageModels, AspectRatio
-from network_tools.api import AsyncNetworkToolsAPI
+from network_tools import GptModels, ImageModels, AspectRatio, AsyncNetworkToolsAPI
 
 API_KEY = "API-KEY"
 
