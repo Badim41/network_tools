@@ -203,7 +203,8 @@ class NetworkToolsAPI:
         request_id = response_data.get("request_id")
         if not request_id:
             return {"status": "error", "error": "Request ID not found in response"}
-        time.sleep(response_data.get("wait", 10))
+
+        time.sleep(response_data.get("wait", 2))
 
         return self._check_status_stream_images(request_id)
 
