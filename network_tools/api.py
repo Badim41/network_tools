@@ -167,13 +167,15 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True):
+    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None, height=None):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
         :param aspect_ratio: obj[AspectRatio]
         :param send_url: отправить картинку ссылкой
         :param return_minimal_images: вернуть минимальное число картинок (1). False - вернуть 4 картинки
+        :param width: Указать ширину (будет игнорироваться aspect_ratio)
+        :param height: Указать высоту (будет игнорироваться aspect_ratio)
         :return:
         """
         url = f"{self.api_url}/api/v2/image_generate"
@@ -187,7 +189,9 @@ class NetworkToolsAPI:
             "aspect_ratio": aspect_ratio,
             "prompt": prompt,
             "send_url": send_url,
-            "return_minimal_images": return_minimal_images
+            "return_minimal_images": return_minimal_images,
+            "width": width,
+            "height": height
         }
 
         response = self.session.post(url, headers=headers, json=data)
@@ -690,13 +694,15 @@ class AsyncNetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    async def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True):
+    async def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None, height=None):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
         :param aspect_ratio: obj[AspectRatio]
         :param send_url: отправить картинку ссылкой
         :param return_minimal_images: вернуть минимальное число картинок (1). False - вернуть 4 картинки
+        :param width: Указать ширину (будет игнорироваться aspect_ratio)
+        :param height: Указать высоту (будет игнорироваться aspect_ratio)
         :return:
         """
         url = f"{self.api_url}/api/v2/image_generate"
@@ -710,7 +716,9 @@ class AsyncNetworkToolsAPI:
             "aspect_ratio": aspect_ratio,
             "prompt": prompt,
             "send_url": send_url,
-            "return_minimal_images": return_minimal_images
+            "return_minimal_images": return_minimal_images,
+            "width": width,
+            "height": height
         }
 
         async with self.session.post(url, headers=headers, json=data) as response:
