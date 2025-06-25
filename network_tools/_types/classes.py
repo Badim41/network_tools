@@ -267,6 +267,9 @@ class VideoModels:
 class TtsModels:
     hailuo = "hailuo"
 
+class AudioModels:
+    stable_audio = "stable_audio"
+
 
 class HailuoModelIds:
     speech_01_hd = "speech-01-hd"

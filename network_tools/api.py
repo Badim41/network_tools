@@ -394,6 +394,74 @@ class NetworkToolsAPI:
 
         return self._check_status_stream_tts(request_id)
 
+    def audio_generate_api(
+            self,
+            prompt: str,
+            model=AudioModels.stable_audio,
+            audio_path: str = None,
+            duration=90,
+            steps=50,
+            cfg_scale=7.0,
+            strength=1.0,
+            seed=0,
+            send_url=False
+    ):
+        """
+        Отправляет запрос на генерацию видео.
+
+        :param prompt: str, текстовый запрос
+        :param model: str, модель генерации аудио
+        :param audio_path: str, путь к входному аудио
+        :param duration: int, длительность аудио
+        :param steps: int, шаги генерации
+        :param cfg_scale: float, ?
+        :param strength: float, сила изменения входного аудио
+        :param seed: int, сид
+        :param send_url: bool, отпрвить ссылку в результате
+        :return: audio_path
+        """
+
+        url = f"{self.api_url}/api/v2/audio_generate"
+
+        headers = {
+            "Content-Type": "application/json",
+            "api-key": self.api_key
+        }
+
+        if audio_path:
+            file_base64 = self._file_to_base64(audio_path)
+        else:
+            file_base64 = ""
+
+        data = {
+            "prompt": prompt,
+            "model": model,
+            "file_base64": file_base64,
+            "duration": duration,
+            "steps": steps,
+            "cfg_scale": cfg_scale,
+            "strength": strength,
+            "seed": seed,
+            "send_url": send_url
+        }
+
+        with self.session.post(url, headers=headers, json=data) as response:
+            response_data = response.json()
+
+        if response_data.get("error"):
+            raise NetworkToolsBadRequest(response_data.get("error"))
+
+        request_id = response_data.get("request_id")
+        if not request_id:
+            raise Exception("Request ID not found in response")
+
+        time.sleep(response_data.get("wait", 3))
+
+        audio_data = self._check_status(request_id, attempts=60, delay=1)
+
+        audio_base64 = audio_data['response'][model][0]
+        return self._save_base64(audio_base64, model, "0", request_id)
+
     def _check_status_stream_images(self, request_id, attempts=1200):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
 
@@ -925,6 +993,74 @@ class AsyncNetworkToolsAPI:
 
         async for result in self._check_status_stream_tts(request_id):
             yield result
+
+    async def audio_generate_api(
+            self,
+            prompt:str,
+            model=AudioModels.stable_audio,
+            audio_path:str=None,
+            duration=90,
+            steps=50,
+            cfg_scale=7.0,
+            strength=1.0,
+            seed=0,
+            send_url=False
+    ):
+        """
+        Отправляет запрос на генерацию видео.
+
+        :param prompt: str, текстовый запрос
+        :param model: str, модель генерации аудио
+        :param audio_path: str, путь к входному аудио
+        :param duration: int, длительность аудио
+        :param steps: int, шаги генерации
+        :param cfg_scale: float, ?
+        :param strength: float, сила изменения входного аудио
+        :param seed: int, сид
+        :param send_url: bool, отпрвить ссылку в результате
+        :return: audio_path
+        """
+
+        url = f"{self.api_url}/api/v2/audio_generate"
+
+        headers = {
+            "Content-Type": "application/json",
+            "api-key": self.api_key
+        }
+
+        if audio_path:
+            file_base64 = await self._file_to_base64(audio_path)
+        else:
+            file_base64 = ""
+
+        data = {
+            "prompt": prompt,
+            "model": model,
+            "file_base64": file_base64,
+            "duration": duration,
+            "steps": steps,
+            "cfg_scale": cfg_scale,
+            "strength": strength,
+            "seed": seed,
+            "send_url": send_url
+        }
+
+        async with self.session.post(url, headers=headers, json=data) as response:
+            response_data = await response.json()
+
+        if response_data.get("error"):
+            raise NetworkToolsBadRequest(response_data.get("error"))
+
+        request_id = response_data.get("request_id")
+        if not request_id:
+            raise Exception("Request ID not found in response")
+
+        await asyncio.sleep(response_data.get("wait", 3))
+
+        audio_data = await self._check_status(request_id, attempts=60, delay=1)
+
+        audio_base64 = audio_data['response'][model][0]
+        return await self._save_base64(audio_base64, model, "0", request_id)
 
     async def _check_status_stream_images(self, request_id, attempts=1200):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
