@@ -16,7 +16,6 @@ class VideoAspectRatio:
 
 class ImageModels:
     kandinsky = "kandinsky"
-    dalle_light = "dalle_light"
     flux = "flux"
     sd_ultra = "sd_ultra"
     # flux_dev = "flux_dev"
