@@ -653,12 +653,17 @@ class AsyncNetworkToolsAPI:
         self.api_key = api_key
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
-        timeout = ClientTimeout(total=300)
-        connector = TCPConnector(limit=100, limit_per_host=30)
-        self.session = ClientSession(
-            timeout=timeout,
-            connector=connector
-        )
+        self._session = None
+
+    async def get_session(self):
+        if self._session is None:
+            timeout = ClientTimeout(total=300)
+            connector = TCPConnector(limit=100, limit_per_host=30)
+            self._session = ClientSession(
+                timeout=timeout,
+                connector=connector
+            )
+        return self._session
 
     @staticmethod
     async def _file_to_base64(file_path):
@@ -708,7 +713,7 @@ class AsyncNetworkToolsAPI:
             "stream": stream,
         }
 
-        async with self.session.post(url, headers=headers, json=payload) as response:
+        async with self.get_session().post(url, headers=headers, json=payload) as response:
             response_data = await response.json()
 
         if response_data.get("error"):
@@ -737,7 +742,7 @@ class AsyncNetworkToolsAPI:
             "api-key": self.api_key
         }
 
-        async with self.session.get(url, headers=headers, json="") as response:
+        async with self.get_session().get(url, headers=headers, json="") as response:
             response_data = await response.json()
 
         if response_data.get("error"):
@@ -750,7 +755,7 @@ class AsyncNetworkToolsAPI:
         url = f"{self.api_url}/api/v2/status/{request_id}"
 
         for i in range(attempts):
-            async with self.session.get(url) as response:
+            async with self.get_session().get(url) as response:
                 result = await response.json()
 
             if result.get("error"):
@@ -790,7 +795,7 @@ class AsyncNetworkToolsAPI:
             "height": height
         }
 
-        async with self.session.post(url, headers=headers, json=data) as response:
+        async with self.get_session().post(url, headers=headers, json=data) as response:
             response_data = await response.json()
 
         if response_data.get("error"):
@@ -845,7 +850,7 @@ class AsyncNetworkToolsAPI:
             "send_url": send_url
         }
 
-        async with self.session.post(url, headers=headers, json=data) as response:
+        async with self.get_session().post(url, headers=headers, json=data) as response:
             response_data = await response.json()
 
         if response_data.get("error"):
@@ -890,7 +895,7 @@ class AsyncNetworkToolsAPI:
             file_base64 = await self._file_to_base64(file_path)
             data["file_base64"] = file_base64
 
-        async with self.session.post(url, headers=headers, json=data) as response:
+        async with self.get_session().post(url, headers=headers, json=data) as response:
             response_data = await response.json()
 
         if response_data.get("error"):
@@ -935,7 +940,7 @@ class AsyncNetworkToolsAPI:
             "send_url": send_url
         }
 
-        async with self.session.post(url, headers=headers, json=data) as response:
+        async with self.get_session().post(url, headers=headers, json=data) as response:
             response_data = await response.json()
 
         if response_data.get("error"):
@@ -981,7 +986,7 @@ class AsyncNetworkToolsAPI:
             }
         }
 
-        async with self.session.post(url, headers=headers, json=data) as response:
+        async with self.get_session().post(url, headers=headers, json=data) as response:
             response_data = await response.json()
 
         if "error" in response_data:
@@ -1045,7 +1050,7 @@ class AsyncNetworkToolsAPI:
             "send_url": send_url
         }
 
-        async with self.session.post(url, headers=headers, json=data) as response:
+        async with self.get_session().post(url, headers=headers, json=data) as response:
             response_data = await response.json()
 
         if response_data.get("error"):
@@ -1069,7 +1074,7 @@ class AsyncNetworkToolsAPI:
         model_was = []
 
         for _ in range(attempts):
-            async with self.session.get(url) as response:
+            async with self.get_session().get(url) as response:
                 status_data = await response.json()
 
             status = status_data.get("status")
@@ -1101,7 +1106,7 @@ class AsyncNetworkToolsAPI:
         got_parts = 0
 
         for _ in range(attempts):
-            async with self.session.get(url) as response:
+            async with self.get_session().get(url) as response:
                 status_data = await response.json()
 
             status = status_data.get("status")
@@ -1132,7 +1137,7 @@ class AsyncNetworkToolsAPI:
         returned_link = False
 
         for _ in range(attempts):
-            async with self.session.get(url) as response:
+            async with self.get_session().get(url) as response:
                 status_data = await response.json()
 
             status = status_data.get("status")
@@ -1185,7 +1190,7 @@ class AsyncNetworkToolsAPI:
     async def _check_status_stream_gpt(self, request_id) -> AsyncGenerator[GptResponse, None]:
         status_url = f"{self.api_url}/api/v2/status/{request_id}"
 
-        async with self.session.get(status_url) as response:
+        async with self.get_session().get(status_url) as response:
             async for line in response.content:
                 if line.strip():
                     decoded_line = line.decode('utf-8').strip()
