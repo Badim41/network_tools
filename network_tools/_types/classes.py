@@ -78,7 +78,7 @@ class GptModels:
 
     available_models = [
         claude_4_opus, claude_4_opus_thinking, claude_4_sonnet, claude_4_sonnet_thinking,
-        gpt_4_5, o3_mini, o1, gpt_4o, gpt_4o_mini, gpt_3_5,
+        gpt_4_5, o3_mini, o1, gpt_4o, gpt_4o_mini, chatgpt_4o, gpt_4_1_mini, gpt_4_1_nano, gpt_3_5,
         claude_3_7_sonnet_thinking, claude_3_7_sonnet, claude_3_5_sonnet,
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3,
