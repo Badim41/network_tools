@@ -83,7 +83,7 @@ class GptModels:
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3,
         command_r_plus, command_a,
-        reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, o3_high, o4_mini
+        reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini
     ]
 
 
@@ -103,12 +103,15 @@ CLAUDE_MODELS = [
     GptModels.claude_3_haiku
 ]
 GPT_4O_MODELS = [
+    GptModels.chatgpt_4o,
     GptModels.gpt_4o,
     GptModels.gpt_4o_mini
 ]
 ALL_VISION_MODELS = ([GptModels.reka_flash] + GPT_4O_MODELS +
                      [GptModels.gemini_2_5_pro,
-                      GptModels.gemini_2_5_flash
+                      GptModels.gemini_2_5_flash,
+                      GptModels.gemini_2_5_flash_lite,
+                      GptModels.gemini_2_0_flash_lite
                       ] + [
                          GptModels.o4_mini,
                          GptModels.o3_high

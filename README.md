@@ -35,6 +35,8 @@
 - Minimax-01 (Minimax)
 - Grok-3 (xAi)
 - Gemini-2.5 Pro (Google)
+- Gemini-2.5 Flash Lite (Google)
+- Gemini-2.0 Flash Lite (Google)
 
 ### Модели для генерации изображений:
 
@@ -192,6 +194,8 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | grok-3                   | 1.50                        | 7.50                         |
 | gemini-2.5-pro           | 0.625                       | 5.00                         |
 | gemini-2.5-flash         | 0.075                       | 0.30                         |
+| gemini-2.0-flash-lite          | 0.075                       | 0.30                         |
+| gemini-2.5-flash-lite          | 0.075                       | 0.30                         |
 
 ## Модели изображений
 
