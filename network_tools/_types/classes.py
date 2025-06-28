@@ -70,6 +70,8 @@ class GptModels:
 
     gemini_2_5_pro = "gemini-2-5-pro"  # thinking
     gemini_2_5_flash = "gemini-2.5-flash"  # ?thinking
+    gemini_2_5_flash_lite = "gemini-2.5-flash-lite"  # quick
+    gemini_2_0_flash_lite = "gemini-2.0-flash-lite"  # very quick
 
     reka_flash = "reka-flash"
     minimax_01 = "minimax-01"

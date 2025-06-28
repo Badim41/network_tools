@@ -655,7 +655,7 @@ class AsyncNetworkToolsAPI:
         os.makedirs(self.output_dir, exist_ok=True)
         self._session = None
 
-    async def get_session(self):
+    def get_session(self):
         if self._session is None:
             timeout = ClientTimeout(total=300)
             connector = TCPConnector(limit=100, limit_per_host=30)
