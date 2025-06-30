@@ -1,2 +1,2 @@
-from ._types import ImageModels, GptModels, AspectRatio, ImageChangeModels, Upscale_Mode, MusicModels, VideoModels, TtsModels, HailuoLanguages, HailuoModelIds, SunoMode, AudioModels
+from ._types import ImageModels, GptModels, AspectRatio, ImageChangeModels, Upscale_Mode, MusicModels, VideoModels, TtsModels, HailuoLanguages, HailuoModelIds,ElevenlabsVoices, SunoMode, AudioModels
 from .api import NetworkToolsAPI, AsyncNetworkToolsAPI
