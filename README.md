@@ -74,6 +74,7 @@
 - T2A-02-HD (Hailuo AI)
 - T2A-01-TURBO (Hailuo AI)
 - T2A-02-TURBO (Hailuo AI)
+- Elevenlabs multilingual (Elevenlabs)
 
 ## Модели для создания аудио:
 
@@ -246,9 +247,10 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 ## TTS (озвучить текст)
 
-| Модель | Стоимость (Credit/1000 символов) |
-|--------|----------------------------------|
-| Hailuo | 0.03                             |
+| Модель     | Стоимость (Credit/1000 символов) |
+|------------|----------------------------------|
+| Hailuo     | 0.03                             |
+| Elevenlabs | 0.03                             |
 
 ## Audio (создать звук)
 
