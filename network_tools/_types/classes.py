@@ -64,6 +64,7 @@ class GptModels:
     # command
     command_r_plus = "command-r-plus"
     command_a = "command-a"
+    c4ai_aya_vision_32b = "c4ai-aya-vision-32b"
 
     # X-ai
     grok_3 = "grok-3"  # thinking
@@ -82,7 +83,7 @@ class GptModels:
         claude_3_7_sonnet_thinking, claude_3_7_sonnet, claude_3_5_sonnet,
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3,
-        command_r_plus, command_a,
+        command_r_plus, command_a, c4ai_aya_vision_32b,
         reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini
     ]
 
@@ -107,7 +108,7 @@ GPT_4O_MODELS = [
     GptModels.gpt_4o,
     GptModels.gpt_4o_mini
 ]
-ALL_VISION_MODELS = ([GptModels.reka_flash] + GPT_4O_MODELS +
+ALL_VISION_MODELS = ([GptModels.reka_flash, GptModels.c4ai_aya_vision_32b] + GPT_4O_MODELS +
                      [GptModels.gemini_2_5_pro,
                       GptModels.gemini_2_5_flash,
                       GptModels.gemini_2_5_flash_lite,
