@@ -67,6 +67,7 @@ class GptModels:
     c4ai_aya_vision_32b = "c4ai-aya-vision-32b"
 
     # X-ai
+    grok_4 = "grok-4"  # thinking
     grok_3 = "grok-3"  # thinking
 
     gemini_2_5_pro = "gemini-2-5-pro"  # thinking

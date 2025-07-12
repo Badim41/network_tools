@@ -17,6 +17,7 @@
 - GPT-4o-mini (OpenAI)
 - GPT-3.5 (OpenAI)
 - Grok 3 (x-Ai)
+- Grok 4 (x-Ai)
 - Gemini 2.5 Pro (Google)
 - Claude 4 Opus (Anthropic)
 - Claude 4 Opus Thinking (Anthropic)
@@ -33,7 +34,6 @@
 - Command R+ (Cohere)
 - Reka Flash (Reka)
 - Minimax-01 (Minimax)
-- Grok-3 (xAi)
 - Gemini-2.5 Pro (Google)
 - Gemini-2.5 Flash Lite (Google)
 - Gemini-2.0 Flash Lite (Google)
@@ -193,10 +193,11 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | reka-flash               | 0.10                        | 0.40                         |
 | minimax-01               | 0.10                        | 0.55                         |
 | grok-3                   | 1.50                        | 7.50                         |
+| grok-4                   | 1.50                        | 7.50                         |
 | gemini-2.5-pro           | 0.625                       | 5.00                         |
 | gemini-2.5-flash         | 0.075                       | 0.30                         |
-| gemini-2.0-flash-lite          | 0.075                       | 0.30                         |
-| gemini-2.5-flash-lite          | 0.075                       | 0.30                         |
+| gemini-2.0-flash-lite    | 0.075                       | 0.30                         |
+| gemini-2.5-flash-lite    | 0.075                       | 0.30                         |
 
 ## Модели изображений
 
