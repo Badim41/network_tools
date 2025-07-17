@@ -167,7 +167,7 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None, height=None):
+    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None, height=None, allow_nsfw=True):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
@@ -176,6 +176,7 @@ class NetworkToolsAPI:
         :param return_minimal_images: вернуть минимальное число картинок (1). False - вернуть 4 картинки
         :param width: Указать ширину (будет игнорироваться aspect_ratio)
         :param height: Указать высоту (будет игнорироваться aspect_ratio)
+        :param allow_nsfw: фильтр NSFW (работает только на 'Flux')
         :return:
         """
         url = f"{self.api_url}/api/v2/image_generate"
@@ -191,7 +192,8 @@ class NetworkToolsAPI:
             "send_url": send_url,
             "return_minimal_images": return_minimal_images,
             "width": width,
-            "height": height
+            "height": height,
+            "allow_nsfw": allow_nsfw,
         }
 
         response = self.session.post(url, headers=headers, json=data)
@@ -768,7 +770,7 @@ class AsyncNetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    async def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None, height=None):
+    async def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None, height=None, allow_nsfw=True):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
@@ -777,6 +779,7 @@ class AsyncNetworkToolsAPI:
         :param return_minimal_images: вернуть минимальное число картинок (1). False - вернуть 4 картинки
         :param width: Указать ширину (будет игнорироваться aspect_ratio)
         :param height: Указать высоту (будет игнорироваться aspect_ratio)
+        :param allow_nsfw: фильтр NSFW (работает только на 'Flux')
         :return:
         """
         url = f"{self.api_url}/api/v2/image_generate"
@@ -792,7 +795,8 @@ class AsyncNetworkToolsAPI:
             "send_url": send_url,
             "return_minimal_images": return_minimal_images,
             "width": width,
-            "height": height
+            "height": height,
+            "allow_nsfw": allow_nsfw,
         }
 
         async with self.get_session().post(url, headers=headers, json=data) as response:
