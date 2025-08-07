@@ -35,6 +35,8 @@ class GptModels:
     gpt_5_mini = "gpt-5-mini"
     gpt_5_nano = "gpt-5-nano"
 
+    gpt_oss = "gpt-oss"
+
     o3_high = "o3-high"  # thinking
     o4_mini = "o4-mini"  # thinking
 
@@ -83,6 +85,7 @@ class GptModels:
 
     reka_flash = "reka-flash"
     minimax_01 = "minimax-01"
+    glm_4_5 = "glm-4.5"
 
     available_models = [
         claude_4_opus, claude_4_opus_thinking, claude_4_sonnet, claude_4_sonnet_thinking,
@@ -92,7 +95,7 @@ class GptModels:
         deepseek_r1, deepseek_v3,
         command_r_plus, command_a, c4ai_aya_vision_32b,
         reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
-        gpt_5_high,chatgpt_5, gpt_5, gpt_5_mini,gpt_5_nano
+        gpt_5_high,chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_5, gpt_oss
     ]
 
 
