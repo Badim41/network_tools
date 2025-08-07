@@ -5,6 +5,11 @@
 
 ### Нейросети для обработки текста:
 
+- GPT-5-high (OpenAI)
+- GPT-5 (OpenAI)
+- ChatGPT-5 (OpenAI)
+- GPT-5-mini (OpenAI)
+- GPT-5-nano (OpenAI)
 - o4-mini (OpenAI)
 - o3-mini-High (OpenAI)
 - GPT-4.1 (OpenAI)
@@ -166,6 +171,10 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 | Модель                   | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
 |--------------------------|-----------------------------|------------------------------|
+| gpt-5                    | 0.625                       | 5.0                          |
+| gpt-5-mini               | 0.125                       | 1.0                          |
+| gpt-5-nano               | 0.0025                      | 0.2                          |
+| gpt-5-chat-latest        | 0.625                       | 5.0                          |
 | claude-4-opus            | 7.50                        | 37.5                         |
 | claude-4-opus-thinking   | 7.50                        | 37.5                         |
 | claude-4-sonnet          | 1.50                        | 7.50                         |

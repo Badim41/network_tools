@@ -29,6 +29,12 @@ class ImageModels:
 
 class GptModels:
     # OPENAI
+    gpt_5_high = "gpt-5-high"
+    chatgpt_5 = "chatgpt-5"
+    gpt_5 = "gpt-5"
+    gpt_5_mini = "gpt-5-mini"
+    gpt_5_nano = "gpt-5-nano"
+
     o3_high = "o3-high"  # thinking
     o4_mini = "o4-mini"  # thinking
 
@@ -85,7 +91,8 @@ class GptModels:
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3,
         command_r_plus, command_a, c4ai_aya_vision_32b,
-        reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini
+        reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
+        gpt_5_high,chatgpt_5, gpt_5, gpt_5_mini,gpt_5_nano
     ]
 
 
@@ -109,6 +116,13 @@ GPT_4O_MODELS = [
     GptModels.gpt_4o,
     GptModels.gpt_4o_mini
 ]
+GPT_5_MODELS = [
+    GptModels.gpt_5_high,
+    GptModels.chatgpt_5,
+    GptModels.gpt_5,
+    GptModels.gpt_5_mini,
+    GptModels.gpt_5_nano
+]
 ALL_VISION_MODELS = ([GptModels.reka_flash, GptModels.c4ai_aya_vision_32b] + GPT_4O_MODELS +
                      [GptModels.gemini_2_5_pro,
                       GptModels.gemini_2_5_flash,
@@ -117,7 +131,7 @@ ALL_VISION_MODELS = ([GptModels.reka_flash, GptModels.c4ai_aya_vision_32b] + GPT
                       ] + [
                          GptModels.o4_mini,
                          GptModels.o3_high
-                     ])
+                     ] + GPT_5_MODELS)
 
 
 @dataclass
