@@ -65,8 +65,6 @@
 
 ## Модели для генерации видео:
 
-- Veo-3
-- Kling-1.6
 - Stable video diffusion
 
 ## Модели для генерации музыки (generate/cover/extend):
@@ -248,8 +246,6 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Модель                 | Стоимость (Credit/видео) |
 |------------------------|--------------------------|
 | Stable Video Diffusion | 0.2                      |
-| Veo-3                  | 4.5                      |
-| Kling-1.6              | 0.3                      |
 
 ## Генерация музыки
 
