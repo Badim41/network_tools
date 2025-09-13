@@ -25,6 +25,7 @@ class ImageModels:
     gemini = "gemini"
     chat_gpt_images = "chat_gpt_images"
     flux_pro_ultra_raw = "flux_pro_ultra_raw"
+    nano_banana = "nano_banana"
 
 
 class GptModels:
@@ -95,7 +96,7 @@ class GptModels:
         deepseek_r1, deepseek_v3,
         command_r_plus, command_a, c4ai_aya_vision_32b,
         reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
-        gpt_5_high,chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_5, gpt_oss
+        gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_5, gpt_oss
     ]
 
 
