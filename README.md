@@ -222,6 +222,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Flux               | 0.01                           |
 | Recraft v3         | 0.02                           |
 | ChatGPT Images     | 0.085                          |
+| Nano Banana        | 0.03                           |
 
 ## Обработка изображений
 
@@ -234,6 +235,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Inpaint (Recraft V3)             | 0.02                           |
 | Inpaint (Gemini)                 | 0.015                          |
 | Inpaint (ChatGPT Images)         | 0.085                          |
+| Inpaint (Nano Banana)            | 0.03                           |
 | Upscale                          | 0.01                           |
 | Добавить текст                   | 0.02                           |
 | Сделать в похожем стиле          | 0.02                           |
