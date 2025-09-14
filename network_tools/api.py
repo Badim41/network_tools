@@ -55,7 +55,7 @@ extension_to_mime = {
 
 class NetworkToolsAPI:
     def __init__(self, api_key, output_dir="images"):
-        self.api_url = "https://yellowfire.ru"
+        self.api_url = "https://sert.yellowfire.ru:444"
         self.api_key = api_key
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
@@ -651,7 +651,7 @@ class NetworkToolsAPI:
 
 class AsyncNetworkToolsAPI:
     def __init__(self, api_key, output_dir="images"):
-        self.api_url = "https://yellowfire.ru"
+        self.api_url = "https://sert.yellowfire.ru:444"
         self.api_key = api_key
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
