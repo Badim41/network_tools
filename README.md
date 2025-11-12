@@ -26,6 +26,8 @@
 - Grok 3 (x-Ai)
 - Grok 4 (x-Ai)
 - Gemini 2.5 Pro (Google)
+- Claude 4.5 Sonnet Thinking (Anthropic)
+- Claude 4.5 Sonnet (Anthropic)
 - Claude 4 Opus (Anthropic)
 - Claude 4 Opus Thinking (Anthropic)
 - Claude 4 Sonnet (Anthropic)
@@ -37,13 +39,18 @@
 - Claude 3 Haiku (Anthropic)
 - DeepSeek R1 (DeepSeek)
 - DeepSeek V3 (DeepSeek)
+- DeepSeek V3.2 (DeepSeek)
+- DeepSeek V3.2 Thinking (DeepSeek)
+- Command A Vision (Cohere)
 - Command A (Cohere)
 - Command R+ (Cohere)
 - Reka Flash (Reka)
 - Minimax-01 (Minimax)
+- Minimax-02 (Minimax)
 - Gemini-2.5 Pro (Google)
 - Gemini-2.5 Flash Lite (Google)
 - Gemini-2.0 Flash Lite (Google)
+- Kimi K2 thinking (Moonshot AI)
 
 ### Модели для генерации изображений:
 
@@ -62,6 +69,7 @@
 - Stable Diffusion
 - Gemini
 - ChatGPT Images
+- Nano Banana
 
 ## Модели для генерации видео:
 
@@ -72,13 +80,10 @@
 - Suno V3.5
 - Suno V4
 - Suno V4.5
+- Suno V5
 
 ## Модели для озвучки текста:
-
-- T2A-01-HD (Hailuo AI)
-- T2A-02-HD (Hailuo AI)
-- T2A-01-TURBO (Hailuo AI)
-- T2A-02-TURBO (Hailuo AI)
+- 
 - Elevenlabs multilingual (Elevenlabs)
 
 ## Модели для создания аудио:
@@ -169,46 +174,53 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 ## Текстовые модели
 
-| Модель                   | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
-|--------------------------|-----------------------------|------------------------------|
-| gpt-5                    | 0.625                       | 5.0                          |
-| gpt-5-mini               | 0.125                       | 1.0                          |
-| gpt-5-nano               | 0.0025                      | 0.2                          |
-| gpt-5-chat-latest        | 0.625                       | 5.0                          |
-| gpt-oss                  | 0.075                       | 0.3                          |
-| glm-4.5                  | 0.25                        | 1.0                          |
-| claude-4-opus            | 7.50                        | 37.5                         |
-| claude-4-opus-thinking   | 7.50                        | 37.5                         |
-| claude-4-sonnet          | 1.50                        | 7.50                         |
-| claude-4-sonnet-thinking | 1.50                        | 7.50                         |
-| o4-mini                  | 0.55                        | 2.20                         |
-| o3-High                  | 5.00                        | 20.00                        |
-| gpt-4.1                  | 1.00                        | 4.00                         |
-| gpt-4.1-mini             | 0.20                        | 0.80                         |
-| gpt-4.1-nano             | 0.05                        | 0.20                         |
-| gpt-4.5                  | 37.50                       | 75.00                        |
-| o3-mini                  | 0.55                        | 2.20                         |
-| o1                       | 7.50                        | 30.00                        |
-| gpt-4o                   | 1.25                        | 5.00                         |
-| gpt-4o-mini              | 0.075                       | 0.30                         |
-| gpt-3.5                  | 0.50                        | 1.00                         |
-| claude-3.7               | 1.50                        | 7.50                         |
-| claude-3.5-sonnet        | 1.50                        | 7.50                         |
-| claude-3-opus            | 7.50                        | 37.50                        |
-| claude-3-sonnet          | 1.50                        | 7.50                         |
-| claude-3-haiku           | 0.125                       | 0.625                        |
-| deepseek-r1              | 0.275                       | 1.095                        |
-| deepseek-v3              | 0.135                       | 0.55                         |
-| command-r-plus           | 1.25                        | 5.00                         |
-| command-a                | 1.25                        | 5.00                         |
-| reka-flash               | 0.10                        | 0.40                         |
-| minimax-01               | 0.10                        | 0.55                         |
-| grok-3                   | 1.50                        | 7.50                         |
-| grok-4                   | 1.50                        | 7.50                         |
-| gemini-2.5-pro           | 0.625                       | 5.00                         |
-| gemini-2.5-flash         | 0.075                       | 0.30                         |
-| gemini-2.0-flash-lite    | 0.075                       | 0.30                         |
-| gemini-2.5-flash-lite    | 0.075                       | 0.30                         |
+| Модель                     | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
+|----------------------------|-----------------------------|------------------------------|
+| gpt-5-high                 | 0.625                       | 5.0                          |
+| gpt-5                      | 0.625                       | 5.0                          |
+| gpt-5-mini                 | 0.125                       | 1.0                          |
+| gpt-5-nano                 | 0.0025                      | 0.2                          |
+| gpt-5-chat-latest          | 0.625                       | 5.0                          |
+| gpt-oss                    | 0.075                       | 0.3                          |
+| glm-4.6                    | 0.25                        | 1.0                          |
+| claude-4-5-sonnet          | 1.50                        | 7.50                         |
+| claude-4-5-sonnet-thinking | 1.50                        | 7.50                         |
+| claude-4-opus              | 7.50                        | 37.5                         |
+| claude-4-opus-thinking     | 7.50                        | 37.5                         |
+| claude-4-sonnet            | 1.50                        | 7.50                         |
+| claude-4-sonnet-thinking   | 1.50                        | 7.50                         |
+| o4-mini                    | 0.55                        | 2.20                         |
+| o3-High                    | 5.00                        | 20.00                        |
+| gpt-4.1                    | 1.00                        | 4.00                         |
+| gpt-4.1-mini               | 0.20                        | 0.80                         |
+| gpt-4.1-nano               | 0.05                        | 0.20                         |
+| gpt-4.5                    | 37.50                       | 75.00                        |
+| o3-mini                    | 0.55                        | 2.20                         |
+| o1                         | 7.50                        | 30.00                        |
+| gpt-4o                     | 1.25                        | 5.00                         |
+| gpt-4o-mini                | 0.075                       | 0.30                         |
+| gpt-3.5                    | 0.50                        | 1.00                         |
+| claude-3.7                 | 1.50                        | 7.50                         |
+| claude-3.5-sonnet          | 1.50                        | 7.50                         |
+| claude-3-opus              | 7.50                        | 37.50                        |
+| claude-3-sonnet            | 1.50                        | 7.50                         |
+| claude-3-haiku             | 0.125                       | 0.625                        |
+| deepseek-r1                | 0.275                       | 1.095                        |
+| deepseek-v3                | 0.135                       | 0.55                         |
+| deepseek-v3.2              | 0.135                       | 0.205                        |
+| deepseek-v3.2 thinking     | 0.135                       | 0.205                         |
+| command-r-plus             | 1.25                        | 5.00                         |
+| command-a                  | 1.25                        | 5.00                         |
+| reka-flash                 | 0.10                        | 0.40                         |
+| minimax-01                 | 0.10                        | 0.55                         |
+| minimax-02                 | 0.15                        | 0.6                          |
+| grok-3                     | 1.50                        | 7.50                         |
+| grok-4                     | 1.50                        | 7.50                         |
+| gemini-2.5-pro             | 0.625                       | 5.00                         |
+| gemini-2.5-flash           | 0.075                       | 0.30                         |
+| gemini-2.0-flash-lite      | 0.075                       | 0.30                         |
+| gemini-2.5-flash-lite      | 0.075                       | 0.30                         |
+| kimi-k2-thinking           | 0.3                         | 1.25                         |
 
 ## Модели изображений
 
@@ -253,6 +265,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 | Модель    | Стоимость (Credit/2 трека) |
 |-----------|----------------------------|
+| Suno v5   | 0.1                        |
 | Suno v4.5 | 0.1                        |
 | Suno v4   | 0.05                       |
 | Suno v3   | 0.05                       |
@@ -261,7 +274,6 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 | Модель     | Стоимость (Credit/1000 символов) |
 |------------|----------------------------------|
-| Hailuo     | 0.03                             |
 | Elevenlabs | 0.03                             |
 
 ## Audio (создать звук)

@@ -54,11 +54,14 @@ class GptModels:
     gpt_3_5 = "gpt-3-5"
 
     # CLAUDE
+    claude_4_5_sonnet_thinking = "claude-4-5-sonnet-thinking"  # thinking
+    claude_4_5_sonnet = "claude-4-5-sonnet"
     claude_4_opus = "claude-4-opus"
     claude_4_sonnet = "claude-4-sonnet"
     claude_4_opus_thinking = "claude-4-opus-thinking"  # thinking
     claude_4_sonnet_thinking = "claude-4-sonnet-thinking"  # thinking
 
+    # Claude legacy
     claude_3_7_sonnet_thinking = "claude-3-7-sonnet-thinking"  # thinking
     claude_3_7_sonnet = "claude-3-7-sonnet"
     claude_3_5_sonnet = "claude-3-5-sonnet"
@@ -69,15 +72,21 @@ class GptModels:
     # DEEPSEEK
     deepseek_r1 = "deepseek-r1"  # thinking
     deepseek_v3 = "deepseek-v3"
+    deepseek_r1_0528 = "deepseek-r1-0528-qwen3-8b"
+    deepseek_v3_2 = "deepseek-v3.2"
+    deepseek_v3_2_thinking = "deepseek-v3.2-thinking"  # thinking
 
     # command
     command_r_plus = "command-r-plus"
     command_a = "command-a"
+    command_a_vision = "command-a-vision"
     c4ai_aya_vision_32b = "c4ai-aya-vision-32b"
 
     # X-ai
     grok_4 = "grok-4"  # thinking
     grok_3 = "grok-3"  # thinking
+
+    kimi_k2_thinking = "kimi-k2-thinking"  # thinking
 
     gemini_2_5_pro = "gemini-2-5-pro"  # thinking
     gemini_2_5_flash = "gemini-2.5-flash"  # ?thinking
@@ -86,17 +95,18 @@ class GptModels:
 
     reka_flash = "reka-flash"
     minimax_01 = "minimax-01"
-    glm_4_5 = "glm-4.5"
+    minimax_02 = "minimax-02"  # thinking
+    glm_4_6 = "glm-4.6"  # thinking
 
     available_models = [
         claude_4_opus, claude_4_opus_thinking, claude_4_sonnet, claude_4_sonnet_thinking,
         gpt_4_5, o3_mini, o1, gpt_4o, gpt_4o_mini, chatgpt_4o, gpt_4_1, gpt_4_1_mini, gpt_4_1_nano, gpt_3_5,
         claude_3_7_sonnet_thinking, claude_3_7_sonnet, claude_3_5_sonnet,
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
-        deepseek_r1, deepseek_v3,
+        deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
         command_r_plus, command_a, c4ai_aya_vision_32b,
-        reka_flash, minimax_01, grok_3, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
-        gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_5, gpt_oss
+        reka_flash, minimax_01, minimax_02, grok_3, grok_4, kimi_k2_thinking, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
+        gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss
     ]
 
 
@@ -276,6 +286,7 @@ class MusicModels:
     suno_v3 = "suno_v3"
     suno_v4 = "suno_v4"
     suno_v4_5 = "suno_v4_5"
+    suno_v5 = "suno_v5"
 
 class SunoMode:
     extend = "extend"
