@@ -22,7 +22,7 @@ class ImageModels:
     sd_xl = "sd_xl"
     recraft = "recraft"
     dalle_3 = "dalle_3"
-    gemini = "gemini"
+    # gemini = "gemini"
     chat_gpt_images = "chat_gpt_images"
     flux_pro_ultra_raw = "flux_pro_ultra_raw"
     nano_banana = "nano_banana"
@@ -92,8 +92,9 @@ class GptModels:
 
     kimi_k2_thinking = "kimi-k2-thinking"  # thinking
 
+    gemini_3_0_pro = "gemini-3-0-pro"  # thinking
     gemini_2_5_pro = "gemini-2-5-pro"  # thinking
-    gemini_2_5_flash = "gemini-2.5-flash"  # ?thinking
+    gemini_2_5_flash = "gemini-2.5-flash"
     gemini_2_5_flash_lite = "gemini-2.5-flash-lite"  # quick
     gemini_2_0_flash_lite = "gemini-2.0-flash-lite"  # very quick
 
@@ -109,7 +110,7 @@ class GptModels:
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
         command_r_plus, command_a, c4ai_aya_vision_32b,
-        reka_flash, minimax_01, minimax_02, grok_3, grok_4, kimi_k2_thinking, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
+        reka_flash, minimax_01, minimax_02, grok_3, grok_4, kimi_k2_thinking, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
         gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1
     ]
 
@@ -145,7 +146,8 @@ GPT_5_MODELS = [
     GptModels.gpt_5_nano
 ]
 ALL_VISION_MODELS = ([GptModels.reka_flash, GptModels.c4ai_aya_vision_32b] + GPT_4O_MODELS +
-                     [GptModels.gemini_2_5_pro,
+                     [GptModels.gemini_3_0_pro,
+                      GptModels.gemini_2_5_pro,
                       GptModels.gemini_2_5_flash,
                       GptModels.gemini_2_5_flash_lite,
                       GptModels.gemini_2_0_flash_lite

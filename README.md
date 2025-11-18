@@ -19,15 +19,17 @@
 - GPT-4.1 (OpenAI)
 - GPT-4.1-mini (OpenAI)
 - GPT-4.1-nano (OpenAI)
-- GPT-4.5 (OpenAI)
 - o3-mini (OpenAI)
 - o1 (OpenAI)
 - GPT-4o (OpenAI)
 - GPT-4o-mini (OpenAI)
 - GPT-3.5 (OpenAI)
-- Grok 3 (x-Ai)
 - Grok 4 (x-Ai)
+- Grok 3 (x-Ai)
+- Gemini 3.0 Pro (Google)
 - Gemini 2.5 Pro (Google)
+- Gemini-2.5 Flash Lite (Google)
+- Gemini-2.0 Flash Lite (Google)
 - Claude 4.5 Sonnet Thinking (Anthropic)
 - Claude 4.5 Sonnet (Anthropic)
 - Claude 4 Opus (Anthropic)
@@ -49,9 +51,6 @@
 - Reka Flash (Reka)
 - Minimax-01 (Minimax)
 - Minimax-02 (Minimax)
-- Gemini-2.5 Pro (Google)
-- Gemini-2.5 Flash Lite (Google)
-- Gemini-2.0 Flash Lite (Google)
 - Kimi K2 thinking (Moonshot AI)
 
 ### Модели для генерации изображений:
@@ -62,14 +61,12 @@
 - Flux
 - Recraft V3
 - Kandinsky
-- Gemini
 - ChatGPT Images
 
 ## Модели для редактирования изображений:
 
 - Recraft V3
 - Stable Diffusion
-- Gemini
 - ChatGPT Images
 - Nano Banana
 
@@ -85,7 +82,6 @@
 - Suno V5
 
 ## Модели для озвучки текста:
-- 
 - Elevenlabs multilingual (Elevenlabs)
 
 ## Модели для создания аудио:
@@ -212,7 +208,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | deepseek-r1                | 0.275                       | 1.095                        |
 | deepseek-v3                | 0.135                       | 0.55                         |
 | deepseek-v3.2              | 0.135                       | 0.205                        |
-| deepseek-v3.2 thinking     | 0.135                       | 0.205                         |
+| deepseek-v3.2 thinking     | 0.135                       | 0.205                        |
 | command-r-plus             | 1.25                        | 5.00                         |
 | command-a                  | 1.25                        | 5.00                         |
 | reka-flash                 | 0.10                        | 0.40                         |
@@ -220,6 +216,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | minimax-02                 | 0.15                        | 0.6                          |
 | grok-3                     | 1.50                        | 7.50                         |
 | grok-4                     | 1.50                        | 7.50                         |
+| gemini-3.0-pro             | 1.0                         | 6.00                         |
 | gemini-2.5-pro             | 0.625                       | 5.00                         |
 | gemini-2.5-flash           | 0.075                       | 0.30                         |
 | gemini-2.0-flash-lite      | 0.075                       | 0.30                         |
@@ -231,7 +228,6 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Модель             | Стоимость (Credit/изображение) |
 |--------------------|--------------------------------|
 | DALL-E (Light)     | 0.01                           |
-| DALL-E 3           | 0.02                           |
 | SD Ultra           | 0.04                           |
 | SD XL              | 0.0005                         |
 | Flux Pro Ultra Row | 0.02                           |
@@ -249,7 +245,6 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Дополнение изображения           | 0.02                           |
 | Inpaint (Stable Diffusion Ultra) | 0.04                           |
 | Inpaint (Recraft V3)             | 0.02                           |
-| Inpaint (Gemini)                 | 0.015                          |
 | Inpaint (ChatGPT Images)         | 0.085                          |
 | Inpaint (Nano Banana)            | 0.03                           |
 | Upscale                          | 0.01                           |
