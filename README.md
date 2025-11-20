@@ -32,6 +32,8 @@
 - Gemini-2.0 Flash Lite (Google)
 - Claude 4.5 Sonnet Thinking (Anthropic)
 - Claude 4.5 Sonnet (Anthropic)
+- Claude 4.1 Opus (Anthropic)
+- Claude 4.1 Opus Thinking (Anthropic)
 - Claude 4 Opus (Anthropic)
 - Claude 4 Opus Thinking (Anthropic)
 - Claude 4 Sonnet (Anthropic)
@@ -68,7 +70,7 @@
 - Recraft V3
 - Stable Diffusion
 - ChatGPT Images
-- Nano Banana
+- Nano Banana Pro
 
 ## Модели для генерации видео:
 
@@ -187,6 +189,8 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | claude-4-5-sonnet-thinking | 1.50                        | 7.50                         |
 | claude-4-opus              | 7.50                        | 37.5                         |
 | claude-4-opus-thinking     | 7.50                        | 37.5                         |
+| claude-4-1-opus            | 7.50                        | 37.5                         |
+| claude-4-1-opus-thinking   | 7.50                        | 37.5                         |
 | claude-4-sonnet            | 1.50                        | 7.50                         |
 | claude-4-sonnet-thinking   | 1.50                        | 7.50                         |
 | o4-mini                    | 0.55                        | 2.20                         |
@@ -234,7 +238,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Flux               | 0.01                           |
 | Recraft v3         | 0.02                           |
 | ChatGPT Images     | 0.085                          |
-| Nano Banana        | 0.03                           |
+| Nano Banana Pro    | 0.03                           |
 
 ## Обработка изображений
 
@@ -246,7 +250,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Inpaint (Stable Diffusion Ultra) | 0.04                           |
 | Inpaint (Recraft V3)             | 0.02                           |
 | Inpaint (ChatGPT Images)         | 0.085                          |
-| Inpaint (Nano Banana)            | 0.03                           |
+| Inpaint (Nano Banana Pro)           | 0.03                           |
 | Upscale                          | 0.01                           |
 | Добавить текст                   | 0.02                           |
 | Сделать в похожем стиле          | 0.02                           |
