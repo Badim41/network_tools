@@ -58,6 +58,8 @@ class GptModels:
     gpt_3_5 = "gpt-3-5"
 
     # CLAUDE
+    claude_4_5_opus_thinking = "claude-4-5-opus-thinking"  # thinking
+    claude_4_5_opus = "claude-4-5-opus"
     claude_4_5_sonnet_thinking = "claude-4-5-sonnet-thinking"  # thinking
     claude_4_5_sonnet = "claude-4-5-sonnet"
     claude_4_1_opus = "claude-4-1-opus"
@@ -120,6 +122,10 @@ class GptModels:
 AVAILABLE_MODELS = GptModels.available_models
 
 CLAUDE_MODELS = [
+    GptModels.claude_4_5_opus,
+    GptModels.claude_4_5_opus_thinking,
+    GptModels.claude_4_5_sonnet,
+    GptModels.claude_4_5_sonnet_thinking,
     GptModels.claude_4_1_opus,
     GptModels.claude_4_1_opus_thinking,
     GptModels.claude_4_opus,
@@ -159,6 +165,12 @@ ALL_VISION_MODELS = ([GptModels.reka_flash, GptModels.c4ai_aya_vision_32b] + GPT
                          GptModels.o4_mini,
                          GptModels.o3_high
                      ] + GPT_5_MODELS + [
+                         GptModels.claude_4_5_opus,
+                         GptModels.claude_4_5_opus_thinking,
+                         GptModels.claude_4_5_sonnet,
+                         GptModels.claude_4_5_sonnet_thinking,
+                         GptModels.claude_4_sonnet,
+                         GptModels.claude_4_sonnet_thinking,
                          GptModels.claude_4_1_opus,
                          GptModels.claude_4_1_opus_thinking,
                          GptModels.claude_4_opus,

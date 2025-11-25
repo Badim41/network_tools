@@ -30,6 +30,8 @@
 - Gemini 2.5 Pro (Google)
 - Gemini-2.5 Flash Lite (Google)
 - Gemini-2.0 Flash Lite (Google)
+- Claude 4.5 Opus Thinking (Anthropic)
+- Claude 4.5 Opus (Anthropic)
 - Claude 4.5 Sonnet Thinking (Anthropic)
 - Claude 4.5 Sonnet (Anthropic)
 - Claude 4.1 Opus (Anthropic)
@@ -185,6 +187,8 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | gpt-5-chat-latest          | 0.625                       | 5.0                          |
 | gpt-oss                    | 0.075                       | 0.3                          |
 | glm-4.6                    | 0.25                        | 1.0                          |
+| claude-4-5-opus            | 2.50                        | 12.50                        |
+| claude-4-5-opus-thinking   | 2.50                        | 12.50                        |
 | claude-4-5-sonnet          | 1.50                        | 7.50                         |
 | claude-4-5-sonnet-thinking | 1.50                        | 7.50                         |
 | claude-4-opus              | 7.50                        | 37.5                         |
