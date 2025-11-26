@@ -21,11 +21,12 @@ class ImageModels:
     # flux_dev = "flux_dev"
     sd_xl = "sd_xl"
     recraft = "recraft"
-    dalle_3 = "dalle_3"
+    # dalle_3 = "dalle_3"
     # gemini = "gemini"
     chat_gpt_images = "chat_gpt_images"
     flux_pro_ultra_raw = "flux_pro_ultra_raw"
     nano_banana = "nano_banana"
+    nano_banana_pro = "nano_banana_pro"
 
 
 class GptModels:
