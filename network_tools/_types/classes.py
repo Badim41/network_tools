@@ -104,8 +104,8 @@ class GptModels:
     gemini_2_0_flash_lite = "gemini-2.0-flash-lite"  # very quick
 
     reka_flash = "reka-flash"
-    minimax_01 = "minimax-01"
-    minimax_02 = "minimax-02"  # thinking
+    # minimax_01 = "minimax-01"
+    # minimax_02 = "minimax-02"  # thinking
     glm_4_6 = "glm-4.6"  # thinking
 
     available_models = [
@@ -115,7 +115,7 @@ class GptModels:
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
         command_r_plus, command_a, c4ai_aya_vision_32b,
-        reka_flash, minimax_01, minimax_02, grok_3, grok_4, kimi_k2_thinking, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
+        reka_flash, grok_3, grok_4, kimi_k2_thinking, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
         gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1
     ]
 
@@ -328,8 +328,9 @@ class SunoMode:
 
 class VideoModels:
     stable_video_diffusion = "stable_video_diffusion"
-    veo_3 = "veo-3"
-    kling_1_6 = "kling-1.6"
+    # veo_3 = "veo-3"
+    # kling_1_6 = "kling-1.6"
+    sora_2 = "sora-2"
 
 
 class TtsModels:
