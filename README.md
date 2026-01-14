@@ -5,6 +5,8 @@
 
 ### Нейросети для обработки текста:
 
+- GPT-5-2-pro (OpenAI)
+- GPT-5-2 (OpenAI)
 - GPT-5-1-high (OpenAI)
 - GPT-5-1 (OpenAI)
 - GPT-5-high (OpenAI)
@@ -27,6 +29,7 @@
 - Grok 4 (x-Ai)
 - Grok 3 (x-Ai)
 - Gemini 3.0 Pro (Google)
+- Gemini 3.0 Flash (Google)
 - Gemini 2.5 Pro (Google)
 - Gemini-2.5 Flash Lite (Google)
 - Gemini-2.0 Flash Lite (Google)
@@ -41,10 +44,6 @@
 - Claude 4 Sonnet (Anthropic)
 - Claude 4 Sonnet Thinking (Anthropic)
 - Claude 3.7 (Anthropic)
-- Claude 3.5 Sonnet (Anthropic)
-- Claude 3 Opus (Anthropic)
-- Claude 3 Sonnet (Anthropic)
-- Claude 3 Haiku (Anthropic)
 - DeepSeek R1 (DeepSeek)
 - DeepSeek V3 (DeepSeek)
 - DeepSeek V3.2 (DeepSeek)
@@ -87,6 +86,7 @@
 - Suno V5
 
 ## Модели для озвучки текста:
+
 - Elevenlabs multilingual (Elevenlabs)
 
 ## Модели для создания аудио:
@@ -180,6 +180,8 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 | Модель                     | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
 |----------------------------|-----------------------------|------------------------------|
+| gpt-5-2-pro                | 84                          | 10.5                         |
+| gpt-5-2                    | 0.625                       | 7.0                          |
 | gpt-5-1-high               | 0.625                       | 5.0                          |
 | gpt-5-1                    | 0.625                       | 5.0                          |
 | gpt-5-high                 | 0.625                       | 5.0                          |
@@ -211,10 +213,6 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | gpt-4o-mini                | 0.075                       | 0.30                         |
 | gpt-3.5                    | 0.50                        | 1.00                         |
 | claude-3.7                 | 1.50                        | 7.50                         |
-| claude-3.5-sonnet          | 1.50                        | 7.50                         |
-| claude-3-opus              | 7.50                        | 37.50                        |
-| claude-3-sonnet            | 1.50                        | 7.50                         |
-| claude-3-haiku             | 0.125                       | 0.625                        |
 | deepseek-r1                | 0.275                       | 1.095                        |
 | deepseek-v3                | 0.135                       | 0.55                         |
 | deepseek-v3.2              | 0.135                       | 0.205                        |
@@ -227,6 +225,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | grok-3                     | 1.50                        | 7.50                         |
 | grok-4                     | 1.50                        | 7.50                         |
 | gemini-3.0-pro             | 1.0                         | 6.00                         |
+| gemini-3.0-flash           | 0.25                        | 1.50                         |
 | gemini-2.5-pro             | 0.625                       | 5.00                         |
 | gemini-2.5-flash           | 0.075                       | 0.30                         |
 | gemini-2.0-flash-lite      | 0.075                       | 0.30                         |
@@ -256,7 +255,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | Inpaint (Stable Diffusion Ultra) | 0.04                           |
 | Inpaint (Recraft V3)             | 0.02                           |
 | Inpaint (ChatGPT Images)         | 0.085                          |
-| Inpaint (Nano Banana Pro)           | 0.03                           |
+| Inpaint (Nano Banana Pro)        | 0.03                           |
 | Upscale                          | 0.01                           |
 | Добавить текст                   | 0.02                           |
 | Сделать в похожем стиле          | 0.02                           |
