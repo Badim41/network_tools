@@ -355,8 +355,8 @@ class NetworkToolsAPI:
         video_base64 = video_data['response'][model][0]
         return self._save_base64(video_base64, model, "0", request_id)
 
-    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = None,
-                model_id: str = HailuoModelIds.speech_02_hd):
+    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = ModelV3Voices.ru_RU_FEMALE,
+                model_id: str = None, reference_audio_wav: str = None, download_stream:bool=False):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
@@ -364,15 +364,14 @@ class NetworkToolsAPI:
         :param model: str, модель генерации голоса
         :param speed: float, скорость речи (по умолчанию 1)
         :param lang: str, язык (по умолчанию "Auto")
-        :param voice_id: Optional[str], ID голоса (если None, выбирается по языку)
+        :param voice_id: Optional[str], ID голоса
+        :param model_id: Optional[str], ID модели
+        :param reference_audio_wav: Optional[str], файл WAV с примером голоса (voice clone)
+        :param download_stream: Optional[bool] скачивать ли промежуточные результаты
         :return: List[str], пути к аудиофайлам
         """
         url = f"{self.api_url}/api/v2/tts"
         headers = {"Content-Type": "application/json", "api-key": self.api_key}
-
-        # голос по умолчанию
-        if not voice_id:
-            voice_id = "226893671006272"
 
         data = {
             "model": model,
@@ -381,7 +380,8 @@ class NetworkToolsAPI:
                 "speed": speed,
                 "lang": lang,
                 "voice_id": voice_id,
-                "model_id": model_id
+                "model_id": model_id,
+                "reference_audio": self._file_to_base64(reference_audio_wav)
             }
         }
 
@@ -394,7 +394,7 @@ class NetworkToolsAPI:
         if not request_id:
             raise Exception("Request ID not found in response")
 
-        return self._check_status_stream_tts(request_id)
+        return self._check_status_stream_tts(request_id, download_stream=download_stream)
 
     def audio_generate_api(
             self,
@@ -499,7 +499,7 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def _check_status_stream_tts(self, request_id, attempts=300):
+    def _check_status_stream_tts(self, request_id, attempts=300, download_stream:bool=True):
         """
         :return: str, путь к итоговому аудиофайлу
         """
@@ -513,7 +513,7 @@ class NetworkToolsAPI:
 
             status = status_data.get("status")
             # print("status(1)", status)
-            if status in ["stream", "success"]:
+            if status in ["stream", "success"] and download_stream:
                 for model_name, audio_paths in status_data.get("stream_parts", status_data.get("response")).items():
                     for i, file_base64 in enumerate(audio_paths):
                         if i < got_parts:  # если success, то возвращается 1 аудиофайл
@@ -960,8 +960,8 @@ class AsyncNetworkToolsAPI:
         video_base64 = video_data['response'][model][0]
         return await self._save_base64(video_base64, model, "0", request_id)
 
-    async def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = None,
-                      model_id: str = HailuoModelIds.speech_02_hd):
+    async def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = ModelV3Voices.ru_RU_FEMALE,
+                      model_id: str = None, reference_audio_wav: str = None, download_stream:bool=False):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
@@ -969,7 +969,10 @@ class AsyncNetworkToolsAPI:
         :param model: str, модель генерации голоса
         :param speed: float, скорость речи (по умолчанию 1)
         :param lang: str, язык (по умолчанию "Auto")
-        :param voice_id: Optional[str], ID голоса (если None, выбирается по языку)
+        :param voice_id: Optional[str], ID голоса
+        :param model_id: Optional[str], ID модели
+        :param reference_audio_wav: Optional[str], файл WAV с примером голоса (voice clone)
+        :param download_stream: Optional[bool] скачивать ли промежуточные результаты
         :return: List[str], пути к аудиофайлам
         """
         url = f"{self.api_url}/api/v2/tts"
@@ -986,7 +989,8 @@ class AsyncNetworkToolsAPI:
                 "speed": speed,
                 "lang": lang,
                 "voice_id": voice_id,
-                "model_id": model_id
+                "model_id": model_id,
+                "reference_audio": self._file_to_base64(reference_audio_wav)
             }
         }
 
@@ -1000,7 +1004,7 @@ class AsyncNetworkToolsAPI:
         if not request_id:
             raise Exception("Request ID not found in response")
 
-        async for result in self._check_status_stream_tts(request_id):
+        async for result in self._check_status_stream_tts(request_id, download_stream=download_stream):
             yield result
 
     async def audio_generate_api(
@@ -1102,7 +1106,7 @@ class AsyncNetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    async def _check_status_stream_tts(self, request_id, attempts=300):
+    async def _check_status_stream_tts(self, request_id, attempts=300, download_stream:bool=True):
         """
         :return: str, путь к итоговому аудиофайлу
         """
@@ -1115,6 +1119,8 @@ class AsyncNetworkToolsAPI:
 
             status = status_data.get("status")
             if status in ["stream", "success"]:
+                if status == "stream" and not download_stream:
+                    continue
                 for model_name, audio_paths in status_data.get("stream_parts", status_data.get("response")).items():
                     for i, file_base64 in enumerate(audio_paths):
                         if i < got_parts:
