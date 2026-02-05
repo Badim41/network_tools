@@ -63,6 +63,7 @@ class GptModels:
     gpt_3_5 = "gpt-3-5"
 
     # CLAUDE
+    claude_4_6_opus = "claude-4-6-opus"  # thinking
     claude_4_5_opus_thinking = "claude-4-5-opus-thinking"  # thinking
     claude_4_5_opus = "claude-4-5-opus"
     claude_4_5_sonnet_thinking = "claude-4-5-sonnet-thinking"  # thinking
@@ -337,7 +338,7 @@ class SunoMode:
 
 class VideoModels:
     stable_video_diffusion = "stable_video_diffusion"
-    # veo_3 = "veo-3"
+    veo_3 = "veo-3"
     # kling_1_6 = "kling-1.6"
     sora_2 = "sora-2"
 
