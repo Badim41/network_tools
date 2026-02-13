@@ -101,6 +101,7 @@ class GptModels:
     grok_3 = "grok-3"  # thinking
 
     kimi_k2_thinking = "kimi-k2-thinking"  # thinking
+    kimi_k2_5 = "kimi-k2-5"
 
     gemini_3_0_pro = "gemini-3-0-pro"  # thinking
     gemini_3_0_flash = "gemini-3-0-flash"  # thinking
@@ -122,7 +123,7 @@ class GptModels:
         deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
         command_r_plus, command_a, c4ai_aya_vision_32b,
         reka_flash, grok_3, grok_4, kimi_k2_thinking, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
-        gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1, gpt_5_2, gpt_5_2_pro, gemini_3_0_flash, gpt_5_2_high
+        gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1, gpt_5_2, gpt_5_2_pro, gemini_3_0_flash, gpt_5_2_high, kimi_k2_5
     ]
 
 

@@ -56,6 +56,7 @@
 - Minimax-01 (Minimax)
 - Minimax-02 (Minimax)
 - Kimi K2 thinking (Moonshot AI)
+- Kimi K2.5 (Moonshot AI)
 
 ### Модели для генерации изображений:
 
@@ -233,6 +234,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | gemini-2.0-flash-lite      | 0.075                       | 0.30                         |
 | gemini-2.5-flash-lite      | 0.075                       | 0.30                         |
 | kimi-k2-thinking           | 0.3                         | 1.25                         |
+| kimi-k2-5                  | 0.3                         | 1.25                         |
 
 ## Модели изображений
 

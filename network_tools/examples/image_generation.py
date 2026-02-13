@@ -3,7 +3,7 @@ from network_tools import NetworkToolsAPI, ImageModels, AspectRatio
 api_key = "API_KEY"   # замените на ваш API ключ
 client = NetworkToolsAPI(api_key)
 
-models = [ImageModels.nano_banana]
+models = [ImageModels.nano_banana_pro]
 prompt = "A futuristic cityscape with flying cars."
 aspect_ratio = AspectRatio.ratio_1x1
 
