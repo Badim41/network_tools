@@ -98,6 +98,7 @@ class GptModels:
 
     # X-ai
     grok_4 = "grok-4"  # thinking
+    grok_4_fast = "grok-4-fast"
     grok_3 = "grok-3"  # thinking
 
     kimi_k2_thinking = "kimi-k2-thinking"  # thinking

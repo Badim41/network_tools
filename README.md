@@ -27,6 +27,7 @@
 - GPT-4o-mini (OpenAI)
 - GPT-3.5 (OpenAI)
 - Grok 4 (x-Ai)
+- Grok 4 Fast (x-Ai)
 - Grok 3 (x-Ai)
 - Gemini 3.0 Pro (Google)
 - Gemini 3.0 Flash (Google)
@@ -227,6 +228,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | minimax-02                 | 0.15                        | 0.6                          |
 | grok-3                     | 1.50                        | 7.50                         |
 | grok-4                     | 1.50                        | 7.50                         |
+| grok-4-fast                | 1.50                        | 7.50                         |
 | gemini-3.0-pro             | 1.0                         | 6.00                         |
 | gemini-3.0-flash           | 0.25                        | 1.50                         |
 | gemini-2.5-pro             | 0.625                       | 5.00                         |
