@@ -111,7 +111,7 @@ class GptModels:
     gemini_2_5_flash_lite = "gemini-2.5-flash-lite"  # quick
     gemini_2_0_flash_lite = "gemini-2.0-flash-lite"  # very quick
 
-    reka_flash = "reka-flash"
+    # reka_flash = "reka-flash"
     # minimax_01 = "minimax-01"
     # minimax_02 = "minimax-02"  # thinking
     glm_4_6 = "glm-4.6"  # thinking
@@ -123,8 +123,8 @@ class GptModels:
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
         command_r_plus, command_a, c4ai_aya_vision_32b,
-        reka_flash, grok_3, grok_4, kimi_k2_thinking, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
-        gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1, gpt_5_2, gpt_5_2_pro, gemini_3_0_flash, gpt_5_2_high, kimi_k2_5
+        grok_3, grok_4, kimi_k2_thinking, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
+        gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1, gpt_5_2, gpt_5_2_pro, gemini_3_0_flash, gpt_5_2_high, kimi_k2_5, grok_4_fast
     ]
 
 
@@ -167,7 +167,7 @@ GPT_5_MODELS = [
     GptModels.gpt_5_mini,
     GptModels.gpt_5_nano
 ]
-ALL_VISION_MODELS = ([GptModels.reka_flash, GptModels.c4ai_aya_vision_32b] + GPT_4O_MODELS +
+ALL_VISION_MODELS = ([GptModels.c4ai_aya_vision_32b] + GPT_4O_MODELS +
                      [GptModels.gemini_3_0_pro,
                       GptModels.gemini_3_0_flash,
                       GptModels.gemini_2_5_pro,
