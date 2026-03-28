@@ -356,7 +356,7 @@ class NetworkToolsAPI:
         return self._save_base64(video_base64, model, "0", request_id)
 
     def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = ModelV3Voices.ru_RU_FEMALE,
-                model_id: str = None, reference_audio_wav: str = None, download_stream:bool=False):
+                model_id: str = None, reference_audio_wav: str = None, reference_audio_name:str=None,download_stream:bool=False):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
@@ -367,6 +367,7 @@ class NetworkToolsAPI:
         :param voice_id: Optional[str], ID голоса
         :param model_id: Optional[str], ID модели
         :param reference_audio_wav: Optional[str], файл WAV с примером голоса (voice clone)
+        :param reference_audio_name: Optional[str], файл WAV с примером голоса, который загружен на сервер (voice clone)
         :param download_stream: Optional[bool] скачивать ли промежуточные результаты
         :return: List[str], пути к аудиофайлам
         """
@@ -380,10 +381,14 @@ class NetworkToolsAPI:
                 "speed": speed,
                 "lang": lang,
                 "voice_id": voice_id,
-                "model_id": model_id,
-                "reference_audio": self._file_to_base64(reference_audio_wav)
+                "model_id": model_id
             }
         }
+
+        if reference_audio_wav:
+            data["params"]["reference_audio"] = self._file_to_base64(reference_audio_wav)
+        if reference_audio_name:
+            data["params"]["reference_audio_name"] = reference_audio_name
 
         response = self.session.post(url, headers=headers, json=data).json()
 
@@ -961,7 +966,7 @@ class AsyncNetworkToolsAPI:
         return await self._save_base64(video_base64, model, "0", request_id)
 
     async def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = ModelV3Voices.ru_RU_FEMALE,
-                      model_id: str = None, reference_audio_wav: str = None, download_stream:bool=False):
+                      model_id: str = None, reference_audio_wav: str = None, reference_audio_name:str=None, download_stream:bool=False):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
@@ -972,6 +977,7 @@ class AsyncNetworkToolsAPI:
         :param voice_id: Optional[str], ID голоса
         :param model_id: Optional[str], ID модели
         :param reference_audio_wav: Optional[str], файл WAV с примером голоса (voice clone)
+        :param reference_audio_name: Optional[str], файл WAV с примером голоса, который загружен на сервер (voice clone)
         :param download_stream: Optional[bool] скачивать ли промежуточные результаты
         :return: List[str], пути к аудиофайлам
         """
@@ -989,10 +995,13 @@ class AsyncNetworkToolsAPI:
                 "speed": speed,
                 "lang": lang,
                 "voice_id": voice_id,
-                "model_id": model_id,
-                "reference_audio": self._file_to_base64(reference_audio_wav)
+                "model_id": model_id
             }
         }
+        if reference_audio_wav:
+            data["params"]["reference_audio"] = await self._file_to_base64(reference_audio_wav)
+        if reference_audio_name:
+            data["params"]["reference_audio_name"] = reference_audio_name
 
         async with self.get_session().post(url, headers=headers, json=data) as response:
             response_data = await response.json()
