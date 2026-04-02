@@ -115,7 +115,7 @@ client = NetworkToolsAPI(api_key)
 
 ### 2. ChatGPT API
 
-#### Поддерживает файлы .txt, .pdf, .docx, .png
+#### Поддерживает файлы .txt, .docx, .png
 
 ```python
 from network_tools import GptModels
@@ -128,6 +128,8 @@ file_path = "files/cat.png"
 
 response = client.chatgpt_api(prompt, model=model, chat_history=chat_history, file_path=file_path)
 print(response.response.text)
+print(response.cost) # Стоимость запроса, Credits
+# 1 Credit = 100₽
 ```
 
 ### 3. Генерация изображений
@@ -159,7 +161,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 #### [Остальные примеры](https://github.com/Badim41/network_tools/tree/master/network_tools/examples)
 
-## Цена
+## Цены
 
 - Цены на текстовые модели в **2 раза ниже** официальных
 - Цены на модели изображений в **2 раза ниже** официальных
@@ -173,7 +175,9 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 Чтобы получить ключ и бесплатный баланс, перейдите по [ссылке](https://t.me/GPT4_Unlimit_bot?start=api) в бота пи
 пропишите /get_api, скопируйте ключ, который пришлёт бот
 
-#### Бесплатный баланс: 1$
+#### Бесплатный баланс: 1 Credit
+
+1 Credit = 100₽
 
 ## Текстовые модели
 

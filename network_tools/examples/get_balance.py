@@ -13,4 +13,4 @@ for request in user_usage.response.usage:
     balance_change = f"{request.balance_change:.8f}"  # Вывод с 8 знаками после запятой
     print(f"{timestamp:<20} {comment:<60} {balance_change:<15}")
 
-print("Баланс:", user_usage.response.balance)  # Отображение оставшегося баланса
+print("Баланс:", user_usage.response.balance)  # Отображение оставшегося баланса (Credit)

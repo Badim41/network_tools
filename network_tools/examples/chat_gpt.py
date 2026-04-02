@@ -13,6 +13,7 @@ chat_history = [
 response = client.chatgpt_api(prompt, model=model, chat_history=chat_history)
 print("Ответ 1:", response.response.text)
 print("История чата 1:", response.chat_history)
+print("response.cost:", response.cost) # Credits. 1 Credit = 100₽
 
 
 # Второй запрос, с картинкой
