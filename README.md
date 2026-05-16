@@ -3,6 +3,15 @@
 [![Example Usage Bot](https://img.shields.io/badge/Example-Telegram--BOT-0066FF?logo=probot&style=flat)](https://t.me/GPT4_Unlimit_bot?start=git3)
 [![Open in Colab](https://img.shields.io/badge/Open%20in-Google%20Colab-F9AB00?logo=googlecolab&style=flat)](https://colab.research.google.com/github/Badim41/network_tools/blob/master/google_colab_notebooks/base.ipynb)
 
+#### Получить ключ
+
+Чтобы получить ключ и бесплатный баланс, перейдите по [ссылке](https://t.me/GPT4_Unlimit_bot?start=api) в бота пи
+пропишите /get_api, скопируйте ключ, который пришлёт бот
+
+#### Бесплатный баланс: 1 Credit
+
+1 Credit = 100₽
+
 ### Нейросети для обработки текста:
 
 - GPT-5-2-pro (OpenAI)
@@ -170,14 +179,6 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 - Цены на TTS *примерно равны* официальным
 - Цены на генерацию видео **до 10 раз ниже** официальных
 
-#### Получить ключ
-
-Чтобы получить ключ и бесплатный баланс, перейдите по [ссылке](https://t.me/GPT4_Unlimit_bot?start=api) в бота пи
-пропишите /get_api, скопируйте ключ, который пришлёт бот
-
-#### Бесплатный баланс: 1 Credit
-
-1 Credit = 100₽
 
 ## Текстовые модели
 
