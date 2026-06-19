@@ -120,7 +120,7 @@ client = NetworkToolsAPI(api_key)
 ```python
 from network_tools import GptModels
 
-model = GptModels.gpt_4o
+model = GptModels.gpt_5
 prompt = "Что это?"
 chat_history = []
 file_path = "files/cat.png"
@@ -137,7 +137,7 @@ print(response.cost) # Стоимость запроса, Credits
 ```python
 from network_tools import ImageModels, AspectRatio
 
-models = [ImageModels.kandinsky, ImageModels.dalle_light]
+models = [ImageModels.nano_banana, ImageModels.flux]
 prompt = "Футуристический городской пейзаж с летающими машинами."
 aspect_ratio = AspectRatio.ratio_1x1  # Определите соотношение сторон
 
@@ -159,7 +159,8 @@ for request in user_usage.response.usage:
 print("Баланс:", user_usage.response.balance)  # Отображение оставшегося баланса
 ```
 
-#### [Остальные примеры](https://github.com/Badim41/network_tools/tree/master/network_tools/examples)
+**Чтобы посмотреть остальные примеры (редактирование фото, генерация аудио, и т.д.):**
+- [Остальные примеры](https://github.com/Badim41/network_tools/tree/master/network_tools/examples)
 
 ## Цены
 
