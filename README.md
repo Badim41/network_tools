@@ -12,6 +12,22 @@
 
 1 Credit = 100₽
 
+## 📑 Оглавление
+- [🧠 Поддерживаемые модели](#-нейросети-для-обработки-текста)
+- [📦 Установка](#установка)
+- [💻 Использование (Python)](#использование)
+  - [1. Инициализация клиента](#1-инициализация-клиента)
+  - [2. ChatGPT API](#2-chatgpt-api)
+  - [3. Генерация изображений](#3-генерация-изображений)
+  - [4. Получение баланса](#4-получение-баланса)
+  - [5. Редактирование изображений](#5-редактирование-изображений)
+  - [6. Генерация видео](#6-генерация-видео)
+  - [7. Генерация музыки](#7-генерация-музыки)
+  - [8. Озвучка текста (TTS)](#8-озвучка-текста-tts)
+  - [9. Генерация звуковых эффектов (Audio)](#9-генерация-звуковых-эффектов-audio)
+- [💰 Стоимость использования](#-стоимость-использования-моделей)
+- [🌐 CURL Примеры](#curl-примеры)
+
 ### 💬 Нейросети для обработки текста:
 
 **OpenAI**
@@ -276,12 +292,12 @@ print("Сгенерированный звук:", audio_path)
 
 | Модель                     | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
 |----------------------------|-----------------------------|------------------------------|
-| gpt-5-5                    | 5.00                        | 30.00                        |
-| gpt-5-4                    | 1.25                        | 14.00                        |
-| gpt-5-4-mini               | 0.75                        | 4.50                         |
+| gpt-5-5                    | 2.50                        | 15.00                        |
+| gpt-5-4                    | 0.625                       | 7.00                         |
+| gpt-5-4-mini               | 0.375                       | 2.25                         |
 | gpt-5-2-pro                | 84.00                       | 10.50                        |
 | gpt-5-2                    | 0.625                       | 7.00                         |
-| gpt-5-1-high               | 0.625                       | 5.00                         |
+| gpt-5-1-high               | 0.875                       | 5.00                         |
 | gpt-5-1                    | 0.625                       | 5.00                         |
 | gpt-5-high                 | 0.625                       | 5.00                         |
 | gpt-5                      | 0.625                       | 5.00                         |
@@ -290,15 +306,15 @@ print("Сгенерированный звук:", audio_path)
 | gpt-5-chat-latest          | 0.625                       | 5.00                         |
 | gpt-oss                    | 0.075                       | 0.30                         |
 | glm-4.6                    | 0.25                        | 1.00                         |
-| claude-5-sonnet            | 2.00                        | 10.00                        |
-| claude-4-8-opus            | 5.00                        | 25.00                        |
-| claude-4-7-opus            | 5.00                        | 25.00                        |
+| claude-5-sonnet            | 1.00                        | 5.00                         |
+| claude-4-8-opus            | 2.50                        | 12.50                        |
+| claude-4-7-opus            | 2.50                        | 12.50                        |
 | claude-4-6-opus            | 2.50                        | 12.50                        |
-| claude-4-5-haiku           | 0.25                        | 1.25                         |
+| claude-4-5-haiku           | 0.15                        | 0.75                         |
 | claude-4-5-opus            | 2.50                        | 12.50                        |
 | claude-4-5-opus-thinking   | 2.50                        | 12.50                        |
 | claude-4-5-sonnet          | 1.50                        | 7.50                         |
-| claude-4-5-sonnet-thinking | 1.50                        | 7.50                         |
+| claude-4-5-sonnet-thinking | 2.50                        | 12.50                        |
 | claude-4-opus              | 7.50                        | 37.50                        |
 | claude-4-opus-thinking     | 7.50                        | 37.50                        |
 | claude-4-1-opus            | 7.50                        | 37.50                        |
@@ -317,8 +333,8 @@ print("Сгенерированный звук:", audio_path)
 | gpt-4o-mini                | 0.075                       | 0.30                         |
 | gpt-3.5                    | 0.50                        | 1.00                         |
 | claude-3.7                 | 1.50                        | 7.50                         |
-| deepseek-v4-pro            | 0.435                       | 0.87                         |
-| deepseek-v4-flash          | 0.14                        | 0.28                         |
+| deepseek-v4-pro            | 0.2175                      | 0.435                        |
+| deepseek-v4-flash          | 0.07                        | 0.14                         |
 | deepseek-r1                | 0.275                       | 1.095                        |
 | deepseek-v3                | 0.135                       | 0.55                         |
 | deepseek-v3.2              | 0.135                       | 0.205                        |
@@ -407,7 +423,7 @@ print("Сгенерированный звук:", audio_path)
 
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/chatgpt \
+  --url https://ru.yellowfire.ru/api/v2/chatgpt \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "gpt-4o", "prompt": "Привет!", "chat_history": [], "file_base64": "", "internet_access": false, "mime_type":""}'
@@ -417,7 +433,7 @@ curl --request POST \
 
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/chatgpt \
+  --url https://ru.yellowfire.ru/api/v2/chatgpt \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "gpt-4o", "prompt": "Что это за текст?", "chat_history": [], "file_base64": "IyMjINCX0LDQs9Cw0LTQutCwINC60L7RiNCw0YfRjNC10Lkg0L/RgNC40YDQvtC00YsNCg0K0JrQvtGC0Ysg4oCTINC+0LTQvdC4INC40Lcg0YHQsNC80YvRhSDQt9Cw0LPQsNC00L7Rh9C90YvRhSDRgdC+0LfQtNCw0L3QuNC5INC90LAg0L3QsNGI0LXQuSDQv9C70LDQvdC10YLQtS4g0J3QtdGB0LzQvtGC0YDRjyDQvdCwINGC0L4sINGH0YLQviDQvtC90Lgg0LbQuNCy0YPRgiDQsdC+0Log0L4g0LHQvtC6INGBINGH0LXQu9C+0LLQtdC60L7QvCDRgtGL0YHRj9GH0LXQu9C10YLQuNGP0LzQuCwg0LIg0LjRhSDQv9C+0LLQtdC00LXQvdC40LgsINC40L3RgdGC0LjQvdC60YLQsNGFINC4INGB0YPRidC90L7RgdGC0Lgg0L7RgdGC0LDQtdGC0YHRjyDRh9GC0L4t0YLQviDQvdC10L7QsdGK0Y/RgdC90LjQvNC+0LUsINC/0YDQuNGC0Y/Qs9C40LLQsNGO0YnQtdC1INCy0L3QuNC80LDQvdC40LUuDQoNCtCf0L7Rh9C10LzRgyDQutC+0YLRiyDRgtCw0Log0LvRjtCx0Y/RgiDQutC+0YDQvtCx0LrQuCwg0LTQsNC20LUg0LXRgdC70Lgg0L7QvdC4INGP0LLQvdC+INC80LDQu9GLINC00LvRjyDQvdC40YU/INCc0L7QttC10YIg0LHRi9GC0YwsINGN0YLQviDRgdCy0Y/Qt9Cw0L3QviDRgSDQuNC90YHRgtC40L3QutGC0LjQstC90YvQvCDQttC10LvQsNC90LjQtdC8INGB0L/RgNGP0YLQsNGC0YzRgdGPINCyINCx0LXQt9C+0L/QsNGB0L3QvtC8INC/0YDQvtGB0YLRgNCw0L3RgdGC0LLQtSwg0LjQu9C4INC20LUg0YLRg9GCINGB0LrRgNGL0YIg0LrQsNC60L7QuS3RgtC+INC00YDRg9Cz0L7QuSwg0L3QtdC40LfQstC10YHRgtC90YvQuSDQvNC+0YLQuNCyPw0KDQrQmNC70Lgg0LLQvtC30YzQvNC10Lwg0LjRhSDRgdC/0L7RgdC+0LHQvdC+0YHRgtGMINCy0YHQtdCz0LTQsCDQv9Cw0LTQsNGC0Ywg0L3QsCDQu9Cw0L/Riy4g0K3RgtC+INGE0LXQvdC+0LzQtdC9LCDQutC+0YLQvtGA0YvQuSDQsdC40L7Qu9C+0LPQuNGPINGH0LDRgdGC0LjRh9C90L4g0L7QsdGK0Y/RgdC90LjQu9CwIOKAkyDRgyDQutC+0YjQtdC6INC90LXQstC10YDQvtGP0YLQvdC+INCz0LjQsdC60LjQuSDQv9C+0LfQstC+0L3QvtGH0L3QuNC6INC4INGA0LDQt9Cy0LjRgtC+0LUg0YfRg9Cy0YHRgtCy0L4g0YDQsNCy0L3QvtCy0LXRgdC40Y8uINCd0L4g0LrQsNC20LTRi9C5INGA0LDQtywg0LrQvtCz0LTQsCDQvNGLINCy0LjQtNC40LwsINC60LDQuiDQvtC90Lgg0LvQvtCy0LrQviDQv9C10YDQtdCy0L7RgNCw0YfQuNCy0LDRjtGC0YHRjyDQsiDQstC+0LfQtNGD0YXQtSwg0LrQsNC20LXRgtGB0Y8sINCx0YPQtNGC0L4g0LfQtNC10YHRjCDQt9Cw0LzQtdGI0LDQvdCwINC80LDQs9C40Y8uDQoNCtCQINC40YUg0LfQsNCz0LDQtNC+0YfQvdGL0LkgItC80YPRgNGA0YAiPyDQrdGC0L4g0L3QtSDQv9GA0L7RgdGC0L4g0LfQstGD0Log4oCTINGN0YLQviDRg9C90LjQstC10YDRgdCw0LvRjNC90YvQuSDRj9C30YvQuiwg0YEg0L/QvtC80L7RidGM0Y4g0LrQvtGC0L7RgNC+0LPQviDQutC+0YIg0LzQvtC20LXRgiDQvtC00L3QvtCy0YDQtdC80LXQvdC90L4g0LLRi9GA0LDQttCw0YLRjCDQutC+0LzRhNC+0YDRgiwg0LTQvtCy0LXRgNC40LUg0LguLi4g0LHQvtC70YwuINCc0YPRgNC70YvQutCw0L3RjNC1INC00LDQttC1INGB0L/QvtGB0L7QsdC90L4g0LfQsNC20LjQstC70Y/RgtGMINGC0LrQsNC90Lgg0LHQu9Cw0LPQvtC00LDRgNGPINCy0LjQsdGA0LDRhtC40Y/QvCDQvtC/0YDQtdC00LXQu9C10L3QvdC+0Lkg0YfQsNGB0YLQvtGC0YssINC90L4g0LrQsNC6INC60L7RgtGLINC90LDRg9GH0LjQu9C40YHRjCDQuNGB0L/QvtC70YzQt9C+0LLQsNGC0Ywg0LXQs9C+INGC0LDQuiDRjdGE0YTQtdC60YLQuNCy0L3Qvj8NCg0K0JgsINC60L7QvdC10YfQvdC+LCDQs9C70LDQstC90YvQuSDQstC+0L/RgNC+0YE6INC/0L7Rh9C10LzRgyDQutC+0YLRiyDRgdC80L7RgtGA0Y/RgiDQsiDQv9GD0YHRgtC+0YLRgz8g0JjQvdC+0LPQtNCwINC60LDQttC10YLRgdGPLCDRh9GC0L4g0L7QvdC4INCy0LjQtNGP0YIg0YLQviwg0YfRgtC+INGB0LrRgNGL0YLQviDQvtGCINGH0LXQu9C+0LLQtdGH0LXRgdC60L7Qs9C+INCz0LvQsNC30LAuINCU0YPRhdC+0LIsINC/0LDRgNCw0LvQu9C10LvRjNC90YvQtSDQvNC40YDRiywg0LjQu9C4LCDQvNC+0LbQtdGCINCx0YvRgtGMLCDQv9GA0L7RgdGC0L4g0L/Ri9C70LjQvdC60Lgg0LIg0YHQvtC70L3QtdGH0L3QvtC8INC70YPRh9C1PyDQkiDQu9GO0LHQvtC8INGB0LvRg9GH0LDQtSDQuNGFINCy0LfQs9C70Y/QtCDRgdC70L7QstC90L4g0LPQvtCy0L7RgNC40YI6ICLQldGB0YLRjCDQstC10YnQuCwg0LrQvtGC0L7RgNGL0LUg0YLQtdCx0LUg0L3QtSDQtNCw0L3QviDQv9C+0L3Rj9GC0YwiLg0KDQrQmtC+0YLRiyDigJMg0Y3RgtC+INC90LUg0L/RgNC+0YHRgtC+INC20LjQstC+0YLQvdGL0LUsINGN0YLQviDRhdC+0LTRj9GH0LjQtSDQt9Cw0LPQsNC00LrQuCwg0LrQvtGC0L7RgNGL0LUg0L3QuNC60L7Qs9C00LAg0L3QtSDQv9C10YDQtdGB0YLQsNGO0YIg0YPQtNC40LLQu9GP0YLRjC4g0JzQvtC20LXRgiDQsdGL0YLRjCwg0LjQvNC10L3QvdC+INCyINGN0YLQvtC8INC40YUg0LLQvtC70YjQtdCx0YHRgtCy0L4g4oCTINC+0L3QuCDQvtGB0YLQsNGO0YLRgdGPINC30LDQs9Cw0LTQutC+0LksINGH0LDRgdGC0YzRjiDQutC+0YLQvtGA0L7QuSDQvNGLINGF0L7RgtC40Lwg0YHRgtCw0YLRjC4=", "internet_access": false, "mime_type":"text/plain"}'
@@ -427,7 +443,7 @@ curl --request POST \
 
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/image_generate \
+  --url https://ru.yellowfire.ru/api/v2/image_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"models": ["sd_xl"], "aspect_ratio": "1:1", "prompt": "A futuristic city with flying cars"}'
@@ -438,7 +454,7 @@ curl --request POST \
 #### Удаление фона
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/image_change \
+  --url https://ru.yellowfire.ru/api/v2/image_change \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "remove_background", "file_base64": "iVBORw0KGgo...", "mime_type": "image/png", "prompt": "", "prompt_2": "", "strength": 0.5, "inpaint_models": [], "send_url": false}'
@@ -447,7 +463,7 @@ curl --request POST \
 #### Апскейл (увеличение разрешения)
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/image_change \
+  --url https://ru.yellowfire.ru/api/v2/image_change \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "upscale", "file_base64": "iVBORw0KGgo...", "mime_type": "image/jpeg", "prompt": "HD", "prompt_2": "", "strength": 0.5, "inpaint_models": [], "send_url": false}'
@@ -456,7 +472,7 @@ curl --request POST \
 #### Изменение части изображения (Inpaint)
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/image_change \
+  --url https://ru.yellowfire.ru/api/v2/image_change \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "inpaint", "file_base64": "iVBORw0KGgo...", "mime_type": "image/jpeg", "prompt": "Сделай кота синим", "prompt_2": "", "strength": 0.5, "inpaint_models": ["nano_banana"], "send_url": false}'
@@ -467,7 +483,7 @@ curl --request POST \
 #### По текстовому промпту
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/video_generate \
+  --url https://ru.yellowfire.ru/api/v2/video_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "kling-3", "file_base64": "", "prompt": "A cat running in a futuristic city", "aspect_ratio": "16:9", "send_url": false}'
@@ -476,7 +492,7 @@ curl --request POST \
 #### На основе изображения (Stable Video Diffusion)
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/video_generate \
+  --url https://ru.yellowfire.ru/api/v2/video_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "stable_video_diffusion", "file_base64": "iVBORw0KGgo...", "prompt": "", "aspect_ratio": "16:9", "send_url": false}'
@@ -487,7 +503,7 @@ curl --request POST \
 #### Создание трека (Suno v5)
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/music_generate \
+  --url https://ru.yellowfire.ru/api/v2/music_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "suno_v5", "lyrics": "[Verse] Hello world!", "music_style": "pop", "instrumental": false, "return_images": true, "mode": "extend", "send_url": false}'
@@ -497,7 +513,7 @@ curl --request POST \
 
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/tts \
+  --url https://ru.yellowfire.ru/api/v2/tts \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "voice_model_v3", "prompt": "Привет, это тест озвучки!", "params": {"speed": 1.0, "lang": "Auto", "voice_id": "ru_RU_FEMALE", "model_id": null}}'
@@ -507,7 +523,7 @@ curl --request POST \
 
 ```bash
 curl --request POST \
-  --url https://yellowfire.ru/api/v2/audio_generate \
+  --url https://ru.yellowfire.ru/api/v2/audio_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "stable_audio", "prompt": "guitar solo, acoustic", "file_base64": "", "duration": 90, "steps": 50, "cfg_scale": 7.0, "strength": 1.0, "seed": 0, "send_url": false}'
@@ -519,7 +535,7 @@ curl --request POST \
 
 ```bash
 curl --request GET \
-  --url https://yellowfire.ru/api/v2/status/ВАШ_REQUEST_ID \
+  --url https://ru.yellowfire.ru/api/v2/status/ВАШ_REQUEST_ID \
   --header 'api-key: API_KEY'
 ```
 
@@ -527,7 +543,7 @@ curl --request GET \
 
 ```bash
 curl --request GET \
-  --url https://yellowfire.ru/api/v2/user \
+  --url https://ru.yellowfire.ru/api/v2/user \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY'
 ```
