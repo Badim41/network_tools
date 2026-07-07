@@ -31,7 +31,9 @@ class ImageModels:
 
 class GptModels:
     # OPENAI
+    gpt_5_5 = "gpt-5-5"
     gpt_5_4 = "gpt-5-4"
+    gpt_5_4_mini = "gpt-5-4-mini"
 
     gpt_5_2_high = "gpt-5-2-high"
     gpt_5_2 = "gpt-5-2"
@@ -55,6 +57,10 @@ class GptModels:
     gpt_4o = "gpt-4o"
 
     # CLAUDE
+    claude_4_5_haiku = "claude-4-5-haiku"
+    claude_5_sonnet = "claude-5-sonnet"
+    claude_4_8_opus = "claude-4-8-opus"
+    claude_4_7_opus = "claude-4-7-opus"
     claude_4_6_opus = "claude-4-6-opus"  # thinking
     claude_4_5_opus_thinking = "claude-4-5-opus-thinking"  # thinking
     claude_4_5_opus = "claude-4-5-opus"
@@ -68,6 +74,8 @@ class GptModels:
     claude_4_sonnet_thinking = "claude-4-sonnet-thinking"  # thinking
 
     # DEEPSEEK
+    deepseek_v4_pro = "deepseek-v4-pro"
+    deepseek_v4_flash = "deepseek-v4-flash"
     deepseek_v3_2 = "deepseek-v3.2"
     deepseek_v3_2_thinking = "deepseek-v3.2-thinking"  # thinking
 
@@ -119,20 +127,26 @@ class GptModels:
 
 
     available_models = [
+        claude_5_sonnet, claude_4_8_opus, claude_4_7_opus, claude_4_6_opus, claude_4_5_haiku, claude_4_5_opus, claude_4_5_opus_thinking, claude_4_5_sonnet, claude_4_5_sonnet_thinking,
         claude_4_opus, claude_4_opus_thinking, claude_4_sonnet, claude_4_sonnet_thinking, claude_4_1_opus, claude_4_1_opus_thinking,
         gpt_4_5, o3_mini, o1, gpt_4o, gpt_4o_mini, chatgpt_4o, gpt_4_1, gpt_4_1_mini, gpt_4_1_nano, gpt_3_5,
         claude_3_7_sonnet_thinking, claude_3_7_sonnet, claude_3_5_sonnet,
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
-        deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
+        deepseek_v4_pro, deepseek_v4_flash, deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
         command_r_plus, command_a, c4ai_aya_vision_32b,
         grok_3, grok_4, kimi_k2_thinking, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
-        gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1, gpt_5_2, gpt_5_2_pro, gemini_3_0_flash, gpt_5_2_high, kimi_k2_5, grok_4_fast, gpt_5_4
+        gpt_5_5, gpt_5_4_mini, gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1, gpt_5_2, gpt_5_2_pro, gemini_3_0_flash, gpt_5_2_high, kimi_k2_5, grok_4_fast, gpt_5_4
     ]
 
 
 AVAILABLE_MODELS = GptModels.available_models
 
 CLAUDE_MODELS = [
+    GptModels.claude_5_sonnet,
+    GptModels.claude_4_8_opus,
+    GptModels.claude_4_7_opus,
+    GptModels.claude_4_6_opus,
+    GptModels.claude_4_5_haiku,
     GptModels.claude_4_5_opus,
     GptModels.claude_4_5_opus_thinking,
     GptModels.claude_4_5_sonnet,
@@ -157,7 +171,9 @@ GPT_4O_MODELS = [
     GptModels.gpt_4o_mini
 ]
 GPT_5_MODELS = [
+    GptModels.gpt_5_5,
     GptModels.gpt_5_4,
+    GptModels.gpt_5_4_mini,
     GptModels.gpt_5_2_pro,
     GptModels.gpt_5_2_high,
     GptModels.gpt_5_2,
@@ -178,10 +194,15 @@ ALL_VISION_MODELS = ([GptModels.c4ai_aya_vision_32b] + GPT_4O_MODELS +
                       GptModels.gemini_2_5_flash_lite,
                       GptModels.gemini_2_0_flash_lite
                       ] + [
-                         GptModels.o4_mini,
-                         GptModels.o3_high
-                     ] + GPT_5_MODELS + [
-                         GptModels.claude_4_5_opus,
+                          GptModels.o4_mini,
+                          GptModels.o3_high
+                      ] + GPT_5_MODELS + [
+                          GptModels.claude_5_sonnet,
+                          GptModels.claude_4_8_opus,
+                          GptModels.claude_4_7_opus,
+                          GptModels.claude_4_6_opus,
+                          GptModels.claude_4_5_haiku,
+                          GptModels.claude_4_5_opus,
                          GptModels.claude_4_5_opus_thinking,
                          GptModels.claude_4_5_sonnet,
                          GptModels.claude_4_5_sonnet_thinking,

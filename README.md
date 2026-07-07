@@ -12,97 +12,71 @@
 
 1 Credit = 100₽
 
-### Нейросети для обработки текста:
+### 💬 Нейросети для обработки текста:
 
-- GPT-5-2-pro (OpenAI)
-- GPT-5-2 (OpenAI)
-- GPT-5-1-high (OpenAI)
-- GPT-5-1 (OpenAI)
-- GPT-5-high (OpenAI)
-- GPT-5 (OpenAI)
-- ChatGPT-5 (OpenAI)
-- GPT-5-mini (OpenAI)
-- GPT-5-nano (OpenAI)
-- GPT-oss (OpenAI)
-- GLM-4.5 (zAi)
-- o4-mini (OpenAI)
-- o3-mini-High (OpenAI)
-- GPT-4.1 (OpenAI)
-- GPT-4.1-mini (OpenAI)
-- GPT-4.1-nano (OpenAI)
-- o3-mini (OpenAI)
-- o1 (OpenAI)
-- GPT-4o (OpenAI)
-- GPT-4o-mini (OpenAI)
-- GPT-3.5 (OpenAI)
-- Grok 4 (x-Ai)
-- Grok 4 Fast (x-Ai)
-- Grok 3 (x-Ai)
-- Gemini 3.0 Pro (Google)
-- Gemini 3.0 Flash (Google)
-- Gemini 2.5 Pro (Google)
-- Gemini-2.5 Flash Lite (Google)
-- Gemini-2.0 Flash Lite (Google)
-- Claude 4.6 Opus (Anthropic)
-- Claude 4.5 Opus Thinking (Anthropic)
-- Claude 4.5 Opus (Anthropic)
-- Claude 4.5 Sonnet Thinking (Anthropic)
-- Claude 4.5 Sonnet (Anthropic)
-- Claude 4.1 Opus (Anthropic)
-- Claude 4.1 Opus Thinking (Anthropic)
-- Claude 4 Opus (Anthropic)
-- Claude 4 Opus Thinking (Anthropic)
-- Claude 4 Sonnet (Anthropic)
-- Claude 4 Sonnet Thinking (Anthropic)
-- Claude 3.7 (Anthropic)
-- DeepSeek R1 (DeepSeek)
-- DeepSeek V3 (DeepSeek)
-- DeepSeek V3.2 (DeepSeek)
-- DeepSeek V3.2 Thinking (DeepSeek)
-- Command A Vision (Cohere)
-- Command A (Cohere)
-- Command R+ (Cohere)
-- Reka Flash (Reka)
-- Minimax-01 (Minimax)
-- Minimax-02 (Minimax)
-- Kimi K2 thinking (Moonshot AI)
-- Kimi K2.5 (Moonshot AI)
+**OpenAI**
+- GPT-5.5 / GPT-5.4 / GPT-5.4-mini
+- GPT-5.2 Pro / GPT-5.2
+- GPT-5.1 High / GPT-5.1
+- GPT-5 High / GPT-5 / GPT-5-mini / GPT-5-nano / GPT-5-chat-latest
+- GPT-oss
+- o4-mini / o3-High / o3-mini / o1
+- GPT-4.5 / GPT-4.1 / GPT-4.1-mini / GPT-4.1-nano
+- GPT-4o / GPT-4o-mini / GPT-3.5
 
-### Модели для генерации изображений:
+**Anthropic (Claude)**
+- Claude 5 Sonnet
+- Claude 4.8 Opus / Claude 4.7 Opus / Claude 4.6 Opus
+- Claude 4.5 (Opus, Sonnet, Haiku, + Thinking)
+- Claude 4.1 (Opus, + Thinking)
+- Claude 4 (Opus, Sonnet, + Thinking)
+- Claude 3.7
 
+**Google (Gemini)**
+- Gemini 3.0 (Pro, Flash)
+- Gemini 2.5 (Pro, Flash, Flash Lite)
+- Gemini 2.0 Flash Lite
+
+**DeepSeek**
+- DeepSeek V4 (Pro, Flash)
+- DeepSeek V3.2 / V3.2 Thinking
+- DeepSeek V3 / R1
+
+**X-Ai (Grok)**
+- Grok 4 / Grok 4 Fast / Grok 3
+
+**Другие**
+- Cohere: Command R+, Command A
+- Minimax: Minimax-m3, Minimax-02, Minimax-01
+- Moonshot AI: Kimi K2 Thinking, Kimi K2.5
+- Прочие: GLM-4.6, Reka Flash
+
+### 🎨 Модели для генерации изображений:
 - DALL-E-3
-- SD Ultra
-- SD XL
+- SD Ultra / SD XL
 - Flux
 - Recraft V3
 - Kandinsky
 - ChatGPT Images
+- Nano Banana Pro
 
-## Модели для редактирования изображений:
-
+### 🖼️ Модели для редактирования изображений:
 - Recraft V3
 - Stable Diffusion
 - ChatGPT Images
 - Nano Banana Pro
 
-## Модели для генерации видео:
-
+### 🎬 Модели для генерации видео:
 - Sora 2
-- Stable video diffusion
+- Stable Video Diffusion
 
-## Модели для генерации музыки (generate/cover/extend):
+### 🎵 Модели для генерации музыки (generate/cover/extend):
+- Suno V5 / V4.5 / V4 / V3.5
 
-- Suno V3.5
-- Suno V4
-- Suno V4.5
-- Suno V5
-
-## Модели для озвучки текста:
-
+### 🗣️ Модели для озвучки текста:
 - Model V3
 
-## Модели для создания аудио:
-
+### 🔊 Модели для создания аудио:
 - Stable Audio
 
 ## Установка
@@ -113,13 +87,20 @@ pip install git+https://github.com/Badim41/network_tools.git
 
 ## Использование
 
-### 1. Создание класса
+### 1. Инициализация клиента
+
+Вы можете использовать как синхронный, так и асинхронный клиент:
 
 ```python
-from network_tools import NetworkToolsAPI
+from network_tools import NetworkToolsAPI, AsyncNetworkToolsAPI
 
 api_key = "your_api_key_here"
+
+# Синхронный клиент
 client = NetworkToolsAPI(api_key)
+
+# Асинхронный клиент
+# async_client = AsyncNetworkToolsAPI(api_key)
 ```
 
 ### 2. ChatGPT API
@@ -176,39 +157,44 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 - Цены на текстовые модели в **2 раза ниже** официальных
 - Цены на модели изображений в **2 раза ниже** официальных
 - Цены на модели редактирования изображений в **2 раза ниже** официальных
-- Цены на музыку *примерно равны* официальным
+- Цены на музыку **до 2 раз ниже** официальных
 - Цены на TTS *примерно равны* официальным
-- Цены на генерацию видео **до 10 раз ниже** официальных
+- Цены на генерацию видео **до 2 раз ниже** официальных
 
 
-## Текстовые модели
+## 💰 Стоимость использования моделей
 
-# Стоимость использования моделей
-
-## Текстовые модели
+### Текстовые модели
 
 | Модель                     | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
 |----------------------------|-----------------------------|------------------------------|
-| gpt-5-2-pro                | 84                          | 10.5                         |
-| gpt-5-2                    | 0.625                       | 7.0                          |
-| gpt-5-1-high               | 0.625                       | 5.0                          |
-| gpt-5-1                    | 0.625                       | 5.0                          |
-| gpt-5-high                 | 0.625                       | 5.0                          |
-| gpt-5                      | 0.625                       | 5.0                          |
-| gpt-5-mini                 | 0.125                       | 1.0                          |
-| gpt-5-nano                 | 0.0025                      | 0.2                          |
-| gpt-5-chat-latest          | 0.625                       | 5.0                          |
-| gpt-oss                    | 0.075                       | 0.3                          |
-| glm-4.6                    | 0.25                        | 1.0                          |
+| gpt-5-5                    | 5.00                        | 30.00                        |
+| gpt-5-4                    | 1.25                        | 14.00                        |
+| gpt-5-4-mini               | 0.75                        | 4.50                         |
+| gpt-5-2-pro                | 84.00                       | 10.50                        |
+| gpt-5-2                    | 0.625                       | 7.00                         |
+| gpt-5-1-high               | 0.625                       | 5.00                         |
+| gpt-5-1                    | 0.625                       | 5.00                         |
+| gpt-5-high                 | 0.625                       | 5.00                         |
+| gpt-5                      | 0.625                       | 5.00                         |
+| gpt-5-mini                 | 0.125                       | 1.00                         |
+| gpt-5-nano                 | 0.0025                      | 0.20                         |
+| gpt-5-chat-latest          | 0.625                       | 5.00                         |
+| gpt-oss                    | 0.075                       | 0.30                         |
+| glm-4.6                    | 0.25                        | 1.00                         |
+| claude-5-sonnet            | 2.00                        | 10.00                        |
+| claude-4-8-opus            | 5.00                        | 25.00                        |
+| claude-4-7-opus            | 5.00                        | 25.00                        |
 | claude-4-6-opus            | 2.50                        | 12.50                        |
+| claude-4-5-haiku           | 0.25                        | 1.25                         |
 | claude-4-5-opus            | 2.50                        | 12.50                        |
 | claude-4-5-opus-thinking   | 2.50                        | 12.50                        |
 | claude-4-5-sonnet          | 1.50                        | 7.50                         |
 | claude-4-5-sonnet-thinking | 1.50                        | 7.50                         |
-| claude-4-opus              | 7.50                        | 37.5                         |
-| claude-4-opus-thinking     | 7.50                        | 37.5                         |
-| claude-4-1-opus            | 7.50                        | 37.5                         |
-| claude-4-1-opus-thinking   | 7.50                        | 37.5                         |
+| claude-4-opus              | 7.50                        | 37.50                        |
+| claude-4-opus-thinking     | 7.50                        | 37.50                        |
+| claude-4-1-opus            | 7.50                        | 37.50                        |
+| claude-4-1-opus-thinking   | 7.50                        | 37.50                        |
 | claude-4-sonnet            | 1.50                        | 7.50                         |
 | claude-4-sonnet-thinking   | 1.50                        | 7.50                         |
 | o4-mini                    | 0.55                        | 2.20                         |
@@ -223,6 +209,8 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | gpt-4o-mini                | 0.075                       | 0.30                         |
 | gpt-3.5                    | 0.50                        | 1.00                         |
 | claude-3.7                 | 1.50                        | 7.50                         |
+| deepseek-v4-pro            | 0.435                       | 0.87                         |
+| deepseek-v4-flash          | 0.14                        | 0.28                         |
 | deepseek-r1                | 0.275                       | 1.095                        |
 | deepseek-v3                | 0.135                       | 0.55                         |
 | deepseek-v3.2              | 0.135                       | 0.205                        |
@@ -230,19 +218,20 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 | command-r-plus             | 1.25                        | 5.00                         |
 | command-a                  | 1.25                        | 5.00                         |
 | reka-flash                 | 0.10                        | 0.40                         |
+| minimax-m3                 | 0.20                        | 1.10                         |
 | minimax-01                 | 0.10                        | 0.55                         |
-| minimax-02                 | 0.15                        | 0.6                          |
+| minimax-02                 | 0.15                        | 0.60                         |
 | grok-3                     | 1.50                        | 7.50                         |
 | grok-4                     | 1.50                        | 7.50                         |
 | grok-4-fast                | 1.50                        | 7.50                         |
-| gemini-3.0-pro             | 1.0                         | 6.00                         |
+| gemini-3.0-pro             | 1.00                        | 6.00                         |
 | gemini-3.0-flash           | 0.25                        | 1.50                         |
 | gemini-2.5-pro             | 0.625                       | 5.00                         |
 | gemini-2.5-flash           | 0.075                       | 0.30                         |
 | gemini-2.0-flash-lite      | 0.075                       | 0.30                         |
 | gemini-2.5-flash-lite      | 0.075                       | 0.30                         |
-| kimi-k2-thinking           | 0.3                         | 1.25                         |
-| kimi-k2-5                  | 0.3                         | 1.25                         |
+| kimi-k2-thinking           | 0.30                        | 1.25                         |
+| kimi-k2-5                  | 0.30                        | 1.25                         |
 
 ## Модели изображений
 
@@ -279,8 +268,7 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 | Модель                 | Стоимость (Credit/видео) |
 |------------------------|--------------------------|
-| Sora 2                 | 0.1                      |
-| Stable Video Diffusion | 0.2                      |
+| Kling 3                | 0.5                      |
 
 ## Генерация музыки
 
@@ -293,9 +281,9 @@ print("Баланс:", user_usage.response.balance)  # Отображение о
 
 ## TTS (озвучить текст)
 
-| Модель   | Стоимость (Credit/1000 символов) |
-|----------|----------------------------------|
-| Model V3 | 0.03                             |
+| Модель | Стоимость (Credit/1000 символов) |
+|--------|----------------------------------|
+| -      | -                                |
 
 ## Audio (создать звук)
 
