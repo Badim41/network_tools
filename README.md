@@ -1,4 +1,4 @@
-# NetworkToolsAPI (Python)
+﻿# NetworkToolsAPI (Python)
 
 [![Example Usage Bot](https://img.shields.io/badge/Example-Telegram--BOT-0066FF?logo=probot&style=flat)](https://t.me/GPT4_Unlimit_bot?start=git3)
 [![Open in Colab](https://img.shields.io/badge/Open%20in-Google%20Colab-F9AB00?logo=googlecolab&style=flat)](https://colab.research.google.com/github/Badim41/network_tools/blob/master/google_colab_notebooks/base.ipynb)
@@ -31,6 +31,7 @@
 ### 💬 Нейросети для обработки текста:
 
 **OpenAI**
+- GPT-5.6-sol / GPT-5.6-terra / GPT-5.6-luna
 - GPT-5.5 / GPT-5.4 / GPT-5.4-mini
 - GPT-5.2 Pro / GPT-5.2
 - GPT-5.1 High / GPT-5.1
@@ -292,6 +293,9 @@ print("Сгенерированный звук:", audio_path)
 
 | Модель                     | 1M входных токенов (Credit) | 1M выходных токенов (Credit) |
 |----------------------------|-----------------------------|------------------------------|
+| gpt-5.6-sol                | 0.75                        | 4.50                         |
+| gpt-5.6-terra              | 0.375                       | 2.25                         |
+| gpt-5.6-luna               | 0.15                        | 0.90                         |
 | gpt-5-5                    | 2.50                        | 15.00                        |
 | gpt-5-4                    | 0.625                       | 7.00                         |
 | gpt-5-4-mini               | 0.375                       | 2.25                         |
