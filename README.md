@@ -402,7 +402,6 @@ print("Сгенерированный звук:", audio_path)
 | Kling 3 (10s)              | 1.0                      |
 | Kling 3 (5s + audio)       | 0.7                      |
 | Kling 3 (10s + audio)      | 1.4                      |
-| Kling 3 (10s + audio)      | 1.4                      |
 
 ## Генерация музыки
 
