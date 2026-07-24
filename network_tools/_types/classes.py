@@ -369,6 +369,9 @@ class SunoMode:
 
 
 class VideoModels:
+    kling_3 = "kling-3"
+
+    # DONT WORK:
     stable_video_diffusion = "stable_video_diffusion"
     veo_3 = "veo-3"
     # kling_1_6 = "kling-1.6"

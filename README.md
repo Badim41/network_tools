@@ -84,7 +84,7 @@
 - Nano Banana Pro
 
 ### 🎬 Модели для генерации видео:
-- Kling 3
+- Kling 3 (поддержка аудио и видео до 10 секунд)
 
 ### 🎵 Модели для генерации музыки (generate/cover/extend):
 - Suno V5 / V4.5 / V4 / V3.5
@@ -202,15 +202,17 @@ print("Увеличенное изображение:", next(result_upscale))
 
 ### 6. Генерация видео
 
-Генерация коротких видео по тексту или изображению.
+Генерация видео по тексту или изображению (доступна настройка длительности и аудио).
 
 ```python
 from network_tools import VideoModels
 
 video_path = client.video_generate_api(
-    model=VideoModels.veo_3,
+    model=VideoModels.kling_3,
     prompt="cat runs",
-    image_path="images/example.png"  # Опционально
+    image_path="images/example.png",  # Опционально
+    duration=5,                       # Длительность: 5 или 10 (секунд)
+    with_audio=True                   # С генерацией аудио: True или False
 )
 print("Путь к видео:", video_path)
 ```
@@ -396,7 +398,9 @@ print("Сгенерированный звук:", audio_path)
 
 | Модель                 | Стоимость (Credit/видео) |
 |------------------------|--------------------------|
-| Kling 3                | 0.5                      |
+| Kling 3                | 0.5 (базовая)            |
+
+*Примечание: Если выбрана генерация с аудио (`with_audio=True`), базовая цена умножается на 1.4. Если выбрана длительность 10 секунд (`duration=10`), цена умножается на 2.*
 
 ## Генерация музыки
 
@@ -490,16 +494,16 @@ curl --request POST \
   --url https://ru.yellowfire.ru/api/v2/video_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
-  --data '{"model": "kling-3", "file_base64": "", "prompt": "A cat running in a futuristic city", "aspect_ratio": "16:9", "send_url": false}'
+  --data '{"model": "kling-3", "file_base64": "", "prompt": "A cat running in a futuristic city", "aspect_ratio": "16:9", "duration": 5, "with_audio": false, "send_url": false}'
 ```
 
-#### На основе изображения (Stable Video Diffusion)
+#### На основе изображения (Kling 3)
 ```bash
 curl --request POST \
   --url https://ru.yellowfire.ru/api/v2/video_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
-  --data '{"model": "stable_video_diffusion", "file_base64": "iVBORw0KGgo...", "prompt": "", "aspect_ratio": "16:9", "send_url": false}'
+  --data '{"model": "kling-3", "file_base64": "iVBORw0KGgo...", "prompt": "A cat running", "aspect_ratio": "16:9", "duration": 10, "with_audio": true, "send_url": false}'
 ```
 
 ### 🎵 Генерация музыки

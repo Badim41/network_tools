@@ -167,7 +167,8 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None, height=None, allow_nsfw=True):
+    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None,
+                           height=None, allow_nsfw=True):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
@@ -308,7 +309,16 @@ class NetworkToolsAPI:
 
         return self._check_music_status(request_id, model)
 
-    def video_generate_api(self, model, image_path=None, prompt="", send_url=False, aspect_ratio="16:9"):
+    def video_generate_api(
+            self,
+            model,
+            image_path=None,
+            prompt="",
+            send_url=False,
+            aspect_ratio="16:9",
+            duration: int = 5,
+            with_audio: bool = False
+    ):
         """
         Отправляет запрос на генерацию видео.
 
@@ -335,7 +345,9 @@ class NetworkToolsAPI:
             "file_base64": file_base64,
             "prompt": prompt,
             "aspect_ratio": aspect_ratio,
-            "send_url": send_url
+            "send_url": send_url,
+            "duration": duration,  # <-- ДОБАВИТЬ В PAYLOAD
+            "with_audio": with_audio  # <-- ДОБАВИТЬ В PAYLOAD
         }
 
         response = self.session.post(url, headers=headers, json=data)
@@ -355,8 +367,10 @@ class NetworkToolsAPI:
         video_base64 = video_data['response'][model][0]
         return self._save_base64(video_base64, model, "0", request_id)
 
-    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = ModelV3Voices.ru_RU_FEMALE,
-                model_id: str = None, reference_audio_wav: str = None, reference_audio_name:str=None,download_stream:bool=False):
+    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto",
+                voice_id: str = ModelV3Voices.ru_RU_FEMALE,
+                model_id: str = None, reference_audio_wav: str = None, reference_audio_name: str = None,
+                download_stream: bool = False):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
@@ -504,7 +518,7 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def _check_status_stream_tts(self, request_id, attempts=300, download_stream:bool=True):
+    def _check_status_stream_tts(self, request_id, attempts=300, download_stream: bool = True):
         """
         :return: str, путь к итоговому аудиофайлу
         """
@@ -775,7 +789,8 @@ class AsyncNetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    async def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None, height=None, allow_nsfw=True):
+    async def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True,
+                                 width=None, height=None, allow_nsfw=True):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
@@ -919,7 +934,16 @@ class AsyncNetworkToolsAPI:
         async for result in self._check_music_status(request_id, model):
             yield result
 
-    async def video_generate_api(self, model, image_path=None, prompt="", send_url=False, aspect_ratio="16:9"):
+    async def video_generate_api(
+            self,
+            model,
+            image_path=None,
+            prompt="",
+            send_url=False,
+            aspect_ratio="16:9",
+            duration: int = 5,
+            with_audio: bool = False
+    ):
         """
         Отправляет запрос на генерацию видео.
 
@@ -946,7 +970,9 @@ class AsyncNetworkToolsAPI:
             "file_base64": file_base64,
             "prompt": prompt,
             "aspect_ratio": aspect_ratio,
-            "send_url": send_url
+            "send_url": send_url,
+            "duration": duration,  # <-- ДОБАВИТЬ В PAYLOAD
+            "with_audio": with_audio  # <-- ДОБАВИТЬ В PAYLOAD
         }
 
         async with self.get_session().post(url, headers=headers, json=data) as response:
@@ -965,8 +991,10 @@ class AsyncNetworkToolsAPI:
         video_base64 = video_data['response'][model][0]
         return await self._save_base64(video_base64, model, "0", request_id)
 
-    async def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto", voice_id: str = ModelV3Voices.ru_RU_FEMALE,
-                      model_id: str = None, reference_audio_wav: str = None, reference_audio_name:str=None, download_stream:bool=False):
+    async def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto",
+                      voice_id: str = ModelV3Voices.ru_RU_FEMALE,
+                      model_id: str = None, reference_audio_wav: str = None, reference_audio_name: str = None,
+                      download_stream: bool = False):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
@@ -1018,9 +1046,9 @@ class AsyncNetworkToolsAPI:
 
     async def audio_generate_api(
             self,
-            prompt:str,
+            prompt: str,
             model=AudioModels.stable_audio,
-            audio_path:str=None,
+            audio_path: str = None,
             duration=90,
             steps=50,
             cfg_scale=7.0,
@@ -1115,7 +1143,7 @@ class AsyncNetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    async def _check_status_stream_tts(self, request_id, attempts=300, download_stream:bool=True):
+    async def _check_status_stream_tts(self, request_id, attempts=300, download_stream: bool = True):
         """
         :return: str, путь к итоговому аудиофайлу
         """
