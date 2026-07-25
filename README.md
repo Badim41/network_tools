@@ -355,6 +355,7 @@ print("Сгенерированный звук:", audio_path)
 | grok-4                     | 1.50                        | 7.50                         |
 | grok-4-fast                | 1.50                        | 7.50                         |
 | gemini-3.0-pro             | 1.00                        | 6.00                         |
+| gemini-3.5-flash           | 1.50                        | 9.00                         |
 | gemini-3.0-flash           | 0.25                        | 1.50                         |
 | gemini-2.5-pro             | 0.625                       | 5.00                         |
 | gemini-2.5-flash           | 0.075                       | 0.30                         |
