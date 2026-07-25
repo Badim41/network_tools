@@ -31,7 +31,7 @@ async def main():
         ):
             print(chunk.response.text, end='')
     finally:
-        await api.session.close()
+        await api._session.close()
 
 
 if sys.platform.startswith("win"):
