@@ -2,6 +2,7 @@ import base64
 import mimetypes
 import os
 import time
+import threading
 from typing import Union, Generator, AsyncGenerator
 
 import aiofiles
@@ -12,6 +13,35 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from ._types import *
+
+PRINT_SPEED_TEST = False
+API_URLS = [
+    "https://ru.yellowfire.ru", # includes russian server: Russia -> Germany
+    "https://sert.yellowfire.ru:444", # direct: Germany
+    "https://yellowfire.ru" # cloudflare -> Germany
+]
+
+def _run_speedtest_background(instance):
+    best_url = instance.api_url
+    best_time = float('inf')
+
+    for url in API_URLS:
+        try:
+            start_time = time.time()
+            response = requests.get(f"{url}/static/img.png", timeout=5)
+            if response.status_code == 200:
+                elapsed = time.time() - start_time
+                if elapsed < best_time:
+                    print(f"[SpeedTest] {url}: {elapsed:.2f}s")
+                    best_time = elapsed
+                    best_url = url
+        except Exception:
+            pass
+
+    instance.api_url = best_url
+    if PRINT_SPEED_TEST:
+        print(f"[SpeedTest] Complete. Fastest: {best_url} with {best_time:.2f}s. Selected: {instance.api_url}")
+
 
 extension_to_mime = {
     # Аудио
@@ -54,11 +84,17 @@ extension_to_mime = {
 
 
 class NetworkToolsAPI:
-    def __init__(self, api_key, output_dir="images"):
+    def __init__(self, api_key, output_dir="images", background_check_best_url=True):
         self.api_url = "https://ru.yellowfire.ru"
         self.api_key = api_key
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
+        
+        if background_check_best_url:
+            threading.Thread(target=_run_speedtest_background, args=(self,), daemon=True).start()
+        else:
+            _run_speedtest_background(self)
+        
         self.session = requests.Session()
 
         retries = Retry(total=10, backoff_factor=3, status_forcelist=[502, 503, 504])
@@ -669,12 +705,17 @@ class NetworkToolsAPI:
 
 
 class AsyncNetworkToolsAPI:
-    def __init__(self, api_key, output_dir="images"):
+    def __init__(self, api_key, output_dir="images", background_check_best_url=True):
         self.api_url = "https://ru.yellowfire.ru"
         self.api_key = api_key
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
         self._session = None
+
+        if background_check_best_url:
+            threading.Thread(target=_run_speedtest_background, args=(self,), daemon=True).start()
+        else:
+            _run_speedtest_background(self)
 
     def get_session(self):
         if self._session is None:
