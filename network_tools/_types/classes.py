@@ -37,7 +37,9 @@ class GptModels:
     gpt_5_5 = "gpt-5-5"
     gpt_5_4 = "gpt-5-4"
     gpt_5_4_mini = "gpt-5-4-mini"
+    gpt_5_3_codex = "gpt-5-3-codex"
 
+    gpt_5_2_pro = "gpt-5-2-pro"
     gpt_5_2_high = "gpt-5-2-high"
     gpt_5_2 = "gpt-5-2"
 
@@ -53,20 +55,33 @@ class GptModels:
 
     gpt_oss = "gpt-oss"
 
+    o3_high = "o3-high"  # thinking
+    o4_mini = "o4-mini"  # thinking
+
     gpt_4_1 = "gpt-4-1"
     gpt_4_1_mini = "gpt-4-1-mini"
     gpt_4_1_nano = "gpt-4-1-nano"
 
+    gpt_4_5 = "gpt-4-5"
+    o3_mini = "o3-mini"  # thinking
+    o1 = "o1"  # thinking
     gpt_4o = "gpt-4o"
+    chatgpt_4o = "chatgpt-4o"
+    gpt_4o_mini = "gpt-4o-mini"
+    gpt_3_5 = "gpt-3-5"
 
     # CLAUDE
+    claude_5_fable = "claude-5-fable"
+    claude_5_opus = "claude-5-opus"
+
     claude_4_5_haiku = "claude-4-5-haiku"
     claude_5_sonnet = "claude-5-sonnet"
     claude_4_8_opus = "claude-4-8-opus"
     claude_4_7_opus = "claude-4-7-opus"
     claude_4_6_opus = "claude-4-6-opus"  # thinking
-    claude_4_5_opus_thinking = "claude-4-5-opus-thinking"  # thinking
+    claude_4_5_opus_thinking = "claude-4-5-opus_thinking"  # thinking
     claude_4_5_opus = "claude-4-5-opus"
+    claude_4_6_sonnet = "claude-4-6-sonnet"
     claude_4_5_sonnet_thinking = "claude-4-5-sonnet-thinking"  # thinking
     claude_4_5_sonnet = "claude-4-5-sonnet"
     claude_4_1_opus = "claude-4-1-opus"
@@ -75,6 +90,13 @@ class GptModels:
     claude_4_sonnet = "claude-4-sonnet"
     claude_4_opus_thinking = "claude-4-opus-thinking"  # thinking
     claude_4_sonnet_thinking = "claude-4-sonnet-thinking"  # thinking
+
+    claude_3_7_sonnet_thinking = "claude-3-7-sonnet-thinking"  # thinking
+    claude_3_7_sonnet = "claude-3-7-sonnet"
+    claude_3_5_sonnet = "claude-3-5-sonnet"
+    claude_3_opus = "claude-3-opus"
+    claude_3_sonnet = "claude-3-sonnet"
+    claude_3_haiku = "claude-3-haiku"
 
     # DEEPSEEK
     deepseek_v4_pro = "deepseek-v4-pro"
@@ -101,24 +123,17 @@ class GptModels:
     gemini_2_5_pro = "gemini-2-5-pro"  # thinking
     gemini_2_5_flash = "gemini-2.5-flash"
 
-    # reka_flash = "reka-flash"
-    # minimax_01 = "minimax-01"
-    # minimax_02 = "minimax-02"  # thinking
+    reka_flash = "reka-flash"
+    minimax_01 = "minimax-01"
+    minimax_02 = "minimax-02"  # thinking
     glm_4_6 = "glm-4.6"  # thinking
 
-    # all legacy
     gemini_2_5_flash_lite = "gemini-2.5-flash-lite"  # quick
     gemini_2_0_flash_lite = "gemini-2.0-flash-lite"  # very quick
     grok_3 = "grok-3"  # thinking
     deepseek_r1 = "deepseek-r1"  # thinking
     deepseek_v3 = "deepseek-v3"
     deepseek_r1_0528 = "deepseek-r1-0528-qwen3-8b"
-    claude_3_7_sonnet_thinking = "claude-3-7-sonnet-thinking"  # thinking
-    claude_3_7_sonnet = "claude-3-7-sonnet"
-    claude_3_5_sonnet = "claude-3-5-sonnet"
-    claude_3_opus = "claude-3-opus"
-    claude_3_sonnet = "claude-3-sonnet"
-    claude_3_haiku = "claude-3-haiku"
     gpt_5_2_pro = "gpt-5-2-pro"
     o3_high = "o3-high"  # thinking
     o4_mini = "o4-mini"  # thinking
@@ -146,7 +161,9 @@ class GptModels:
 AVAILABLE_MODELS = GptModels.available_models
 
 CLAUDE_MODELS = [
+    GptModels.claude_5_opus,
     GptModels.claude_5_sonnet,
+    GptModels.claude_5_fable,
     GptModels.claude_4_8_opus,
     GptModels.claude_4_7_opus,
     GptModels.claude_4_6_opus,
@@ -193,10 +210,11 @@ GPT_5_MODELS = [
     GptModels.gpt_5_mini,
     GptModels.gpt_5_nano
 ]
-ALL_VISION_MODELS = ([GptModels.c4ai_aya_vision_32b] + GPT_4O_MODELS +
+ALL_VISION_MODELS = ([GptModels.c4ai_aya_vision_32b, GptModels.command_a_vision] + GPT_4O_MODELS +
                      [GptModels.gemini_3_0_pro,
                       GptModels.gemini_3_0_flash,
                       GptModels.gemini_3_5_flash,
+                      GptModels.gemini_3_5_flash_lite,
                       GptModels.gemini_2_5_pro,
                       GptModels.gemini_2_5_flash,
                       GptModels.gemini_2_5_flash_lite,
@@ -205,7 +223,9 @@ ALL_VISION_MODELS = ([GptModels.c4ai_aya_vision_32b] + GPT_4O_MODELS +
                           GptModels.o4_mini,
                           GptModels.o3_high
                       ] + GPT_5_MODELS + [
+                          GptModels.claude_5_opus,
                           GptModels.claude_5_sonnet,
+                          GptModels.claude_5_fable,
                           GptModels.claude_4_8_opus,
                           GptModels.claude_4_7_opus,
                           GptModels.claude_4_6_opus,

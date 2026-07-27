@@ -34,43 +34,47 @@
 
 ### 💬 Нейросети для обработки текста:
 
+> 💡 **Для работы с длинным контекстом** лучше всего использовать модели **Gemini 3.5 Flash**, **Gemini 3.5 Flash Lite** или **Gemini 3.0 Pro**.
+
 **OpenAI**
 - GPT-5.6-sol / GPT-5.6-terra / GPT-5.6-luna
-- GPT-5.5 / GPT-5.4 / GPT-5.4-mini
-- GPT-5.2 Pro / GPT-5.2
-- GPT-5.1 High / GPT-5.1
-- GPT-5 High / GPT-5 / GPT-5-mini / GPT-5-nano / GPT-5-chat-latest
+- GPT-5.5 / GPT-5.4 / GPT-5.4-mini / GPT-5.3-codex
+- GPT-5.2 Pro / GPT-5.2 High / GPT-5.2
+- GPT-5.1 High / ChatGPT-5.1 / GPT-5.1
+- GPT-5 High / ChatGPT-5 / GPT-5 / GPT-5-mini / GPT-5-nano / GPT-5-chat-latest
 - GPT-oss
 - o4-mini / o3-High / o3-mini / o1
 - GPT-4.5 / GPT-4.1 / GPT-4.1-mini / GPT-4.1-nano
-- GPT-4o / GPT-4o-mini / GPT-3.5
+- GPT-4o / ChatGPT-4o / GPT-4o-mini / GPT-3.5
 
 **Anthropic (Claude)**
-- Claude 5 Sonnet
+- Claude 5 Opus / Claude 5 Sonnet / Claude 5 Fable
 - Claude 4.8 Opus / Claude 4.7 Opus / Claude 4.6 Opus
+- Claude 4.6 Sonnet
 - Claude 4.5 (Opus, Sonnet, Haiku, + Thinking)
 - Claude 4.1 (Opus, + Thinking)
 - Claude 4 (Opus, Sonnet, + Thinking)
-- Claude 3.7
+- Claude 3.7 Sonnet (+ Thinking) / Claude 3.5 Sonnet / Claude 3 Opus / Claude 3 Sonnet / Claude 3 Haiku
 
 **Google (Gemini)**
 - Gemini 3.0 (Pro, Flash)
+- Gemini 3.5 (Flash, Flash Lite)
 - Gemini 2.5 (Pro, Flash, Flash Lite)
 - Gemini 2.0 Flash Lite
 
 **DeepSeek**
 - DeepSeek V4 (Pro, Flash)
 - DeepSeek V3.2 / V3.2 Thinking
-- DeepSeek V3 / R1
+- DeepSeek V3 / R1 / R1-0528
 
 **X-Ai (Grok)**
 - Grok 4 / Grok 4 Fast / Grok 3
 
 **Другие**
-- Cohere: Command R+, Command A
+- Cohere: Command R+, Command A, Command A Vision, C4AI Aya Vision 32B
 - Minimax: Minimax-m3, Minimax-02, Minimax-01
 - Moonshot AI: Kimi K2 Thinking, Kimi K2.5
-- Прочие: GLM-4.6, Reka Flash
+- Прочие: GLM-4.6, Reka Flash, Deep AI Model
 
 ### 🎨 Модели для генерации изображений:
 - DALL-E-3
@@ -293,7 +297,7 @@ print("Сгенерированный звук:", audio_path)
 - Цены на генерацию видео **до 2 раз ниже** официальных
 
 
-## 💰 Стоимость использования моделей
+## 💰 Стоимость использования моделей (с учетом скидки 50%)
 
 ### Текстовые модели
 
@@ -305,21 +309,28 @@ print("Сгенерированный звук:", audio_path)
 | gpt-5-5                    | 2.50                        | 15.00                        |
 | gpt-5-4                    | 0.625                       | 7.00                         |
 | gpt-5-4-mini               | 0.375                       | 2.25                         |
+| gpt-5-3-codex              | 0.625                       | 7.00                         |
 | gpt-5-2-pro                | 84.00                       | 10.50                        |
 | gpt-5-2                    | 0.625                       | 7.00                         |
+| gpt-5-2-high               | 0.625                       | 7.00                         |
 | gpt-5-1-high               | 0.875                       | 5.00                         |
+| chatgpt-5-1                | 0.625                       | 5.00                         |
 | gpt-5-1                    | 0.625                       | 5.00                         |
 | gpt-5-high                 | 0.625                       | 5.00                         |
+| chatgpt-5                  | 0.625                       | 5.00                         |
 | gpt-5                      | 0.625                       | 5.00                         |
 | gpt-5-mini                 | 0.125                       | 1.00                         |
 | gpt-5-nano                 | 0.0025                      | 0.20                         |
 | gpt-5-chat-latest          | 0.625                       | 5.00                         |
 | gpt-oss                    | 0.075                       | 0.30                         |
 | glm-4.6                    | 0.25                        | 1.00                         |
+| claude-5-opus              | 0.75                        | 3.75                         |
 | claude-5-sonnet            | 1.00                        | 5.00                         |
+| claude-5-fable             | 12.50                       | 62.50                        |
 | claude-4-8-opus            | 2.50                        | 12.50                        |
 | claude-4-7-opus            | 2.50                        | 12.50                        |
 | claude-4-6-opus            | 2.50                        | 12.50                        |
+| claude-4-6-sonnet          | 2.50                        | 12.50                        |
 | claude-4-5-haiku           | 0.15                        | 0.75                         |
 | claude-4-5-opus            | 2.50                        | 12.50                        |
 | claude-4-5-opus-thinking   | 2.50                        | 12.50                        |
@@ -339,6 +350,7 @@ print("Сгенерированный звук:", audio_path)
 | gpt-4.5                    | 37.50                       | 75.00                        |
 | o3-mini                    | 0.55                        | 2.20                         |
 | o1                         | 7.50                        | 30.00                        |
+| chatgpt-4o                 | 1.25                        | 5.00                         |
 | gpt-4o                     | 1.25                        | 5.00                         |
 | gpt-4o-mini                | 0.075                       | 0.30                         |
 | gpt-3.5                    | 0.50                        | 1.00                         |
@@ -351,8 +363,10 @@ print("Сгенерированный звук:", audio_path)
 | deepseek-v3.2 thinking     | 0.135                       | 0.205                        |
 | command-r-plus             | 1.25                        | 5.00                         |
 | command-a                  | 1.25                        | 5.00                         |
+| command-a-vision           | 1.25                        | 5.00                         |
+| c4ai-aya-vision-32b        | 1.25                        | 5.00                         |
+| deep-ai-model              | 0.50                        | 1.00                         |
 | reka-flash                 | 0.10                        | 0.40                         |
-| minimax-m3                 | 0.20                        | 1.10                         |
 | minimax-01                 | 0.10                        | 0.55                         |
 | minimax-02                 | 0.15                        | 0.60                         |
 | grok-3                     | 1.50                        | 7.50                         |
@@ -360,6 +374,7 @@ print("Сгенерированный звук:", audio_path)
 | grok-4-fast                | 1.50                        | 7.50                         |
 | gemini-3.0-pro             | 1.00                        | 6.00                         |
 | gemini-3.5-flash           | 1.50                        | 9.00                         |
+| gemini-3.5-flash-lite      | 0.15                        | 1.25                         |
 | gemini-3.0-flash           | 0.25                        | 1.50                         |
 | gemini-2.5-pro             | 0.625                       | 5.00                         |
 | gemini-2.5-flash           | 0.075                       | 0.30                         |
