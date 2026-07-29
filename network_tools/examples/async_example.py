@@ -17,18 +17,20 @@ async def main():
             print(f"Generated images: {images}")
 
             # Пример использования ChatGPT
-        response = await api.chatgpt_api(
-            prompt="Привет, как дела?",
-            model=GptModels.gpt_4o
-        )
-        print("gpt", response.response.text)
+            response = await api.chatgpt_api(
+                prompt="Привет, как дела?",
+                model=GptModels.gpt_4o,
+                temperature=0.7
+            )
+            print("gpt", response.response.text)
 
-        # Пример стриминга ChatGPT
-        async for chunk in await api.chatgpt_api(
-                prompt="Скажи 'Тест'",
-                model=GptModels.chatgpt_4o,
-                stream=True
-        ):
+            # Пример стриминга ChatGPT
+            async for chunk in await api.chatgpt_api(
+                    prompt="Скажи 'Тест'",
+                    model=GptModels.chatgpt_4o,
+                    stream=True,
+                    temperature=0.7
+            ):
             print(chunk.response.text, end='')
     finally:
         await api._session.close()

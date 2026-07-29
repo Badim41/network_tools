@@ -124,7 +124,7 @@ class NetworkToolsAPI:
         return mime_type
 
     def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[], file_path=None,
-                    internet_access=False, stream=False) -> Union[GptResponse, Generator[GptResponse, None, None]]:
+                    internet_access=False, stream=False, temperature=None) -> Union[GptResponse, Generator[GptResponse, None, None]]:
         url = f"{self.api_url}/api/v2/chatgpt"
         headers = {
             "Content-Type": "application/json",
@@ -146,6 +146,7 @@ class NetworkToolsAPI:
             "internet_access": internet_access,
             "mime_type": mime_type,
             "stream": stream,
+            "temperature": temperature,
         }
 
         response = self.session.post(url, headers=headers, json=payload)
@@ -751,7 +752,7 @@ class AsyncNetworkToolsAPI:
         return mime_type
 
     async def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[], file_path=None,
-                          internet_access=False, stream=False) -> Union[GptResponse, AsyncGenerator[GptResponse, None]]:
+                          internet_access=False, stream=False, temperature=None) -> Union[GptResponse, AsyncGenerator[GptResponse, None]]:
         url = f"{self.api_url}/api/v2/chatgpt"
         headers = {
             "Content-Type": "application/json",
@@ -773,6 +774,7 @@ class AsyncNetworkToolsAPI:
             "internet_access": internet_access,
             "mime_type": mime_type,
             "stream": stream,
+            "temperature": temperature,
         }
 
         async with self.get_session().post(url, headers=headers, json=payload) as response:

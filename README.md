@@ -140,7 +140,7 @@ chat_history = []
 file_path = "files/cat.png"
 # file_path = None
 
-response = client.chatgpt_api(prompt, model=model, chat_history=chat_history, file_path=file_path)
+response = client.chatgpt_api(prompt, model=model, chat_history=chat_history, file_path=file_path, temperature=0.7)
 print(response.response.text)
 print(response.cost) # Стоимость запроса, Credits
 # 1 Credit = 100₽
@@ -455,7 +455,7 @@ curl --request POST \
   --url https://ru.yellowfire.ru/api/v2/chatgpt \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
-  --data '{"model": "gpt-4o", "prompt": "Привет!", "chat_history": [], "file_base64": "", "internet_access": false, "mime_type":""}'
+  --data '{"model": "gpt-4o", "prompt": "Привет!", "chat_history": [], "file_base64": "", "internet_access": false, "mime_type":"", "temperature": 0.7}'
 ```
 
 #### С текстовым файлом в base64:

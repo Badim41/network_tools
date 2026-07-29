@@ -11,7 +11,7 @@ chat_history = [
 model = GptModels.gpt_4o
 prompt = "Перескажи наш диалог"
 
-generator = client.chatgpt_api(prompt, model=model, chat_history=chat_history, stream=True)
+generator = client.chatgpt_api(prompt, model=model, chat_history=chat_history, stream=True, temperature=0.7)
 
 for chunk in generator:
     print(chunk.response.text, end='')

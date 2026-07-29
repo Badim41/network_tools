@@ -14,6 +14,7 @@ response = client.chat.completions.create(
     messages=[
         {"role": "user", "content": "Привет!"}
     ],
+    temperature=0.7,
 )
 
 print(response.choices[0].message.content)
@@ -24,6 +25,7 @@ stream = client.chat.completions.create(
     model="gpt-4o",  # GptModels.gpt_4o
     messages=[{"role": "user", "content": "Сгенерируй стих"}],
     stream=True,
+    temperature=0.7,
 )
 
 for chunk in stream:
