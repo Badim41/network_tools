@@ -119,6 +119,7 @@ class GptModels:
 
     gemini_3_0_pro = "gemini-3-0-pro"  # thinking
     gemini_3_5_flash = "gemini-3-5-flash"  # thinking
+    gemini_3_5_flash_lite = "gemini-3-5-flash-lite"  # thinking
     gemini_3_0_flash = "gemini-3-0-flash"  # thinking
     gemini_2_5_pro = "gemini-2-5-pro"  # thinking
     gemini_2_5_flash = "gemini-2.5-flash"
