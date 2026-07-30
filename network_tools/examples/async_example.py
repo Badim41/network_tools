@@ -31,7 +31,7 @@ async def main():
                     stream=True,
                     temperature=0.7
             ):
-            print(chunk.response.text, end='')
+                print(chunk.response.text, end='')
     finally:
         await api._session.close()
 

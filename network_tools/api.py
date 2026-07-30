@@ -18,7 +18,7 @@ PRINT_SPEED_TEST = False
 API_URLS = [
     "https://ru.yellowfire.ru", # includes russian server: Russia -> Germany
     "https://sert.yellowfire.ru:444", # direct: Germany
-    "https://yellowfire.ru" # cloudflare -> Germany
+    # "https://yellowfire.ru" # cloudflare -> Germany
 ]
 
 def _run_speedtest_background(instance):
