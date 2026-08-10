@@ -74,7 +74,6 @@
 - Cohere: Command R+, Command A, Command A Vision, C4AI Aya Vision 32B
 - Minimax: Minimax-m3, Minimax-02, Minimax-01
 - Moonshot AI: Kimi K2 Thinking, Kimi K2.5
-- Прочие: GLM-4.6, Reka Flash, Deep AI Model
 
 ### 🎨 Модели для генерации изображений:
 - DALL-E-3
