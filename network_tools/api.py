@@ -630,7 +630,10 @@ class NetworkToolsAPI:
                                 i,
                                 request_id
                             )
-                        music_clips.append(MusicClip(audio_path=audio_path, image_path=image_path))
+                        lyric_timestamps = result_data.get("lyric_timestamps", [])
+                        clip_obj = MusicClip(audio_path=audio_path, image_path=image_path)
+                        clip_obj.lyric_timestamps = lyric_timestamps
+                        music_clips.append(clip_obj)
 
                 if not returned_link:
                     yield []  # Пустой список stream_urls, если не было стрима

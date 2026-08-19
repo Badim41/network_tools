@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='network_tools',
-    version='3.0',
+    version='3.1',
     packages=find_packages(),
     install_requires=[
         'requests',
