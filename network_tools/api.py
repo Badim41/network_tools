@@ -1,6 +1,8 @@
 import base64
+import json
 import mimetypes
 import os
+import tempfile
 import time
 import threading
 from typing import Union, Generator, AsyncGenerator
@@ -15,13 +17,65 @@ from urllib3.util.retry import Retry
 from ._types import *
 
 PRINT_SPEED_TEST = False
+SPEEDTEST_CACHE_TTL = 12 * 3600  # 12 часов
+CACHE_FILENAME = "networktools_speedtest_cache.json"
+
 API_URLS = [
     "https://ru.yellowfire.ru", # includes russian server: Russia -> Germany
     "https://sert.yellowfire.ru:444", # direct: Germany
     # "https://yellowfire.ru" # cloudflare -> Germany
 ]
 
+
+def _get_speedtest_cache_paths():
+    paths = []
+    try:
+        paths.append(os.path.join(tempfile.gettempdir(), CACHE_FILENAME))
+    except Exception:
+        pass
+    paths.append(os.path.join(os.getcwd(), CACHE_FILENAME))
+    return paths
+
+
+def _read_speedtest_cache():
+    now = time.time()
+    for path in _get_speedtest_cache_paths():
+        try:
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, dict):
+                    timestamp = data.get("timestamp", 0)
+                    best_url = data.get("best_url")
+                    if best_url and (now - timestamp < SPEEDTEST_CACHE_TTL):
+                        return best_url
+        except Exception:
+            continue
+    return None
+
+
+def _write_speedtest_cache(best_url):
+    data = {
+        "timestamp": time.time(),
+        "best_url": best_url
+    }
+    for path in _get_speedtest_cache_paths():
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(data, f)
+            return
+        except Exception:
+            continue
+
+
 def _run_speedtest_background(instance):
+    cached_url = _read_speedtest_cache()
+    if cached_url:
+        instance.api_url = cached_url
+        if PRINT_SPEED_TEST:
+            print(f"[SpeedTest] Loaded from cache: {cached_url}")
+        return
+
     best_url = instance.api_url
     best_time = float('inf')
 
@@ -39,6 +93,7 @@ def _run_speedtest_background(instance):
             pass
 
     instance.api_url = best_url
+    _write_speedtest_cache(best_url)
     if PRINT_SPEED_TEST:
         print(f"[SpeedTest] Complete. Fastest: {best_url} with {best_time:.2f}s. Selected: {instance.api_url}")
 
