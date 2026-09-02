@@ -139,7 +139,7 @@ extension_to_mime = {
 
 
 class NetworkToolsAPI:
-    def __init__(self, api_key, output_dir="images", background_check_best_url=True):
+    def __init__(self, api_key, output_dir="images", background_check_best_url=False):
         self.api_url = "https://ru.yellowfire.ru"
         self.api_key = api_key
         self.output_dir = output_dir
