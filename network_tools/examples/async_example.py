@@ -19,7 +19,7 @@ async def main():
             # Пример использования ChatGPT
             response = await api.chatgpt_api(
                 prompt="Привет, как дела?",
-                model=GptModels.gpt_4o,
+                model=GptModels.gemini_3_8_flash,
                 temperature=0.7
             )
             print("gpt", response.response.text)
@@ -27,7 +27,7 @@ async def main():
             # Пример стриминга ChatGPT
             async for chunk in await api.chatgpt_api(
                     prompt="Скажи 'Тест'",
-                    model=GptModels.chatgpt_4o,
+                    model=GptModels.gemini_3_8_flash,
                     stream=True,
                     temperature=0.7
             ):

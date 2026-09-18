@@ -37,67 +37,53 @@
 > 💡 **Для работы с длинным контекстом** лучше всего использовать модели **Gemini 3.5 Flash**, **Gemini 3.5 Flash Lite** или **Gemini 3.0 Pro**.
 
 **OpenAI**
-- GPT-5.6-sol / GPT-5.6-terra / GPT-5.6-luna
-- GPT-5.5 / GPT-5.4 / GPT-5.4-mini / GPT-5.3-codex
-- GPT-5.2 Pro / GPT-5.2 High / GPT-5.2
-- GPT-5.1 High / ChatGPT-5.1 / GPT-5.1
-- GPT-5 High / ChatGPT-5 / GPT-5 / GPT-5-mini / GPT-5-nano / GPT-5-chat-latest
+- GPT-5.6-sol / GPT-5.6-terra / GPT-5.6-luna **(временно недоступны)**
+- GPT-5 / GPT-5-mini / GPT-5-nano
 - GPT-oss
-- o4-mini / o3-High / o3-mini / o1
-- GPT-4.5 / GPT-4.1 / GPT-4.1-mini / GPT-4.1-nano
-- GPT-4o / ChatGPT-4o / GPT-4o-mini / GPT-3.5
+- GPT-4.1 / GPT-4.1-mini / GPT-4.1-nano
+- GPT-4o / GPT-4o-mini
 
 **Anthropic (Claude)**
-- Claude 5 Opus / Claude 5 Sonnet / Claude 5 Fable
-- Claude 4.8 Opus / Claude 4.7 Opus / Claude 4.6 Opus
-- Claude 4.6 Sonnet
-- Claude 4.5 (Opus, Sonnet, Haiku, + Thinking)
-- Claude 4.1 (Opus, + Thinking)
-- Claude 4 (Opus, Sonnet, + Thinking)
-- Claude 3.7 Sonnet (+ Thinking) / Claude 3.5 Sonnet / Claude 3 Opus / Claude 3 Sonnet / Claude 3 Haiku
+- Claude 5 Opus / Claude 5 Sonnet / Claude 5 Fable **(временно недоступны)**
+- Claude 4.5 Sonnet
 
 **Google (Gemini)**
+> (на данный момент самые стабильные + поддержка до 800к символов)
+
+- Gemini 3.8 (Flash)
 - Gemini 3.0 (Pro, Flash)
 - Gemini 3.5 (Flash, Flash Lite)
-- Gemini 2.5 (Pro, Flash, Flash Lite)
-- Gemini 2.0 Flash Lite
 
 **DeepSeek**
 - DeepSeek V4 (Pro, Flash)
 - DeepSeek V3.2 / V3.2 Thinking
-- DeepSeek V3 / R1 / R1-0528
 
 **X-Ai (Grok)**
-- Grok 4 / Grok 4 Fast / Grok 3
+- Grok 4 / Grok 4 Fast
 
 **Другие**
-- Cohere: Command R+, Command A, Command A Vision, C4AI Aya Vision 32B
-- Minimax: Minimax-m3, Minimax-02, Minimax-01
-- Moonshot AI: Kimi K2 Thinking, Kimi K2.5
+- Cohere: Command R+, Command A
+- Moonshot AI: Kimi K2.5 **(временно недоступны)**
 
 ### 🎨 Модели для генерации изображений:
-- DALL-E-3
-- SD Ultra / SD XL
 - Flux
 - Recraft V3
-- Kandinsky
 - ChatGPT Images
-- Nano Banana Pro
+- Nano Banana 2
 
 ### 🖼️ Модели для редактирования изображений:
 - Recraft V3
-- Stable Diffusion
 - ChatGPT Images
-- Nano Banana Pro
+- Nano Banana 2
 
 ### 🎬 Модели для генерации видео:
 - Kling 3 (поддержка аудио и видео до 10 секунд)
 
 ### 🎵 Модели для генерации музыки (generate/cover/extend):
-- Suno V5 / V4.5 / V4 / V3.5
+- Suno V5 / V4.5
 
 ### 🗣️ Модели для озвучки текста:
-- Model V3
+\-  **(временно недоступны)**
 
 ### 🔊 Модели для создания аудио:
 - Stable Audio
@@ -232,7 +218,7 @@ print("Путь к видео:", video_path)
 from network_tools import MusicModels, SunoMode
 
 music_generator = client.music_generate_api(
-    model=MusicModels.suno_v4,
+    model=MusicModels.suno_v5,
     lyrics="[Instrumental]\n\n[end]",  # Слова песни
     music_style="piano, pop-music, drums, quiet, calm",  # Жанр
     instrumental=False,
@@ -371,6 +357,7 @@ print("Сгенерированный звук:", audio_path)
 | grok-3                     | 1.50                        | 7.50                         |
 | grok-4                     | 1.50                        | 7.50                         |
 | grok-4-fast                | 1.50                        | 7.50                         |
+| gemini-3.8-flash           | 1.50                        | 9.00                         |
 | gemini-3.0-pro             | 1.00                        | 6.00                         |
 | gemini-3.5-flash           | 1.50                        | 9.00                         |
 | gemini-3.5-flash-lite      | 0.15                        | 1.25                         |
@@ -384,16 +371,12 @@ print("Сгенерированный звук:", audio_path)
 
 ## Модели изображений
 
-| Модель             | Стоимость (Credit/изображение) |
-|--------------------|--------------------------------|
-| DALL-E (Light)     | 0.01                           |
-| SD Ultra           | 0.04                           |
-| SD XL              | 0.0005                         |
-| Flux Pro Ultra Row | 0.02                           |
-| Flux               | 0.01                           |
-| Recraft v3         | 0.02                           |
-| ChatGPT Images     | 0.085                          |
-| Nano Banana Pro    | 0.03                           |
+| Модель         | Стоимость (Credit/изображение) |
+|----------------|--------------------------------|
+| Flux           | 0.02                           |
+| Recraft v3     | 0.02                           |
+| ChatGPT Images | 0.085                          |
+| Nano Banana 2  | 0.03                           |
 
 ## Обработка изображений
 
@@ -402,15 +385,11 @@ print("Сгенерированный звук:", audio_path)
 | Удаление фона                    | 0.01                           |
 | Замена фона                      | 0.04                           |
 | Дополнение изображения           | 0.02                           |
-| Inpaint (Stable Diffusion Ultra) | 0.04                           |
 | Inpaint (Recraft V3)             | 0.02                           |
 | Inpaint (ChatGPT Images)         | 0.085                          |
-| Inpaint (Nano Banana Pro)        | 0.03                           |
+| Inpaint (Nano Banana 2)          | 0.03                           |
 | Upscale                          | 0.01                           |
-| Добавить текст                   | 0.02                           |
-| Сделать в похожем стиле          | 0.02                           |
 | Сделать векторным                | 0.01                           |
-| Поиск и замена                   | 0.02                           |
 | Из изображения в 3D-модель       | 0.01                           |
 
 ## Генерация видео
@@ -428,8 +407,6 @@ print("Сгенерированный звук:", audio_path)
 |-----------|----------------------------|
 | Suno v5   | 0.1                        |
 | Suno v4.5 | 0.1                        |
-| Suno v4   | 0.05                       |
-| Suno v3   | 0.05                       |
 
 ## TTS (озвучить текст)
 
@@ -474,7 +451,7 @@ curl --request POST \
   --url https://ru.yellowfire.ru/api/v2/image_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
-  --data '{"models": ["sd_xl"], "aspect_ratio": "1:1", "prompt": "A futuristic city with flying cars"}'
+  --data '{"models": ["nano_banana"], "aspect_ratio": "1:1", "prompt": "A futuristic city with flying cars"}'
 ```
 
 ### 🖼️ Редактирование изображений

@@ -117,6 +117,7 @@ class GptModels:
     kimi_k2_thinking = "kimi-k2-thinking"  # thinking
     kimi_k2_5 = "kimi-k2-5"
 
+    gemini_3_8_flash = "gemini-3-8-flash"  # thinking
     gemini_3_0_pro = "gemini-3-0-pro"  # thinking
     gemini_3_5_flash = "gemini-3-5-flash"  # thinking
     gemini_3_5_flash_lite = "gemini-3-5-flash-lite"  # thinking

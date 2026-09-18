@@ -8,7 +8,7 @@ chat_history = [
     {'content': 'Ваш вопрос очень общий, и мне трудно понять, что именно вы имеете в виду', 'role': 'assistant'}
 ]  # История запросов
 
-model = GptModels.gpt_4o
+model = GptModels.gemini_3_8_flash
 prompt = "Перескажи наш диалог"
 
 generator = client.chatgpt_api(prompt, model=model, chat_history=chat_history, stream=True, temperature=0.7)

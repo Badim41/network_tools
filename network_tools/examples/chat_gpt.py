@@ -18,7 +18,7 @@ print("response.cost:", response.cost) # Credits. 1 Credit = 100₽
 
 # Второй запрос, с картинкой
 
-model = GptModels.gpt_4o
+model = GptModels.gemini_3_8_flash
 prompt = "Что это?"
 chat_history = []
 file_path_1 = r"example_files\cat.png"  # Путь к файлу

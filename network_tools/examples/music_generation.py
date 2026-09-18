@@ -27,7 +27,7 @@ test_lyrics = """[Verse 1]
 [End]"""
 
 music_generator = client.music_generate_api(
-    model=MusicModels.suno_v4,
+    model=MusicModels.suno_v5,
     lyrics=test_lyrics,  # слова песни
     music_style="piano, pop-music, drums, quite, calm",  # жанр музыки
     instrumental=False,
