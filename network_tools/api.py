@@ -48,7 +48,7 @@ def _read_speedtest_cache():
                     timestamp = data.get("timestamp", 0)
                     best_url = data.get("best_url")
                     if best_url and (now - timestamp < SPEEDTEST_CACHE_TTL):
-                        print(best_url)
+                        # print(best_url)
                         return best_url
         except Exception:
             continue
