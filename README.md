@@ -36,12 +36,13 @@
   - [7. Генерация музыки](#7-генерация-музыки)
   - [8. Озвучка текста (TTS)](#8-озвучка-текста-tts)
   - [9. Генерация звуковых эффектов (Audio)](#9-генерация-звуковых-эффектов-audio)
+  - [10. Распознавание речи (STT)](#10-распознавание-речи-stt)
 - [💰 Стоимость использования](#-стоимость-использования-моделей)
 - [🌐 CURL Примеры](#curl-примеры)
 
 ### 💬 Нейросети для обработки текста:
 
-> 💡 **Для работы с длинным контекстом** лучше всего использовать модели **Gemini 3.5 Flash**, **Gemini 3.5 Flash Lite** или **Gemini 3.0 Pro**.
+> 💡 **Для работы с длинным контекстом** лучше всего использовать модели **Gemini 4 Argon**, **Gemini 3.5 Flash**, **Gemini 3.5 Flash Lite** или **Gemini 3.0 Pro**.
 
 **OpenAI**
 - GPT-5.6-sol / GPT-5.6-terra / GPT-5.6-luna **(временно недоступны)**
@@ -57,6 +58,7 @@
 **Google (Gemini)**
 > (на данный момент самые стабильные + поддержка до 800к символов)
 
+- Gemini 4 Argon
 - Gemini 3.8 (Flash)
 - Gemini 3.0 (Pro, Flash)
 - Gemini 3.5 (Flash, Flash Lite)
@@ -94,6 +96,9 @@
 
 ### 🔊 Модели для создания аудио:
 - Stable Audio
+
+### 🎙️ Распознавание речи (STT):
+- Поддержка `.mp3`, `.wav`, `.ogg`, `.m4a`, `.flac`, `.webm` и других аудиоформатов
 
 ## Установка
 
@@ -281,6 +286,18 @@ audio_path = client.audio_generate_api(
 print("Сгенерированный звук:", audio_path)
 ```
 
+### 10. Распознавание речи (STT)
+
+Перевод голосовых сообщений и аудиофайлов в текст.
+
+```python
+stt_result = client.stt_api(
+    audio_path="files/voice.ogg",
+    lang="ru"  # Опционально (например, "ru", "en"; если None — автоопределение)
+)
+print("Распознанный текст:", stt_result.text)
+```
+
 ## Цены
 
 - Цены на текстовые модели в **2 раза ниже** официальных
@@ -288,6 +305,7 @@ print("Сгенерированный звук:", audio_path)
 - Цены на модели редактирования изображений в **2 раза ниже** официальных
 - Цены на музыку **до 2 раз ниже** официальных
 - Цены на TTS *примерно равны* официальным
+- Цены на распознавание речи (STT) в **2 раза ниже** официальных
 - Цены на генерацию видео **до 2 раз ниже** официальных
 
 
@@ -366,6 +384,7 @@ print("Сгенерированный звук:", audio_path)
 | grok-3                     | 1.50                        | 7.50                         |
 | grok-4                     | 1.50                        | 7.50                         |
 | grok-4-fast                | 1.50                        | 7.50                         |
+| gemini-4-argon             | 1.00                        | 5.00                         |
 | gemini-3.8-flash           | 1.50                        | 9.00                         |
 | gemini-3.0-pro             | 1.00                        | 6.00                         |
 | gemini-3.5-flash           | 1.50                        | 9.00                         |
@@ -428,6 +447,12 @@ print("Сгенерированный звук:", audio_path)
 | Модель       | Стоимость |
 |--------------|-----------|
 | Stable audio | 0.01      |
+
+## STT (распознать речь)
+
+| Операция                 | Стоимость (Credit/запрос) |
+|--------------------------|---------------------------|
+| Распознавание речи (STT) | 0.003                     |
 
 ## CURL Примеры
 
@@ -541,6 +566,26 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
   --data '{"model": "stable_audio", "prompt": "guitar solo, acoustic", "file_base64": "", "duration": 90, "steps": 50, "cfg_scale": 7.0, "strength": 1.0, "seed": 0, "send_url": false}'
+```
+
+### 🎙️ Распознавание речи (STT)
+
+#### Передача аудио в Base64 (JSON)
+```bash
+curl --request POST \
+  --url https://sert.yellowfire.ru:444/api/v2/stt \
+  --header 'Content-Type: application/json' \
+  --header 'api-key: API_KEY' \
+  --data '{"file_base64": "UklGRiQAAABXQVZFZm10...", "mime_type": "audio/wav", "lang": "ru"}'
+```
+
+#### Передача файла напрямую (multipart/form-data)
+```bash
+curl --request POST \
+  --url https://sert.yellowfire.ru:444/api/v2/stt \
+  --header 'api-key: API_KEY' \
+  --form 'file=@voice.ogg' \
+  --form 'lang=ru'
 ```
 
 ### 🔄 Проверка статуса (для всех асинхронных задач)

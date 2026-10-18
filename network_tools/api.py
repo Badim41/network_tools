@@ -104,7 +104,13 @@ extension_to_mime = {
     '.mp3': 'audio/mpeg',
     '.wav': 'audio/wav',
     '.ogg': 'audio/ogg',
+    '.oga': 'audio/ogg',
+    '.opus': 'audio/opus',
     '.flac': 'audio/flac',
+    '.m4a': 'audio/mp4',
+    '.aac': 'audio/aac',
+    '.webm': 'audio/webm',
+    '.3gp': 'audio/3gpp',
 
     # Видео
     '.mp4': 'video/mp4',
@@ -585,6 +591,54 @@ class NetworkToolsAPI:
 
         audio_base64 = audio_data['response'][model][0]
         return self._save_base64(audio_base64, model, "0", request_id)
+
+    def stt_api(
+            self,
+            audio_path: Optional[str] = None,
+            lang: Optional[str] = None,
+            file_path: Optional[str] = None
+    ) -> SttResponse:
+        """
+        Отправляет аудиофайл на распознавание речи (Speech-to-Text).
+
+        :param audio_path: str, путь к аудиофайлу (mp3, wav, ogg, m4a и др.)
+        :param lang: Optional[str], код языка (например, "ru", "en"). Если None — автоопределение
+        :param file_path: Optional[str], альтернативный параметр пути к аудиофайлу
+        :return: SttResponse (распознанный текст в поле .text)
+        """
+        target_path = audio_path or file_path
+        if not target_path:
+            raise ValueError("Необходимо указать audio_path (или file_path)")
+
+        url = f"{self.api_url}/api/v2/stt"
+        headers = {
+            "Content-Type": "application/json",
+            "api-key": self.api_key
+        }
+
+        file_base64 = self._file_to_base64(target_path)
+        mime_type = self._get_mime_type(target_path)
+
+        data = {
+            "file_base64": file_base64,
+            "mime_type": mime_type,
+            "lang": lang
+        }
+
+        response = self.session.post(url, headers=headers, json=data)
+        response_data = response.json()
+
+        if response_data.get("error"):
+            raise NetworkToolsBadRequest(response_data.get("error"))
+
+        request_id = response_data.get("request_id")
+        if not request_id:
+            raise NetworkToolsError("Request ID not found in response")
+
+        time.sleep(response_data.get("wait", 2))
+
+        result = self._check_status(request_id, attempts=300, delay=0.5)
+        return SttResponse.from_json(result)
 
     def _check_status_stream_images(self, request_id, attempts=1200):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
@@ -1233,6 +1287,54 @@ class AsyncNetworkToolsAPI:
 
         audio_base64 = audio_data['response'][model][0]
         return await self._save_base64(audio_base64, model, "0", request_id)
+
+    async def stt_api(
+            self,
+            audio_path: Optional[str] = None,
+            lang: Optional[str] = None,
+            file_path: Optional[str] = None
+    ) -> SttResponse:
+        """
+        Отправляет аудиофайл на распознавание речи (Speech-to-Text).
+
+        :param audio_path: str, путь к аудиофайлу (mp3, wav, ogg, m4a и др.)
+        :param lang: Optional[str], код языка (например, "ru", "en"). Если None — автоопределение
+        :param file_path: Optional[str], альтернативный параметр пути к аудиофайлу
+        :return: SttResponse (распознанный текст в поле .text)
+        """
+        target_path = audio_path or file_path
+        if not target_path:
+            raise ValueError("Необходимо указать audio_path (или file_path)")
+
+        url = f"{self.api_url}/api/v2/stt"
+        headers = {
+            "Content-Type": "application/json",
+            "api-key": self.api_key
+        }
+
+        file_base64 = await self._file_to_base64(target_path)
+        mime_type = self._get_mime_type(target_path)
+
+        data = {
+            "file_base64": file_base64,
+            "mime_type": mime_type,
+            "lang": lang
+        }
+
+        async with self.get_session().post(url, headers=headers, json=data) as response:
+            response_data = await response.json()
+
+        if response_data.get("error"):
+            raise NetworkToolsBadRequest(response_data.get("error"))
+
+        request_id = response_data.get("request_id")
+        if not request_id:
+            raise NetworkToolsError("Request ID not found in response")
+
+        await asyncio.sleep(response_data.get("wait", 2))
+
+        result = await self._check_status(request_id, attempts=300, delay=0.5)
+        return SttResponse.from_json(result)
 
     async def _check_status_stream_images(self, request_id, attempts=1200):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""

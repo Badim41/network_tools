@@ -117,6 +117,7 @@ class GptModels:
     kimi_k2_thinking = "kimi-k2-thinking"  # thinking
     kimi_k2_5 = "kimi-k2-5"
 
+    gemini_4_argon = "gemini-4-argon"  # thinking
     gemini_3_8_flash = "gemini-3-8-flash"  # thinking
     gemini_3_0_pro = "gemini-3-0-pro"  # thinking
     gemini_3_5_flash = "gemini-3-5-flash"  # thinking
@@ -155,7 +156,7 @@ class GptModels:
         claude_3_opus, claude_3_sonnet, claude_3_haiku,
         deepseek_v4_pro, deepseek_v4_flash, deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
         command_r_plus, command_a, c4ai_aya_vision_32b,
-        grok_3, grok_4, kimi_k2_thinking, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
+        grok_3, grok_4, kimi_k2_thinking, gemini_4_argon, gemini_3_0_pro, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite, o3_high, o4_mini,
         gpt_5_6_sol, gpt_5_6_terra, gpt_5_6_luna, gpt_5_5, gpt_5_4_mini, gpt_5_high, chatgpt_5, gpt_5, gpt_5_mini, gpt_5_nano, glm_4_6, gpt_oss, gpt_5_1, gpt_5_1_high, chatgpt_5_1, gpt_5_2, gpt_5_2_pro, gemini_3_0_flash, gemini_3_5_flash, gpt_5_2_high, kimi_k2_5, grok_4_fast, gpt_5_4
     ]
 
@@ -213,7 +214,8 @@ GPT_5_MODELS = [
     GptModels.gpt_5_nano
 ]
 ALL_VISION_MODELS = ([GptModels.c4ai_aya_vision_32b, GptModels.command_a_vision] + GPT_4O_MODELS +
-                     [GptModels.gemini_3_0_pro,
+                     [GptModels.gemini_4_argon,
+                      GptModels.gemini_3_0_pro,
                       GptModels.gemini_3_0_flash,
                       GptModels.gemini_3_5_flash,
                       GptModels.gemini_3_5_flash_lite,
@@ -251,6 +253,33 @@ ALL_VISION_MODELS = ([GptModels.c4ai_aya_vision_32b, GptModels.command_a_vision]
 class MusicClip:
     audio_path: str
     image_path: Optional[str] = None
+
+
+@dataclass
+class SttResponse:
+    text: str
+    cost: float
+    created: float
+    status: str
+    response: dict = field(default_factory=dict)
+
+    @classmethod
+    def from_json(cls, data: Dict[str, Any]) -> "SttResponse":
+        resp = data.get("response") if isinstance(data.get("response"), dict) else {}
+        text = data.get("text") or resp.get("text", "")
+        return cls(
+            text=text,
+            cost=data.get("cost", 0.0),
+            created=data.get("created", 0.0),
+            status=data.get("status", "success"),
+            response=resp
+        )
+
+    def get_formatted_created_time(self) -> str:
+        return datetime.fromtimestamp(self.created).strftime('%Y-%m-%d %H:%M:%S')
+
+    def __str__(self) -> str:
+        return self.text
 
 
 @dataclass
