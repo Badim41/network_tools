@@ -5,7 +5,7 @@ import os
 import tempfile
 import time
 import threading
-from typing import Union, Generator, AsyncGenerator
+from typing import Union, List, Optional, Generator, AsyncGenerator
 
 import aiofiles
 import asyncio
@@ -157,15 +157,21 @@ class NetworkToolsAPI:
         self.session.mount('http://', HTTPAdapter(max_retries=retries))
         self.session.mount('https://', HTTPAdapter(max_retries=retries))
 
-    @staticmethod
-    def _file_to_base64(file_path):
-        """Конвертирует файл в строку base64"""
+    @classmethod
+    def _file_to_base64(cls, file_path: Union[str, List[str]]) -> Union[str, List[str]]:
+        """Конвертирует один файл (str) или список файлов (list[str]) в base64."""
+        if isinstance(file_path, (list, tuple)):
+            return [cls._file_to_base64(p) for p in file_path if p]
         with open(file_path, "rb") as file:
             encoded_string = base64.b64encode(file.read()).decode("utf-8")
         return encoded_string
 
-    @staticmethod
-    def _get_mime_type(file_path):
+    @classmethod
+    def _get_mime_type(cls, file_path: Union[str, List[str]]) -> Union[str, List[str]]:
+        """Определяет MIME-тип для одного файла (str) или списка файлов (list[str]) последовательно."""
+        if isinstance(file_path, (list, tuple)):
+            return [cls._get_mime_type(p) for p in file_path if p]
+
         mime_type, encoding = mimetypes.guess_type(file_path)
 
         if not mime_type:
@@ -179,7 +185,8 @@ class NetworkToolsAPI:
             raise UnknownMimetype(f"Не найден mime_type: {file_path}")
         return mime_type
 
-    def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[], file_path=None,
+    def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[],
+                    file_path: Optional[Union[str, List[str]]] = None,
                     internet_access=False, stream=False, temperature=None) -> Union[GptResponse, Generator[GptResponse, None, None]]:
         url = f"{self.api_url}/api/v2/chatgpt"
         headers = {
@@ -304,13 +311,13 @@ class NetworkToolsAPI:
 
         return self._check_status_stream_images(request_id)
 
-    def change_image_api(self, model, image_path, prompt="", prompt_2="", strength=None, inpaint_models=None,
-                         send_url=False):
+    def change_image_api(self, model, image_path: Union[str, List[str]], prompt="", prompt_2="", strength=None,
+                         inpaint_models=None, send_url=False):
         """
-        Отправляет изображение на обработку (удаление фона, апскейл и т. д.).
+        Отправляет изображение (или список изображений) на обработку (удаление фона, апскейл, inpaint и т. д.).
 
         :param model: str, тип обработки (использует ImageChangeModels)
-        :param image_path: str, путь к файлу изображения
+        :param image_path: Union[str, List[str]], путь к файлу или список путей к изображениям
         :param prompt: str, основной текстовый запрос
         :param prompt_2: str, дополнительный текстовый запрос
         :param strength: float, сила изменения изображения для inpaint
@@ -405,7 +412,7 @@ class NetworkToolsAPI:
     def video_generate_api(
             self,
             model,
-            image_path=None,
+            image_path: Optional[Union[str, List[str]]] = None,
             prompt="",
             send_url=False,
             aspect_ratio="16:9",
@@ -417,7 +424,7 @@ class NetworkToolsAPI:
 
         :param model: str, модель генерации видео
         :param prompt: [str, None], текстовый запрос
-        :param image_path: [str, None], путь к изображению
+        :param image_path: [str, List[str], None], путь или список путей к изображениям
         :return: video_path
         """
         if prompt and model == VideoModels.stable_video_diffusion:
@@ -430,12 +437,15 @@ class NetworkToolsAPI:
 
         if image_path:
             file_base64 = self._file_to_base64(image_path)
+            mime_type = self._get_mime_type(image_path)
         else:
             file_base64 = ""
+            mime_type = ""
 
         data = {
             "model": model,
             "file_base64": file_base64,
+            "mime_type": mime_type,
             "prompt": prompt,
             "aspect_ratio": aspect_ratio,
             "send_url": send_url,
@@ -787,16 +797,22 @@ class AsyncNetworkToolsAPI:
             )
         return self._session
 
-    @staticmethod
-    async def _file_to_base64(file_path):
-        """Конвертирует файл в строку base64"""
+    @classmethod
+    async def _file_to_base64(cls, file_path: Union[str, List[str]]) -> Union[str, List[str]]:
+        """Конвертирует один файл (str) или список файлов (list[str]) в base64."""
+        if isinstance(file_path, (list, tuple)):
+            return [await cls._file_to_base64(p) for p in file_path if p]
         async with aiofiles.open(file_path, "rb") as file:
             content = await file.read()
             encoded_string = base64.b64encode(content).decode("utf-8")
         return encoded_string
 
-    @staticmethod
-    def _get_mime_type(file_path):
+    @classmethod
+    def _get_mime_type(cls, file_path: Union[str, List[str]]) -> Union[str, List[str]]:
+        """Определяет MIME-тип для одного файла (str) или списка файлов (list[str]) последовательно."""
+        if isinstance(file_path, (list, tuple)):
+            return [cls._get_mime_type(p) for p in file_path if p]
+
         mime_type, encoding = mimetypes.guess_type(file_path)
 
         if not mime_type:
@@ -810,7 +826,8 @@ class AsyncNetworkToolsAPI:
             raise UnknownMimetype(f"Не найден mime_type: {file_path}")
         return mime_type
 
-    async def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[], file_path=None,
+    async def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[],
+                          file_path: Optional[Union[str, List[str]]] = None,
                           internet_access=False, stream=False, temperature=None) -> Union[GptResponse, AsyncGenerator[GptResponse, None]]:
         url = f"{self.api_url}/api/v2/chatgpt"
         headers = {
@@ -937,13 +954,13 @@ class AsyncNetworkToolsAPI:
         async for result in self._check_status_stream_images(request_id):
             yield result
 
-    async def change_image_api(self, model, image_path, prompt="", prompt_2="", strength=None, inpaint_models=None,
-                               send_url=False):
+    async def change_image_api(self, model, image_path: Union[str, List[str]], prompt="", prompt_2="", strength=None,
+                               inpaint_models=None, send_url=False):
         """
-        Отправляет изображение на обработку (удаление фона, апскейл и т. д.).
+        Отправляет изображение (или список изображений) на обработку (удаление фона, апскейл, inpaint и т. д.).
 
         :param model: str, тип обработки (использует ImageChangeModels)
-        :param image_path: str, путь к файлу изображения
+        :param image_path: Union[str, List[str]], путь к файлу или список путей к изображениям
         :param prompt: str, основной текстовый запрос
         :param prompt_2: str, дополнительный текстовый запрос
         :param strength: float, сила изменения изображения для inpaint
@@ -1039,7 +1056,7 @@ class AsyncNetworkToolsAPI:
     async def video_generate_api(
             self,
             model,
-            image_path=None,
+            image_path: Optional[Union[str, List[str]]] = None,
             prompt="",
             send_url=False,
             aspect_ratio="16:9",
@@ -1051,7 +1068,7 @@ class AsyncNetworkToolsAPI:
 
         :param model: str, модель генерации видео
         :param prompt: [str, None], текстовый запрос
-        :param image_path: [str, None], путь к изображению
+        :param image_path: [str, List[str], None], путь или список путей к изображениям
         :return: video_path
         """
         if prompt and model == VideoModels.stable_video_diffusion:
@@ -1064,12 +1081,15 @@ class AsyncNetworkToolsAPI:
 
         if image_path:
             file_base64 = await self._file_to_base64(image_path)
+            mime_type = self._get_mime_type(image_path)
         else:
             file_base64 = ""
+            mime_type = ""
 
         data = {
             "model": model,
             "file_base64": file_base64,
+            "mime_type": mime_type,
             "prompt": prompt,
             "aspect_ratio": aspect_ratio,
             "send_url": send_url,

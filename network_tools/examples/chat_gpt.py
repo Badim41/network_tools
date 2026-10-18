@@ -16,20 +16,20 @@ print("История чата 1:", response.chat_history)
 print("response.cost:", response.cost) # Credits. 1 Credit = 100₽
 
 
-# Второй запрос, с картинкой
+# Второй запрос, с одной или несколькими картинками
 
 model = GptModels.gemini_3_8_flash
 prompt = "Что это?"
 chat_history = []
-file_path_1 = r"example_files\cat.png"  # Путь к файлу
+file_path_1 = [r"example_files\cat.png"]  # Путь к файлу
 
 response = client.chatgpt_api(prompt, model=model, chat_history=chat_history, file_path=file_path_1, temperature=0.7)
 print("Ответ 2:", response.response.text)
 print("История чата 2:", response.chat_history)
 
-# Третий запрос, с картинкой и текстом
+# Третий запрос, со списком файлов (или одним файлом) и историей чата
 
-file_path_2 = r"example_files\test.txt"  # Путь к файлу
+file_path_2 = [r"example_files\test.txt"]  # Можно передавать как str, так и list[str]
 prompt = "О чём этот текст? Какого цвета изображение?"
 chat_history = response.chat_history
 
