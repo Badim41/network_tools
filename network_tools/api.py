@@ -476,8 +476,8 @@ class NetworkToolsAPI:
         video_base64 = video_data['response'][model][0]
         return self._save_base64(video_base64, model, "0", request_id)
 
-    def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto",
-                voice_id: str = ModelV3Voices.ru_RU_FEMALE,
+    def tts_api(self, prompt: str, model: str = TtsModels.gemini_tts, speed: float = 1, lang: str = "Auto",
+                voice_id: str = GeminiVoices.Fola,
                 model_id: str = None, reference_audio_wav: str = None, reference_audio_name: str = None,
                 download_stream: bool = False):
         """
@@ -1167,18 +1167,18 @@ class AsyncNetworkToolsAPI:
         video_base64 = video_data['response'][model][0]
         return await self._save_base64(video_base64, model, "0", request_id)
 
-    async def tts_api(self, prompt: str, model: str, speed: float = 1, lang: str = "Auto",
-                      voice_id: str = ModelV3Voices.ru_RU_FEMALE,
+    async def tts_api(self, prompt: str, model: str = TtsModels.gemini_tts, speed: float = 1, lang: str = "Auto",
+                      voice_id: str = GeminiVoices.Fola,
                       model_id: str = None, reference_audio_wav: str = None, reference_audio_name: str = None,
                       download_stream: bool = False):
         """
         Отправляет запрос на генерацию аудио (TTS).
 
         :param prompt: str, текст для озвучки
-        :param model: str, модель генерации голоса
+        :param model: str, модель генерации голоса (по умолчанию TtsModels.gemini_tts)
         :param speed: float, скорость речи (по умолчанию 1)
         :param lang: str, язык (по умолчанию "Auto")
-        :param voice_id: Optional[str], ID голоса
+        :param voice_id: Optional[str], ID голоса (например, GeminiVoices.Fola, GeminiVoices.Mako)
         :param model_id: Optional[str], ID модели
         :param reference_audio_wav: Optional[str], файл WAV с примером голоса (voice clone)
         :param reference_audio_name: Optional[str], файл WAV с примером голоса, который загружен на сервер (voice clone)
@@ -1188,9 +1188,8 @@ class AsyncNetworkToolsAPI:
         url = f"{self.api_url}/api/v2/tts"
         headers = {"Content-Type": "application/json", "api-key": self.api_key}
 
-        # голос по умолчанию
         if not voice_id:
-            voice_id = "226893671006272"
+            voice_id = GeminiVoices.Fola
 
         data = {
             "model": model,

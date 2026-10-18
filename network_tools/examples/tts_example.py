@@ -1,25 +1,22 @@
-from network_tools import NetworkToolsAPI, TtsModels, ModelV3Voices, ModelV3Languages
+from network_tools import NetworkToolsAPI, TtsModels, GeminiVoices
 
 api_key = "API-KEY"  # замените на ваш API ключ
 client = NetworkToolsAPI(api_key)
 
-text = "Привет, это просто пример произношения текста. Вы можете указать скорость, язык и даже id голоса для озвучки. Метод выдаёт аудио потоком, а потом выводит итоговый файл."
+text = "Привет! Это пример синтеза речи через Gemini TTS. Вы можете выбрать подходящего спикера и скорость произношения."
 
-model = TtsModels.voice_model_v3
-
-# (voice clone)
-reference_audio_file = "example_files/file.wav" # only WAV file supported
+# Доступные голоса в GeminiVoices:
+# Женские: Fola, Kira, Tavi, Jori, Veda, Lumi
+# Мужские: Ludo, Mako, Brio, Rami, Enzo, Riko, Sami, Cruz, Zeno, Varo
 
 for audio_file, status in client.tts_api(
         prompt=text,
-        model=model,
+        model=TtsModels.gemini_tts,
+        voice_id=GeminiVoices.Fola,
         speed=1.0,
-        voice_id=ModelV3Voices.ru_RU_MALE,
-        lang=ModelV3Languages.Russian_Russia,
-        reference_audio_wav=reference_audio_file,
-        download_stream=False # скачивать промежуточные результаты
+        download_stream=False  # скачивать ли промежуточные чанки
 ):
     if status == "success":
-        print("Готовый аудио:", audio_file)
+        print("Готовый аудиофайл:", audio_file)
     else:
-        print("Потоковый аудио:", audio_file)
+        print("Потоковый чанк:", audio_file)

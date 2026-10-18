@@ -92,7 +92,7 @@
 - Suno V5 / V4.5
 
 ### 🗣️ Модели для озвучки текста:
-\-  **(временно недоступны)**
+- Gemini TTS (16 голосов: Fola, Kira, Tavi, Ludo, Mako, Riko, Enzo, Rami, Lumi, Veda и др.)
 
 ### 🔊 Модели для создания аудио:
 - Stable Audio
@@ -253,16 +253,15 @@ for clip in music_clips:
 ### 8. Озвучка текста (TTS)
 
 ```python
-from network_tools import TtsModels, ModelV3Voices, ModelV3Languages
+from network_tools import TtsModels, GeminiVoices
 
-text = "Привет, это просто пример произношения текста."
+text = "Привет, это пример озвучки текста через нейросеть Gemini TTS."
 
 for audio_file, status in client.tts_api(
         prompt=text,
-        model=TtsModels.voice_model_v3,
+        model=TtsModels.gemini_tts,
+        voice_id=GeminiVoices.Fola,  # Или Kira, Ludo, Mako, Riko, Enzo и др.
         speed=1.0,
-        voice_id=ModelV3Voices.ru_RU_FEMALE,
-        lang=ModelV3Languages.Russian_Russia,
         download_stream=False  # Скачивать ли промежуточные результаты
 ):
     if status == "success":
@@ -438,9 +437,9 @@ print("Распознанный текст:", stt_result.text)
 
 ## TTS (озвучить текст)
 
-| Модель | Стоимость (Credit/1000 символов) |
-|--------|----------------------------------|
-| -      | -                                |
+| Модель     | Стоимость (Credit/1000 символов) |
+|------------|----------------------------------|
+| gemini_tts | 0.03                             |
 
 ## Audio (создать звук)
 
@@ -555,7 +554,7 @@ curl --request POST \
   --url https://sert.yellowfire.ru:444/api/v2/tts \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
-  --data '{"model": "voice_model_v3", "prompt": "Привет, это тест озвучки!", "params": {"speed": 1.0, "lang": "Auto", "voice_id": "ru_RU_FEMALE", "model_id": null}}'
+  --data '{"model": "gemini_tts", "prompt": "Привет, это тест озвучки через Gemini TTS!", "params": {"speed": 1.0, "voice_id": "Fola"}}'
 ```
 
 ### 🔊 Генерация звука (Audio)

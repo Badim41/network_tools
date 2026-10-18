@@ -435,6 +435,35 @@ class TtsModels:
     # hailuo = "hailuo"
     # elevenlabs = "elevenlabs"
     voice_model_v3 = "voice_model_v3"
+    gemini_tts = "gemini_tts"
+
+
+class GeminiVoices:
+    """Голоса для синтеза речи (Gemini TTS)."""
+    # Женские голоса
+    Fola = "Fola"          # Помощник, сбалансированный и мягкий (по умолчанию)
+    Kira = "Kira"          # Спокойный и уверенный
+    Tavi = "Tavi"          # Интимный, мягкий
+    Jori = "Jori"          # Теплый и открытый
+    Veda = "Veda"          # Ведущая подкаста
+    Lumi = "Lumi"          # Терпеливый преподаватель
+
+    # Мужские голоса
+    Ludo = "Ludo"          # Уверенный и четкий
+    Mako = "Mako"          # Энергичный и яркий
+    Brio = "Brio"          # Спокойный и глубокий
+    Rami = "Rami"          # Теплый и дружелюбный
+    Enzo = "Enzo"          # Четкий и живой
+    Riko = "Riko"          # Глубокий рассказчик
+    Sami = "Sami"          # Уверенный и спокойный
+    Cruz = "Cruz"          # Строгий, командный
+    Zeno = "Zeno"          # Решительный и смелый
+    Varo = "Varo"          # Спокойный студент
+
+
+# Алиас для удобного импорта
+TTSVoices = GeminiVoices
+
 
 class AudioModels:
     stable_audio = "stable_audio"
