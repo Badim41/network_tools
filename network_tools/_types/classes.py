@@ -282,11 +282,62 @@ class SttResponse:
         return self.text
 
 
+class ToolCallFunction(dict):
+    """Словарь функции внутри tool_call с поддержкой доступа через атрибуты (.name, .arguments)."""
+    def __getattr__(self, item):
+        try:
+            return self[item]
+        except KeyError:
+            raise AttributeError(f"'ToolCallFunction' object has no attribute '{item}'")
+
+
+class ToolCallDict(dict):
+    """
+    Элемент списка tool_calls (наследник dict), поддерживающий как формат OpenAI
+    (tc['function']['name'], tc.function.name), так и короткий доступ (tc['name'], tc['arguments'], tc.name, tc.arguments).
+    """
+    def __getattr__(self, item):
+        try:
+            return self[item]
+        except KeyError:
+            raise AttributeError(f"'ToolCallDict' object has no attribute '{item}'")
+
+    @classmethod
+    def from_raw(cls, raw: Dict[str, Any]) -> "ToolCallDict":
+        if not isinstance(raw, dict):
+            return cls()
+        fn_raw = raw.get("function") if isinstance(raw.get("function"), dict) else {}
+        name = raw.get("name") or fn_raw.get("name") or ""
+        args = raw.get("arguments") if "arguments" in raw else fn_raw.get("arguments", {})
+        if isinstance(args, str):
+            try:
+                args = json.loads(args) if args.strip() else {}
+            except json.JSONDecodeError:
+                args = {"_raw": args}
+        elif args is None:
+            args = {}
+
+        fn_obj = ToolCallFunction({
+            "name": name,
+            "arguments": args,
+            "arguments_json": fn_raw.get("arguments_json") or json.dumps(args, ensure_ascii=False)
+        })
+        return cls({
+            "id": raw.get("id") or "call_0",
+            "type": raw.get("type") or "function",
+            "name": name,
+            "arguments": args,
+            "function": fn_obj
+        })
+
+
 @dataclass
 class ResponseDetails:
     model: str
     provider: str
     text: str
+    tool_calls: List[ToolCallDict] = field(default_factory=list)
+    finish_reason: str = "stop"
 
 
 @dataclass
@@ -302,30 +353,55 @@ class GptResponse:
     plugins: dict
     internet_query: str
     image_description: str
+    tool_calls: List[ToolCallDict] = field(default_factory=list)
+    finish_reason: str = "stop"
 
     @classmethod
     def from_json(cls, data: Dict[str, Any]) -> "GptResponse":
         # print("data", data)
         chat_history = data.get("chat_history", [])
-        data["response"]["provider"] = data["response"].get("provider", "Unknown")
-        response = ResponseDetails(**data["response"])
-        full_response = data.get("full_response", {})
+        resp_raw = data.get("response") if isinstance(data.get("response"), dict) else {}
+        full_response = data.get("full_response") if isinstance(data.get("full_response"), dict) else {}
+
+        raw_tool_calls = (
+            data.get("tool_calls")
+            or resp_raw.get("tool_calls")
+            or full_response.get("tool_calls")
+            or []
+        )
+        tool_calls = [ToolCallDict.from_raw(tc) for tc in raw_tool_calls if isinstance(tc, dict)]
+        finish_reason = (
+            data.get("finish_reason")
+            or resp_raw.get("finish_reason")
+            or full_response.get("finish_reason")
+            or ("tool_calls" if tool_calls else "stop")
+        )
+
+        response = ResponseDetails(
+            model=resp_raw.get("model", ""),
+            provider=resp_raw.get("provider", "Unknown"),
+            text=resp_raw.get("text", ""),
+            tool_calls=tool_calls,
+            finish_reason=finish_reason
+        )
         extra_info = full_response.get("extra_info", {})
         plugins = extra_info.get("plugins", {})
         internet_query = extra_info.get("internet_query", "")
         image_description = extra_info.get("image_description", "")
         return cls(
             chat_history=chat_history,
-            cost=data["cost"],
-            created=data["created"],
+            cost=data.get("cost", 0.0),
+            created=data.get("created", 0.0),
             response=response,
-            status=data["status"],
+            status=data.get("status", "success"),
             count_tokens=data.get("count_tokens", {}),
             full_response=full_response,
             extra_info=extra_info,
             plugins=plugins,
             internet_query=internet_query,
-            image_description=image_description
+            image_description=image_description,
+            tool_calls=tool_calls,
+            finish_reason=finish_reason
         )
 
     def get_formatted_created_time(self) -> str:
@@ -337,6 +413,7 @@ class GptResponse:
             f"Cost: {self.cost}\n"
             f"Created: {self.get_formatted_created_time()}\n"
             f"Response: {self.response.text}\n"
+            f"Tool Calls: {self.tool_calls}\n"
             f"Chat History:\n{self.chat_history}"
         )
 
@@ -809,73 +886,3 @@ class ModelV3Voices:
     fil_PH_FEMALE = "fil_PH_FEMALE"
     es_PR_MALE = "es_PR_MALE"
     es_PR_FEMALE = "es_PR_FEMALE"
-
-# class HailuoModelIds:
-#     speech_01_hd = "speech-01-hd"
-#     speech_01_turbo = "speech-01-turbo"
-#     speech_02_hd = "speech-02-hd"
-#     speech_02_turbo = "speech-02-turbo"
-
-
-# class HailuoLanguages:
-#     eng = "English"
-#     arb = "Arabic"
-#     hk = "Cantonese"
-#     cmn = "Chinese (Mandarin)"
-#     nld = "Dutch"
-#     fra = "French"
-#     deu = "German"
-#     ind = "Indonesian"
-#     ita = "Italian"
-#     jpn = "Japanese"
-#     kor = "Korean"
-#     por = "Portuguese"
-#     rus = "Russian"
-#     spa = "Spanish"
-#     tur = "Turkish"
-#     ukr = "Ukrainian"
-#     vie = "Vietnamese"
-#     auto = "Auto"
-
-# class ElevenlabsVoices:
-#     Will = "Will (US male)"
-#     Liam = "Liam (US male)"
-#     Mark = "Mark (US male)"
-#     Bill = "Bill (US male)"
-#     Matilda = "Matilda (US female)"
-#     Jessica = "Jessica (US female)"
-#     Hope = "Hope (US female)"
-#     Cassidy = "Cassidy (US female)"
-#     George = "George (UK male)"
-#     Archer = "Archer (UK male)"
-#     AdamUK = "Adam (UK male)"
-#     Lily = "Lily (UK female)"
-#     Amelia = "Amelia (UK female)"
-#     AnaRita = "Ana-Rita (UK female)"
-#     Wahab = "Wahab (Arabic male)"
-#     Haytham = "Haytham (Arabic male)"
-#     Sana = "Sana (Arabic female)"
-#     Martin = "Martin (Chinese male)"
-#     Guillaume = "Guillaume (French male)"
-#     Hugo = "Hugo (French male)"
-#     Darine = "Darine (French female)"
-#     Jessy = "Jessy (French female)"
-#     Kurt = "Kurt (German male)"
-#     Otto = "Otto (German male)"
-#     Leonie = "Leonie (German female)"
-#     Mila = "Mila (German female)"
-#     Niraj = "Niraj (Hindi male)"
-#     LeoDeprecated = "Leo (Hindi male)"
-#     Leo = "Leo (Hindustani male)"
-#     Monika = "Monika (Hindi female)"
-#     ShakuntalaDeprecated = "Shakuntala (Hindi female)"
-#     Shakuntala = "Shakuntala (Hindustani female)"
-#     Maciej = "Maciej (Polish male)"
-#     AdamPolish = "Adam (Polish male)"
-#     Aneta = "Aneta (Polish female)"
-#     Bea = "Bea (Polish female)"
-#     Juan = "Juan (Spanish male)"
-#     David = "David (Spanish male)"
-#     Dan = "Dan (Spanish male)"
-#     Gabriela = "Gabriela (Spanish female)"
-#     Sara = "Sara (Spanish female)"

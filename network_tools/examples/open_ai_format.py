@@ -32,3 +32,29 @@ for chunk in stream:
     if chunk.choices and chunk.choices[0].delta and chunk.choices[0].delta.content:
         print(chunk.choices[0].delta.content, end="", flush=True)
 
+input("\nNext? Function Calling (tools).")
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Получить текущую погоду в городе",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {"type": "string", "description": "Город, например: Москва"}
+                },
+                "required": ["location"],
+            },
+        },
+    }
+]
+
+tool_response = client.chat.completions.create(
+    model="gemini-3-8-flash",
+    messages=[{"role": "user", "content": "Какая погода в Москве?"}],
+    tools=tools,
+)
+print("Tool calls:", tool_response.choices[0].message.tool_calls)
+

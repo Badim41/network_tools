@@ -145,6 +145,42 @@ print(response.cost) # Стоимость запроса, Credits
 # 1 Credit = 100₽
 ```
 
+#### Вызов функций (Function Calling / `tools`)
+
+Поддерживается передача `tools` в формате OpenAI / MCP (как через `NetworkToolsAPI`, так и через `/v1/chat/completions`):
+
+```python
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Получить текущую погоду в городе",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {"type": "string", "description": "Город, например: Москва"}
+                },
+                "required": ["location"],
+            },
+        },
+    }
+]
+
+response = client.chatgpt_api(
+    prompt="Какая погода в Москве?",
+    model=GptModels.gemini_3_8_flash,
+    tools=tools
+)
+
+if response.tool_calls:
+    for tc in response.tool_calls:
+        # Короткий доступ:
+        print(tc.name, tc.arguments)  # get_weather {'location': 'Москва'}
+        # Или в стиле OpenAI:
+        print(tc.function.name, tc.function.arguments)
+```
+
 ### 3. Генерация изображений
 
 ```python

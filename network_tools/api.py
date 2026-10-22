@@ -193,12 +193,17 @@ class NetworkToolsAPI:
 
     def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[],
                     file_path: Optional[Union[str, List[str]]] = None,
-                    internet_access=False, stream=False, temperature=None) -> Union[GptResponse, Generator[GptResponse, None, None]]:
+                    internet_access=False, stream=False, temperature=None,
+                    tools: Optional[List[Dict[str, Any]]] = None,
+                    tool_choice: Optional[Any] = None) -> Union[GptResponse, Generator[GptResponse, None, None]]:
         url = f"{self.api_url}/api/v2/chatgpt"
         headers = {
             "Content-Type": "application/json",
             "api-key": self.api_key
         }
+
+        if tools:
+            stream = False
 
         # Если указан файл — конвертируем его в base64
         file_base64 = None
@@ -217,6 +222,10 @@ class NetworkToolsAPI:
             "stream": stream,
             "temperature": temperature,
         }
+        if tools:
+            payload["tools"] = tools
+        if tool_choice is not None:
+            payload["tool_choice"] = tool_choice
 
         response = self.session.post(url, headers=headers, json=payload)
         response_data = response.json()
@@ -882,12 +891,17 @@ class AsyncNetworkToolsAPI:
 
     async def chatgpt_api(self, prompt, model=GptModels.gpt_4o, chat_history=[],
                           file_path: Optional[Union[str, List[str]]] = None,
-                          internet_access=False, stream=False, temperature=None) -> Union[GptResponse, AsyncGenerator[GptResponse, None]]:
+                          internet_access=False, stream=False, temperature=None,
+                          tools: Optional[List[Dict[str, Any]]] = None,
+                          tool_choice: Optional[Any] = None) -> Union[GptResponse, AsyncGenerator[GptResponse, None]]:
         url = f"{self.api_url}/api/v2/chatgpt"
         headers = {
             "Content-Type": "application/json",
             "api-key": self.api_key
         }
+
+        if tools:
+            stream = False
 
         # Если указан файл — конвертируем его в base64
         file_base64 = None
@@ -906,6 +920,10 @@ class AsyncNetworkToolsAPI:
             "stream": stream,
             "temperature": temperature,
         }
+        if tools:
+            payload["tools"] = tools
+        if tool_choice is not None:
+            payload["tool_choice"] = tool_choice
 
         async with self.get_session().post(url, headers=headers, json=payload) as response:
             response_data = await response.json()

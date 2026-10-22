@@ -36,3 +36,30 @@ chat_history = response.chat_history
 response = client.chatgpt_api(prompt, model=model, chat_history=chat_history, file_path=file_path_2)
 print("Ответ 3:", response.response.text)
 print("История чата 3:", response.chat_history)
+
+# Четвертый запрос: вызов функций (Function Calling / tools)
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Получить текущую погоду в городе",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {"type": "string", "description": "Город, например: Москва"}
+                },
+                "required": ["location"],
+            },
+        },
+    }
+]
+
+response_tools = client.chatgpt_api(
+    "Какая сейчас погода в Москве?",
+    model=GptModels.gemini_3_8_flash,
+    tools=tools
+)
+if response_tools.tool_calls:
+    for call in response_tools.tool_calls:
+        print("Вызвана функция:", call.name, "| Аргументы:", call.arguments)
