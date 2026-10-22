@@ -56,5 +56,6 @@ tool_response = client.chat.completions.create(
     messages=[{"role": "user", "content": "Какая погода в Москве?"}],
     tools=tools,
 )
+print("Message:", response.choices[0].message.content)
 print("Tool calls:", tool_response.choices[0].message.tool_calls)
 
