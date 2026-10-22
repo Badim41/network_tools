@@ -362,18 +362,21 @@ class GptResponse:
         chat_history = data.get("chat_history", [])
         resp_raw = data.get("response") if isinstance(data.get("response"), dict) else {}
         full_response = data.get("full_response") if isinstance(data.get("full_response"), dict) else {}
+        extra_info = full_response.get("extra_info") if isinstance(full_response.get("extra_info"), dict) else {}
 
         raw_tool_calls = (
-            data.get("tool_calls")
-            or resp_raw.get("tool_calls")
+            extra_info.get("tool_calls")
             or full_response.get("tool_calls")
+            or data.get("tool_calls")
+            or resp_raw.get("tool_calls")
             or []
         )
         tool_calls = [ToolCallDict.from_raw(tc) for tc in raw_tool_calls if isinstance(tc, dict)]
         finish_reason = (
-            data.get("finish_reason")
-            or resp_raw.get("finish_reason")
+            extra_info.get("finish_reason")
             or full_response.get("finish_reason")
+            or data.get("finish_reason")
+            or resp_raw.get("finish_reason")
             or ("tool_calls" if tool_calls else "stop")
         )
 
@@ -384,7 +387,6 @@ class GptResponse:
             tool_calls=tool_calls,
             finish_reason=finish_reason
         )
-        extra_info = full_response.get("extra_info", {})
         plugins = extra_info.get("plugins", {})
         internet_query = extra_info.get("internet_query", "")
         image_description = extra_info.get("image_description", "")
