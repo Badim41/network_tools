@@ -37,6 +37,7 @@
   - [8. Озвучка текста (TTS)](#8-озвучка-текста-tts)
   - [9. Генерация звуковых эффектов (Audio)](#9-генерация-звуковых-эффектов-audio)
   - [10. Распознавание речи (STT)](#10-распознавание-речи-stt)
+  - [11. Эмбеддинги (Embeddings)](#11-эмбеддинги-embeddings)
 - [💰 Стоимость использования](#-стоимость-использования-моделей)
 - [🌐 CURL Примеры](#curl-примеры)
 
@@ -101,6 +102,12 @@
 
 ### 🎙️ Распознавание речи (STT):
 - Поддержка `.mp3`, `.wav`, `.ogg`, `.m4a`, `.flac`, `.webm` и других аудиоформатов
+
+### 📐 Модели эмбеддингов (Embeddings):
+- `embed-v5.0-pro` / `embed-v5.0-fast` (мультиязычные, контекст 128k, размерности: 256, 512, 768, 1024, 1536, 2048)
+- `embed-v4.0` (контекст 128k, размерности: 256, 512, 1024, 1536)
+- `embed-multilingual-v3.0` / `embed-multilingual-light-v3.0`
+- `embed-english-v3.0` / `embed-english-light-v3.0`
 
 ## Установка
 
@@ -335,6 +342,47 @@ stt_result = client.stt_api(
 print("Распознанный текст:", stt_result.text)
 ```
 
+### 11. Эмбеддинги (Embeddings)
+
+Векторизация текста для семантического поиска, RAG и кластеризации (автоматический батчинг при передаче более 96 текстов).
+
+#### Через `NetworkToolsAPI`:
+
+```python
+from network_tools import EmbedModels
+
+texts = [
+    "Привет, мир!",
+    "Семантический поиск и векторные базы данных"
+]
+
+embed_result = client.embed_api(
+    texts=texts,
+    model=EmbedModels.embed_v5_0_fast,
+    dimensions=1024,              # Опционально: 256, 512, 768, 1024, 1536, 2048
+    input_type="search_document"  # Или "search_query" для поисковых запросов
+)
+
+print("Количество векторов:", len(embed_result))
+print("Размерность первого вектора:", len(embed_result[0]))
+print("Стоимость (Credit):", embed_result.cost)
+```
+
+#### Через стандарт OpenAI / LangChain (`OpenAIEmbeddings`):
+
+```python
+from langchain_openai import OpenAIEmbeddings
+
+judge_embeddings = OpenAIEmbeddings(
+    model="embed-v5.0-fast",
+    base_url="https://sert.yellowfire.ru:444/v1",
+    api_key="YOUR_NETWORK_TOOLS_KEY",
+)
+
+vector = judge_embeddings.embed_query("Пример поискового запроса")
+print("Размерность:", len(vector))
+```
+
 ## Цены
 
 - Цены на текстовые модели в **2 раза ниже** официальных
@@ -491,6 +539,18 @@ print("Распознанный текст:", stt_result.text)
 |--------------------------|---------------------------|
 | Распознавание речи (STT) | 0.003                     |
 
+## Embeddings (векторизация текста)
+
+| Модель                        | Стоимость за 1 эмбеддинг (Credit) | Стоимость за 96 эмбеддингов (Credit) |
+|-------------------------------|-----------------------------------|--------------------------------------|
+| embed-v5.0-pro                | 0.00005                           | 0.0048                               |
+| embed-v5.0-fast               | 0.00005                           | 0.0048                               |
+| embed-v4.0                    | 0.00005                           | 0.0048                               |
+| embed-multilingual-v3.0       | 0.00005                           | 0.0048                               |
+| embed-multilingual-light-v3.0 | 0.00005                           | 0.0048                               |
+| embed-english-v3.0            | 0.00005                           | 0.0048                               |
+| embed-english-light-v3.0      | 0.00005                           | 0.0048                               |
+
 ## CURL Примеры
 
 ### 💬 ChatGPT
@@ -623,6 +683,16 @@ curl --request POST \
   --header 'api-key: API_KEY' \
   --form 'file=@voice.ogg' \
   --form 'lang=ru'
+```
+
+### 📐 Эмбеддинги (Embeddings — OpenAI-совместимый формат)
+
+```bash
+curl --request POST \
+  --url https://sert.yellowfire.ru:444/v1/embeddings \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer API_KEY' \
+  --data '{"model": "embed-v5.0-fast", "input": ["Привет, мир!", "Векторный поиск в Python"]}'
 ```
 
 ### 🔄 Проверка статуса (для всех асинхронных задач)

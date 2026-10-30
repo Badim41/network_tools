@@ -888,3 +888,65 @@ class ModelV3Voices:
     fil_PH_FEMALE = "fil_PH_FEMALE"
     es_PR_MALE = "es_PR_MALE"
     es_PR_FEMALE = "es_PR_FEMALE"
+
+
+class EmbedMeta(type):
+    """Позволяет итерироваться напрямую по классу: for model in EmbedModels: ..."""
+    def __iter__(cls):
+        for key, val in cls.__dict__.items():
+            if isinstance(val, str) and not key.startswith("__"):
+                yield val
+
+
+class EmbedModels(metaclass=EmbedMeta):
+    """Модели векторизации текста (Cohere Embed)."""
+    embed_v5_0_pro = "embed-v5.0-pro"
+    embed_v5_0_fast = "embed-v5.0-fast"
+    embed_v4_0 = "embed-v4.0"
+    embed_english_v3_0 = "embed-english-v3.0"
+    embed_english_light_v3_0 = "embed-english-light-v3.0"
+    embed_multilingual_v3_0 = "embed-multilingual-v3.0"
+    embed_multilingual_light_v3_0 = "embed-multilingual-light-v3.0"
+
+    @classmethod
+    def all_models(cls) -> List[str]:
+        return [val for val in cls]
+
+
+Embed = EmbedModels
+
+
+@dataclass
+class EmbedResponse:
+    embeddings: List[List[float]]
+    model: str
+    usage: Dict[str, int] = field(default_factory=dict)
+    cost: float = 0.0
+    raw_response: Dict[str, Any] = field(default_factory=dict)
+
+    @classmethod
+    def from_json(cls, data: Dict[str, Any]) -> "EmbedResponse":
+        raw_data = data.get("data", [])
+        embeddings = [
+            item.get("embedding", [])
+            for item in sorted(raw_data, key=lambda x: x.get("index", 0))
+            if isinstance(item, dict)
+        ]
+        usage = data.get("usage") if isinstance(data.get("usage"), dict) else {}
+        default_cost = round(len(embeddings) * 0.00005, 6)
+        return cls(
+            embeddings=embeddings,
+            model=data.get("model", ""),
+            usage=usage,
+            cost=data.get("cost", default_cost),
+            raw_response=data
+        )
+
+    def __iter__(self):
+        return iter(self.embeddings)
+
+    def __len__(self) -> int:
+        return len(self.embeddings)
+
+    def __getitem__(self, item):
+        return self.embeddings[item]

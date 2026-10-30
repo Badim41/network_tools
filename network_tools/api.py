@@ -649,6 +649,49 @@ class NetworkToolsAPI:
         result = self._check_status(request_id, attempts=300, delay=0.5)
         return SttResponse.from_json(result)
 
+    def embed_api(
+            self,
+            texts: Union[str, List[str]],
+            model: str = EmbedModels.embed_v5_0_fast,
+            dimensions: Optional[int] = None,
+            input_type: str = "search_document",
+            encoding_format: str = "float"
+    ) -> EmbedResponse:
+        """
+        Генерирует векторные эмбеддинги для одной строки или списка строк.
+
+        :param texts: Union[str, List[str]], текст или список текстов для векторизации
+        :param model: str, модель из EmbedModels (по умолчанию EmbedModels.embed_v5_0_fast)
+        :param dimensions: Optional[int], размерность вектора (для v5: 256, 512, 768, 1024, 1536, 2048; для v4: 256, 512, 1024, 1536)
+        :param input_type: str, тип ввода ('search_document', 'search_query', 'classification', 'clustering')
+        :param encoding_format: str, формат ('float' или 'base64')
+        :return: EmbedResponse (список векторов в .embeddings, также поддерживает индексацию и итерацию)
+        """
+        url = f"{self.api_url}/v1/embeddings"
+        headers = {
+            "Content-Type": "application/json",
+            "api-key": self.api_key
+        }
+
+        payload = {
+            "input": texts,
+            "model": model,
+            "input_type": input_type,
+            "encoding_format": encoding_format
+        }
+        if dimensions is not None:
+            payload["dimensions"] = dimensions
+
+        response = self.session.post(url, headers=headers, json=payload)
+        response_data = response.json()
+
+        if response_data.get("error"):
+            err = response_data["error"]
+            err_msg = err.get("message", str(err)) if isinstance(err, dict) else str(err)
+            raise NetworkToolsBadRequest(err_msg)
+
+        return EmbedResponse.from_json(response_data)
+
     def _check_status_stream_images(self, request_id, attempts=1200):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
 
@@ -1352,6 +1395,49 @@ class AsyncNetworkToolsAPI:
 
         result = await self._check_status(request_id, attempts=300, delay=0.5)
         return SttResponse.from_json(result)
+
+    async def embed_api(
+            self,
+            texts: Union[str, List[str]],
+            model: str = EmbedModels.embed_v5_0_fast,
+            dimensions: Optional[int] = None,
+            input_type: str = "search_document",
+            encoding_format: str = "float"
+    ) -> EmbedResponse:
+        """
+        Асинхронно генерирует векторные эмбеддинги для одной строки или списка строк.
+
+        :param texts: Union[str, List[str]], текст или список текстов для векторизации
+        :param model: str, модель из EmbedModels (по умолчанию EmbedModels.embed_v5_0_fast)
+        :param dimensions: Optional[int], размерность вектора (для v5: 256, 512, 768, 1024, 1536, 2048; для v4: 256, 512, 1024, 1536)
+        :param input_type: str, тип ввода ('search_document', 'search_query', 'classification', 'clustering')
+        :param encoding_format: str, формат ('float' или 'base64')
+        :return: EmbedResponse (список векторов в .embeddings, также поддерживает индексацию и итерацию)
+        """
+        url = f"{self.api_url}/v1/embeddings"
+        headers = {
+            "Content-Type": "application/json",
+            "api-key": self.api_key
+        }
+
+        payload = {
+            "input": texts,
+            "model": model,
+            "input_type": input_type,
+            "encoding_format": encoding_format
+        }
+        if dimensions is not None:
+            payload["dimensions"] = dimensions
+
+        async with self.get_session().post(url, headers=headers, json=payload) as response:
+            response_data = await response.json()
+
+        if response_data.get("error"):
+            err = response_data["error"]
+            err_msg = err.get("message", str(err)) if isinstance(err, dict) else str(err)
+            raise NetworkToolsBadRequest(err_msg)
+
+        return EmbedResponse.from_json(response_data)
 
     async def _check_status_stream_images(self, request_id, attempts=1200):
         """Проверяет статус запроса до получения 'success' и сохраняет изображения."""
