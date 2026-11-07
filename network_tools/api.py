@@ -17,7 +17,7 @@ from urllib3.util.retry import Retry
 from ._types import *
 
 PRINT_SPEED_TEST = False
-SPEEDTEST_CACHE_TTL = 12 * 3600  # 12 часов
+SPEEDTEST_CACHE_TTL = 3 * 3600  # 3 часа
 CACHE_FILENAME = "networktools_speedtest_cache.json"
 
 API_URLS = [

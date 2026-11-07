@@ -35,7 +35,7 @@ for stream_result in client.change_image_api(
         prompt="Сделай кота синим",  # То, что должно быть на картинке. Gemini поддерживает сложный запрос
         prompt_2="",  # То, чего не должно быть на картинке. Не поддерживается Gemini
         strength=0.5,  # Не поддерживается Gemini
-        inpaint_models=[ImageModels.nano_banana_pro]
+        inpaint_models=[ImageModels.nano_banana]
 ):
     print("Изменённое изображение:", stream_result)
 
