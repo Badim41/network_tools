@@ -43,7 +43,7 @@
 
 ### 💬 Нейросети для обработки текста:
 
-> 💡 **Для работы с длинным контекстом** лучше всего использовать модели **Gemini 4 Argon**, **Gemini 3.5 Flash**, **Gemini 3.5 Flash Lite** или **Gemini 3.0 Pro**.
+> 💡 **Для работы с длинным контекстом** лучше всего использовать модели **Gemini 4 Argon**, **Gemini 4 Hydrogen**, **Gemini 3.5 Flash**, **Gemini 3.5 Flash Lite** или **Gemini 3.0 Pro**.
 
 > ⚡ **Самые быстрые модели** — **Command A** (`command-a`) и **GPT-5** (`gpt-5`).
 
@@ -64,6 +64,7 @@
 > (на данный момент самые стабильные + поддержка до 800к символов)
 
 - Gemini 4 Argon
+- Gemini 4 Hydrogen
 - Gemini 3.8 (Flash)
 - Gemini 3.5 (Flash, Flash Lite)
 - Gemini 3.0 (Pro, Flash)
@@ -182,7 +183,7 @@ tools = [
 
 response = client.chatgpt_api(
     prompt="Какая погода в Москве?",
-    model=GptModels.gemini_3_8_flash,
+    model=GptModels.gemini_4_hydrogen,
     tools=tools
 )
 
@@ -432,6 +433,7 @@ print("Размерность:", len(vector))
 | grok-4                     | 1.50                        | 7.50                         |
 | grok-4-fast                | 1.50                        | 7.50                         |
 | gemini-4-argon             | 1.00                        | 5.00                         |
+| gemini-4-hydrogen          | 0.75                        | 3.75                         |
 | gemini-3-8-flash           | 0.375                       | 1.875                        |
 | gemini-3-0-pro             | 1.00                        | 6.00                         |
 | gemini-3-5-flash           | 0.75                        | 4.50                         |
