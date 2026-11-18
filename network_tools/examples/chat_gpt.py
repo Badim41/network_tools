@@ -18,7 +18,7 @@ print("response.cost:", response.cost) # Credits. 1 Credit = 100₽
 
 # Второй запрос, с одной или несколькими картинками
 
-model = GptModels.gemini_3_8_flash
+model = GptModels.gemini_4_neon
 prompt = "Что это?"
 chat_history = []
 file_path_1 = [r"example_files\cat.png"]  # Путь к файлу
@@ -57,7 +57,7 @@ tools = [
 
 response_tools = client.chatgpt_api(
     "Какая сейчас погода в Москве?",
-    model=GptModels.gemini_3_8_flash,
+    model=GptModels.gemini_4_neon,
     tools=tools
 )
 if response_tools.tool_calls:

@@ -127,6 +127,7 @@ class GptModels:
     kimi_k2_thinking = "kimi-k2-thinking"  # thinking
     kimi_k2_5 = "kimi-k2-5" # fallback -> kimi-3
 
+    gemini_4_neon = "gemini-4-neon"  # thinking
     gemini_4_argon = "gemini-4-argon"  # thinking
     gemini_4_hydrogen = "gemini-4-hydrogen"  # thinking
     gemini_3_8_flash = "gemini-3-8-flash"  # thinking
@@ -160,7 +161,7 @@ class GptModels:
         deepseek_v4_pro, deepseek_v4_flash, deepseek_r1, deepseek_v3, deepseek_r1_0528, deepseek_v3_2, deepseek_v3_2_thinking,
         command_r_plus, command_a, command_a_vision, c4ai_aya_vision_32b,
         grok_3, grok_4, grok_4_fast, kimi_k2_thinking, kimi_k2_5,
-        gemini_4_argon, gemini_4_hydrogen, gemini_3_8_flash, gemini_3_6_flash, gemini_3_5_flash, gemini_3_5_flash_lite,
+        gemini_4_neon, gemini_4_argon, gemini_4_hydrogen, gemini_3_8_flash, gemini_3_6_flash, gemini_3_5_flash, gemini_3_5_flash_lite,
         gemini_3_0_pro, gemini_3_0_flash, gemini_2_5_pro, gemini_2_5_flash, gemini_2_5_flash_lite, gemini_2_0_flash_lite,
         gemma_4_31b_it, gemma_4_26b_a4b_it,
         o3_high, o4_mini,
@@ -231,6 +232,7 @@ ALL_VISION_MODELS = (
     [GptModels.c4ai_aya_vision_32b, GptModels.command_a_vision]
     + GPT_4O_MODELS
     + [
+        GptModels.gemini_4_neon,
         GptModels.gemini_4_argon,
         GptModels.gemini_4_hydrogen,
         GptModels.gemini_3_8_flash,

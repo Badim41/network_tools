@@ -43,7 +43,7 @@
 
 ### 💬 Нейросети для обработки текста:
 
-> 💡 **Для работы с длинным контекстом** лучше всего использовать модели **Gemini 4 Argon**, **Gemini 4 Hydrogen**, **Gemini 3.5 Flash**, **Gemini 3.5 Flash Lite** или **Gemini 3.0 Pro**.
+> 💡 **Для работы с длинным контекстом** лучше всего использовать модели **Gemini 4 Neon**, **Gemini 4 Argon**, **Gemini 4 Hydrogen**, **Gemini 3.5 Flash**, **Gemini 3.5 Flash Lite** или **Gemini 3.0 Pro**.
 
 > ⚡ **Самые быстрые модели** — **Command A** (`command-a`) и **GPT-5** (`gpt-5`).
 
@@ -63,6 +63,7 @@
 **Google (Gemini)**
 > (на данный момент самые стабильные + поддержка до 800к символов)
 
+- Gemini 4 Neon
 - Gemini 4 Argon
 - Gemini 4 Hydrogen
 - Gemini 3.8 (Flash)
@@ -145,7 +146,7 @@ client = NetworkToolsAPI(api_key)
 ```python
 from network_tools import GptModels
 
-model = GptModels.gpt_5
+model = GptModels.gemini_4_neon
 prompt = "Что изображено на этих картинках?"
 chat_history = []
 file_path = "files/cat.png"
@@ -183,7 +184,7 @@ tools = [
 
 response = client.chatgpt_api(
     prompt="Какая погода в Москве?",
-    model=GptModels.gemini_4_hydrogen,
+    model=GptModels.gemini_4_neon,
     tools=tools
 )
 
@@ -432,6 +433,7 @@ print("Размерность:", len(vector))
 | minimax-02                 | 0.15                        | 0.60                         |
 | grok-4                     | 1.50                        | 7.50                         |
 | grok-4-fast                | 1.50                        | 7.50                         |
+| gemini-4-neon              | 1.50                        | 7.50                         |
 | gemini-4-argon             | 1.00                        | 5.00                         |
 | gemini-4-hydrogen          | 0.75                        | 3.75                         |
 | gemini-3-8-flash           | 0.375                       | 1.875                        |
@@ -522,7 +524,7 @@ curl --request POST \
   --url https://sert.yellowfire.ru:444/api/v2/chatgpt \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
-  --data '{"model": "gpt-4o", "prompt": "Привет!", "chat_history": [], "file_base64": "", "internet_access": false, "mime_type":"", "temperature": 0.7}'
+  --data '{"model": "gemini-4-neon", "prompt": "Привет!", "chat_history": [], "file_base64": "", "internet_access": false, "mime_type":"", "temperature": 0.7}'
 ```
 
 #### С текстовым файлом в base64:
