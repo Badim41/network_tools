@@ -282,12 +282,12 @@ class NetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True, width=None,
-                           height=None, allow_nsfw=True):
+    def image_generate_api(self, models, prompt, aspect_ratio=AspectRatio.ratio_auto, send_url=False,
+                           return_minimal_images=True, width=None, height=None, allow_nsfw=True):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
-        :param aspect_ratio: obj[AspectRatio]
+        :param aspect_ratio: obj[AspectRatio] (по умолчанию AspectRatio.ratio_auto — "Auto")
         :param send_url: отправить картинку ссылкой
         :param return_minimal_images: вернуть минимальное число картинок (1). False - вернуть 4 картинки
         :param width: Указать ширину (будет игнорироваться aspect_ratio)
@@ -1023,12 +1023,12 @@ class AsyncNetworkToolsAPI:
         else:
             raise NetworkToolsTimeout(f"Timeout for id {request_id}")
 
-    async def image_generate_api(self, models, prompt, aspect_ratio, send_url=False, return_minimal_images=True,
-                                 width=None, height=None, allow_nsfw=True):
+    async def image_generate_api(self, models, prompt, aspect_ratio=AspectRatio.ratio_auto, send_url=False,
+                                 return_minimal_images=True, width=None, height=None, allow_nsfw=True):
         """
         :param models: List[obj[ImageModels]]
         :param prompt: запрос
-        :param aspect_ratio: obj[AspectRatio]
+        :param aspect_ratio: obj[AspectRatio] (по умолчанию AspectRatio.ratio_auto — "Auto")
         :param send_url: отправить картинку ссылкой
         :param return_minimal_images: вернуть минимальное число картинок (1). False - вернуть 4 картинки
         :param width: Указать ширину (будет игнорироваться aspect_ratio)
