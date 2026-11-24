@@ -5,9 +5,12 @@ from typing import Dict, Any, List, Optional
 
 
 class AspectRatio:
+    ratio_auto = "Auto"
     ratio_1x1 = "1:1"
     ratio_2x3 = "2:3"
     ratio_3x2 = "3:2"
+    ratio_16x9 = "16:9"
+    ratio_9x16 = "9:16"
 
 class VideoAspectRatio:
     ratio_1x1 = "1:1"

@@ -203,9 +203,9 @@ from network_tools import ImageModels, AspectRatio
 
 models = [ImageModels.nano_banana, ImageModels.flux]
 prompt = "Футуристический городской пейзаж с летающими машинами."
-aspect_ratio = AspectRatio.ratio_1x1  # Определите соотношение сторон
+aspect_ratio = AspectRatio.ratio_auto  # По умолчанию "Auto" (также доступны: ratio_1x1, ratio_2x3, ratio_3x2, ratio_16x9, ratio_9x16)
 
-for image_group in client.image_generate_api(models, prompt, aspect_ratio):
+for image_group in client.image_generate_api(models, prompt, aspect_ratio=aspect_ratio):
     print(image_group)  # Печать путей к сгенерированным изображениям
 ```
 
@@ -544,7 +544,7 @@ curl --request POST \
   --url https://sert.yellowfire.ru:444/api/v2/image_generate \
   --header 'Content-Type: application/json' \
   --header 'api-key: API_KEY' \
-  --data '{"models": ["nano_banana"], "aspect_ratio": "1:1", "prompt": "A futuristic city with flying cars"}'
+  --data '{"models": ["nano_banana"], "aspect_ratio": "Auto", "prompt": "A futuristic city with flying cars"}'
 ```
 
 ### 🖼️ Редактирование изображений
